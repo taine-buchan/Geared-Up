@@ -4,6 +4,7 @@ export async function up(knex) {
     table.number('user_id').references('users.id').notNullable()
     table.number('great_walk_id').references('great_walks.id')
     table.boolean('is_complete')
+    table.boolean('is_planned')
   })
 }
 
