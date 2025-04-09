@@ -4,3 +4,8 @@ export async function getWalkById(id: number) {
   const walk = await connection('great_walks').where('id', id).first()
   return walk
 }
+
+export async function getAllWalks() {
+  const walks = await connection('great_walks')
+  return walks
+}
