@@ -5,7 +5,7 @@ import Home from './components/Home'
 import GreatWalks from './components/GreatWalks'
 import SignInSignUp from './components/SignInSignUp'
 import UserProfile from './components/UserProfile'
-import { ErrorPage } from './components/ErrorPage'
+import ErrorPage from './components/ErrorPage'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>

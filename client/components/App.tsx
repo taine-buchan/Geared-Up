@@ -2,19 +2,16 @@ import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 import Nav from './Nav'
 
-function App() {
+export default function App() {
   return (
-    <>
+    <div className="app-container">
       <header>
         <Nav />
-        <Outlet />
       </header>
-
-      <div>
-        <Footer />
-      </div>
-    </>
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   )
 }
-
-export default App

@@ -1,5 +1,3 @@
-const SignInSignUp = () => {
+export default function SignInSignUp() {
   return <div>SignInSignUp</div>
 }
-
-export default SignInSignUp

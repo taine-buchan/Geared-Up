@@ -1,5 +1,3 @@
-const GreatWalk = () => {
+export default function GreatWalk() {
   return <div>GreatWalk</div>
 }
-
-export default GreatWalk
