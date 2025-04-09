@@ -1,3 +1,5 @@
+# Geared Up
+
 # Boilerplate: Fullstack with Sass
 
 ## Setup
