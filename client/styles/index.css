@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+body {
+  color: #d0f7a2;
+  background: linear-gradient(to bottom, #070446 0%, #040328 90%, #090983 100%);
+  min-height: 100vh;
+  margin: 0;
+}
+
+@theme {
+  --color-chestnut: #782f29;
+}
+
+@layer components {
+  .nav {
+    @apply max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center;
+  }
+
+  .button {
+    @apply max-w-0.5;
+  }
+
+  .footer {
+    @apply max-w-0.5;
+  }
+
+  .quiz {
+    @apply max-w-0.5;
+  }
+
+  .greatwalk {
+    @apply max-w-0.5;
+  }
+
+  .allgreatwalks {
+    @apply max-w-0.5;
+  }
+}
