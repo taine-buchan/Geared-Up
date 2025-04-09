@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { GreatWalk } from '../../models/fruit'
+import { GreatWalk } from '../../models/great_walk'
 
 const rootUrl = '/api/v1'
 
