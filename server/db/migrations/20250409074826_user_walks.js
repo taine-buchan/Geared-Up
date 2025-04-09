@@ -3,8 +3,7 @@ export async function up(knex) {
     table.increments('id').primary()
     table.number('user_id').references('users.id').notNullable()
     table.number('great_walk_id').references('great_walks.id')
-    table.boolean('completed')
-    table.boolean('planned')
+    table.boolean('is_complete')
   })
 }
 
