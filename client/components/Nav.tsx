@@ -23,12 +23,12 @@ export default function Nav() {
                 </Link>
               </li>
               <li>
-                <Link to="/walks" className="">
+                <Link to="/great-walks" className="">
                   Great Walks
                 </Link>
               </li>
               <li>
-                <Link to="/profile" className="">
+                <Link to="/user/:id" className="">
                   Profile
                 </Link>
               </li>
