@@ -7,9 +7,9 @@ export interface GreatWalkData {
   location: string
   description: string
   seasonal: string
-  track_image_url: string
-  doc_link: string
-  required_equipment: string
+  trackImageUrl: string
+  docLink: string
+  requiredEquipment: string
 }
 
 export interface GreatWalk extends GreatWalkData {
