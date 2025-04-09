@@ -6,7 +6,7 @@ export async function seed(knex) {
       difficulty: 'Intermediate',
       elevation:
         'The highest point is Bald Knob at 1,161 meters (3,809 feet), located on Panekire Bluff.',
-      duration: '3–4 days',
+      duration: '3-4 days',
       distance: '46 km one way',
       location: 'Te Urewera, East North Island',
       description:
@@ -78,12 +78,12 @@ export async function seed(knex) {
       difficulty: 'Intermediate',
       elevation:
         'The highest point is near the Red Crater summit, reaching approximately 1,868 meters (6,129 feet). However, the track itself reaches a high point of 1,574 meters (5,164 feet). The highest hut on the circuit is at 1,360m (4,462 feet).',
-      duration: '3–4 days',
+      duration: '3-4 days',
       distance: '44.9 km loop',
       location: 'Tongariro National Park, Central North Island',
       description:
         'This World Heritage site is a landscape of stark contrasts. You’ll pass alpine vegetation, lush forest, tranquil lakes and desert-like plateaux, with amazing views at every turn. As the circuit winds past Mount Tongariro and Mount Ngāuruhoe, you will be dazzled by dramatic volcanic landscapes and New Zealand’s rich geological and ancestral past. The Tongariro Northern Circuit can be hiked in either direction. The track is well marked and signposted, but some sections may be steep, rough or muddy.',
-      seasonal: '25 October 2024 – 30 April 2025',
+      seasonal: '25 October 2024 - 30 April 2025',
       track_image_url:
         'https://tongarirocrossingshuttles.co.nz/wp-content/uploads/2017/06/Tongariro-Northern-Circuit-Birds-Eye-View-600x394.jpg.webp',
       doc_link:
@@ -150,12 +150,12 @@ export async function seed(knex) {
       difficulty: 'Canoe Journey, Intermediate',
       elevation:
         "This is primarily a river journey by canoe or kayak, so elevation change is minimal and gradual along the river's course.",
-      duration: '3–5 days',
+      duration: '3-5 days',
       distance: '87 or 145 km one way',
       location: 'Whanganui National Park, south-west North Island',
       description:
         'Paddle through a landscape of towering cliffs and deep valleys on the magical Whanganui Journey. You’ll travel through calm waters and foaming rapids, on an unforgettable trip into the heart of the Whanganui National Park. Experience the beauty, history and culture of the mighty Whanganui River in the south-west of the North Island. Choose a 5-day journey from Taumarunui to Pipiriki (145 km), or a shorter, 3-day journey starting at Whakahoro (88 km), featuring the most spectacular stretches of the river.',
-      seasonal: '1 October – 30 April',
+      seasonal: '1 October - 30 April',
       track_image_url:
         'https://www.landclimate.org/wp-content/uploads/2025/04/W-river-.jpeg',
       doc_link:
@@ -222,7 +222,7 @@ export async function seed(knex) {
       difficulty: 'Easy',
       elevation:
         'This track is primarily coastal, with the highest point being relatively low, around 180 meters (590 feet) at its highest saddle.',
-      duration: '3–5 days',
+      duration: '3-5 days',
       distance: '60 km one way',
       location: 'Abel Tasman National Park, north-west South Island',
       description:
@@ -294,7 +294,7 @@ export async function seed(knex) {
       difficulty: 'Intermediate',
       elevation:
         'The track traverses a wide range of elevations, reaching a high point in the sub-alpine tussock grasslands, around 1,075 meters (3,527 feet).',
-      duration: '4–6 days',
+      duration: '4-6 days',
       distance: '78.4 km one way',
       location: 'Kahurangi National Park, north-west South Island',
       description:
@@ -364,7 +364,7 @@ export async function seed(knex) {
       id: 6,
       name: 'Paparoa Track',
       difficulty: 'Intermediate',
-      duration: '3–4 days',
+      duration: '3-4 days',
       distance: '55.1 km one way',
       elevation:
         'This track reaches an elevation of approximately 1,120 meters (3,675 feet) as it traverses the Paparoa Ranges.',
@@ -438,13 +438,13 @@ export async function seed(knex) {
       difficulty: 'Intermediate',
       elevation:
         'The highest point of the track itself is Harris Saddle at 1,255 meters (4,117 feet). A side trip to Conical Hill reaches a height of 1,515 meters (4,970 feet).',
-      duration: '2–4 days',
+      duration: '2-4 days',
       distance: '33 km one way',
       location:
         'Mount Aspiring and Fiordland National Parks, south-west South Island',
       description:
-        'The Routeburn Track is the ultimate alpine adventure, taking you through ice-carved valleys and below the majestic peaks of the Southern Alps/ Kā Tiritiri o te Moana. A short trip from bustling Queenstown, this Great Walk links Mount Aspiring and Fiordland National Parks in Te Wāhipounamu – South West New Zealand World Heritage Area. Weaving through meadows, reflective tarns and alpine gardens, you’ll be rewarded with spectacular vistas over vast mountain ranges and valleys. The Routeburn Track can be hiked in either direction. The track is well marked and signposted, but some sections are steep and rough and may be muddy and slippery. Poor weather conditions can make this walk challenging, even in the Great Walks season.',
-      seasonal: '15 November 2024 – 30 April 2025',
+        'The Routeburn Track is the ultimate alpine adventure, taking you through ice-carved valleys and below the majestic peaks of the Southern Alps/ Kā Tiritiri o te Moana. A short trip from bustling Queenstown, this Great Walk links Mount Aspiring and Fiordland National Parks in Te Wāhipounamu - South West New Zealand World Heritage Area. Weaving through meadows, reflective tarns and alpine gardens, you’ll be rewarded with spectacular vistas over vast mountain ranges and valleys. The Routeburn Track can be hiked in either direction. The track is well marked and signposted, but some sections are steep and rough and may be muddy and slippery. Poor weather conditions can make this walk challenging, even in the Great Walks season.',
+      seasonal: '15 November 2024 - 30 April 2025',
       track_image_url:
         'https://www.earthtrekkers.com/wp-content/uploads/2023/07/Routeburn-Track-New-Zealand.jpg.optimal.jpg',
       doc_link:
@@ -511,12 +511,12 @@ export async function seed(knex) {
       difficulty: 'Intermediate',
       elevation:
         'The highest point is around the Luxmore Hut area, approximately 1,400 meters (4,593 feet).',
-      duration: '3–4 days',
+      duration: '3-4 days',
       distance: '60 km loop',
       location: 'Fiordland National Park, south-west South Island',
       description:
-        'Set out on a wilderness adventure above the clouds, high in the mountains above Lakes Te Anau and Manapouri in Te Wāhipounamu – South West New Zealand World Heritage Area. The drama of these vast tussock-covered ridgelines and spectacular alpine vistas contrasts with the peaceful lakes and the beech forest of the Iris Burn valley.',
-      seasonal: '29 October 2024 – 30 April 2025',
+        'Set out on a wilderness adventure above the clouds, high in the mountains above Lakes Te Anau and Manapouri in Te Wāhipounamu - South West New Zealand World Heritage Area. The drama of these vast tussock-covered ridgelines and spectacular alpine vistas contrasts with the peaceful lakes and the beech forest of the Iris Burn valley.',
+      seasonal: '29 October 2024 - 30 April 2025',
       track_image_url:
         'https://www.doc.govt.nz/thumbs/hero/globalassets/images/places/fiordland/kepler-track/kepler-1920.jpg',
       doc_link:
@@ -587,8 +587,8 @@ export async function seed(knex) {
       distance: '53.5 km',
       location: 'Fiordland National Park, south-west South Island',
       description:
-        'Experience the ‘finest walk in the world’ as you retrace the steps of early explorers on the world renowned Milford Track. Take a journey along valleys carved by glaciers, wander through ancient rainforests and admire cascading waterfalls. You’ll follow a historic route through Fiordland National Park, part of Te Wāhipounamu – South West New Zealand World Heritage Area, before reaching your final destination, the spectacular Milford Sound/Piopiotahi.',
-      seasonal: '29 October 2024 – 30 April 2025, last departure 28 April 2025',
+        'Experience the ‘finest walk in the world’ as you retrace the steps of early explorers on the world renowned Milford Track. Take a journey along valleys carved by glaciers, wander through ancient rainforests and admire cascading waterfalls. You’ll follow a historic route through Fiordland National Park, part of Te Wāhipounamu - South West New Zealand World Heritage Area, before reaching your final destination, the spectacular Milford Sound/Piopiotahi.',
+      seasonal: '29 October 2024 - 30 April 2025, last departure 28 April 2025',
       track_image_url:
         'https://www.doc.govt.nz/thumbs/hero/globalassets/images/places/fiordland/milford-track/milford-hero-1920.jpg',
       doc_link:
@@ -731,7 +731,7 @@ export async function seed(knex) {
       distance: '32.1 km loop',
       location: 'Stewart Island/Rakiura',
       description:
-        "Escape on an island adventure, and exchange the hustle and bustle of the mainland for the tranquility of the Rakiura Track. Located in Rakiura National Park on Stewart Island/Rakiura, this is a leisurely hike suitable for anyone with a moderate level of fitness. Relax and unwind in the peaceful surroundings, with the bush, birds and beach at your side. At night, you'll enjoy world-class star-gazing. Stewart Island/Rakiura is the world's fifth International Dark Sky Sanctuary. If you're lucky, you might get to see the night sky glow red and green with the aurora australis/southern lights. During the winter months, the island’s weather is cool yet settled, making the Rakiura Track a great winter escape. This is a journey that links the past with the present – Stewart Island/Rakiura is steeped in history.",
+        "Escape on an island adventure, and exchange the hustle and bustle of the mainland for the tranquility of the Rakiura Track. Located in Rakiura National Park on Stewart Island/Rakiura, this is a leisurely hike suitable for anyone with a moderate level of fitness. Relax and unwind in the peaceful surroundings, with the bush, birds and beach at your side. At night, you'll enjoy world-class star-gazing. Stewart Island/Rakiura is the world's fifth International Dark Sky Sanctuary. If you're lucky, you might get to see the night sky glow red and green with the aurora australis/southern lights. During the winter months, the island’s weather is cool yet settled, making the Rakiura Track a great winter escape. This is a journey that links the past with the present - Stewart Island/Rakiura is steeped in history.",
       seasonal: 'All year',
       track_image_url:
         'https://terranovatours.net/wp-content/uploads/2020/10/tobias-keller-mtcook1920x500-unsplash.jpg',
