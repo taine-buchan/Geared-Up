@@ -3,7 +3,6 @@ import * as Path from 'node:path'
 
 import fruitRoutes from './routes/fruits.ts'
 import walksRoutes from './routes/great-walks.ts'
-
 const server = express()
 
 server.use(express.json())

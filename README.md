@@ -1,5 +1,4 @@
-# Geared Up- another change
-
+# Geared Up
 # Boilerplate: Fullstack with Sass
 
 ## Setup

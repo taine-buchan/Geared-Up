@@ -1,16 +1,13 @@
-// import { useFruits } from '../hooks/useFruits.ts'
+import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
+import Nav from './Nav'
 
-function App() {
-  // const { data } = useFruits()
-
+export default function App() {
   return (
     <>
-      <div className="app">
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
-        {/* <ul>{data && data.map((fruit) => <li key={fruit}>{fruit}</li>)}</ul> */}
-      </div>
+      <Nav />
+      <Outlet />
+      <Footer />
     </>
   )
 }
-
-export default App

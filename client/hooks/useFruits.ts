@@ -4,12 +4,13 @@ import {
   useQueryClient,
   MutationFunction,
 } from '@tanstack/react-query'
-import { getGreatWalks } from '../apis/greatWalks.ts'
+import { getGreatWalks } from '../apis/fruits.ts'
 
 export function useGreakWalks() {
   const query = useQuery({ queryKey: ['greatWalks'], queryFn: getGreatWalks })
   return {
     ...query,
+    // Extra queries go here e.g. addFruit: useAddFruit()
   }
 }
 

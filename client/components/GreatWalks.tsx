@@ -1,10 +1,9 @@
-// import { useGreakWalks } from "../hooks/useFruits"
+// import { useGreakWalks } from '../hooks/useFruits'
 import { Link } from 'react-router-dom'
 function GreatWalks() {
   // const { data: greatWalks, isLoading, isError } = useGreakWalks()
-  // if(isLoading) return <p>Loading...</p>
-  // if(isError) return <p>Error!</p>
-
+  // if (isLoading) return <p>Loading...</p>
+  // if (isError) return <p>Error!</p>
   const greatWalks = [
     {
       id: 1,
@@ -49,41 +48,49 @@ function GreatWalks() {
   const easyGreatWalks = () => {
     greatWalks.filter((greatWalk) => greatWalk.difficulty === 'Easy')
   }
-
   return (
     <>
+      {' '}
       <div>
-        <h1>Great Walks</h1>
+        {' '}
+        <h1>Great Walks</h1>{' '}
         <p>
-          Filter By Difficulty:
-          <button onClick={intermediateGreatWalks}>Intermediate</button>
-          <button onClick={easyGreatWalks}>Easy</button>
-        </p>
+          {' '}
+          Filter By Difficulty:{' '}
+          <button onClick={intermediateGreatWalks}>Intermediate</button>{' '}
+          <button onClick={easyGreatWalks}>Easy</button>{' '}
+        </p>{' '}
         <ul>
+          {' '}
           {greatWalks &&
             greatWalks.map((greatWalk) => (
               <div key={greatWalk.id}>
+                {' '}
                 <li>
+                  {' '}
                   <Link to={`/great-walks/${greatWalk.id}`}>
-                    <img src={greatWalk.trackImageUrl} alt={greatWalk.name} />
-                  </Link>
+                    {' '}
+                    <img
+                      src={greatWalk.trackImageUrl}
+                      alt={greatWalk.name}
+                    />{' '}
+                  </Link>{' '}
                   <Link to={`/great-walks/${greatWalk.id}`}>
-                    <h1>{greatWalk.name}</h1>
-                  </Link>
-                  <h2>{greatWalk.location}</h2>
-                  <p>{greatWalk.difficulty}</p>
-                  <p>{greatWalk.duration}</p>
-                  <p>{greatWalk.distance}</p>
+                    {' '}
+                    <h1>{greatWalk.name}</h1>{' '}
+                  </Link>{' '}
+                  <h2>{greatWalk.location}</h2> <p>{greatWalk.difficulty}</p>{' '}
+                  <p>{greatWalk.duration}</p> <p>{greatWalk.distance}</p>{' '}
                   <Link to={`/great-walks/${greatWalk.id}`}>
-                    <button>Read more</button>
-                  </Link>
-                </li>
+                    {' '}
+                    <button>Read more</button>{' '}
+                  </Link>{' '}
+                </li>{' '}
               </div>
-            ))}
-        </ul>
-      </div>
+            ))}{' '}
+        </ul>{' '}
+      </div>{' '}
     </>
   )
 }
-
 export default GreatWalks
