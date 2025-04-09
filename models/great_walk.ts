@@ -9,6 +9,7 @@ export interface GreatWalkData {
   seasonal: string
   trackImageUrl: string
   docLink: string
+  // requiredEquipment: string
   requiredEquipment: {
     backpack: boolean
     waterproofPackLiner: boolean
