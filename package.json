@@ -26,12 +26,13 @@
     ]
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
     "express": "^4.17.2",
     "knex": "^2.5.1",
+    "nock": "^14.0.3",
     "sqlite3": "^5.1.6",
-    "superagent": "^8.1.2",
-    "tailwindcss": "^4.1.3"
+    "superagent": "^8.1.2"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.10.1",
