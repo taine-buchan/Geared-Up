@@ -1,8 +1,10 @@
 export async function seed(knex) {
   await knex('users').insert([
     {
+      username: 'johnpeace',
       name: 'John Mindful',
       email: 'john@example.com',
+      phone: '+64 21 723 432',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -61,8 +63,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'daphattack',
       name: 'Daph Simons',
       email: 'daph@example.com',
+      phone: '+64 27 891 234',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -121,8 +125,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'gerard',
       name: 'Gerard',
       email: 'gerard@example.com',
+      phone: '+64 22 345 678',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -181,8 +187,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'manasa',
       name: 'Manasa Harakeke25',
       email: 'manasa@example.com',
+      phone: '+64 21 456 789',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -241,10 +249,12 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'mariya',
       name: 'Mariya Harakeke25',
-      email: 'rmariya@example.com',
+      email: 'mariya@example.com',
+      phone: '+64 27 654 321',
       my_equipment: {
-        backpack: false,
+        phone: '',
         waterproof_pack_liner: false,
         sleeping_bag: false,
         first_aid_kit: false,
@@ -301,8 +311,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'daisy',
       name: 'Daisy Harakeke25',
       email: 'daisy@example.com',
+      phone: '+64 22 987 654',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -361,8 +373,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'calum',
       name: 'Calum Harakeke25',
       email: 'calum@example.com',
+      phone: '+64 21 112 233',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -421,8 +435,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'gearedupguy',
       name: 'Gerry Harakeke25',
       email: 'gerry@example.com',
+      phone: '+64 27 321 654',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -481,8 +497,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'taine',
       name: 'Taine Harakeke25',
       email: 'taine@example.com',
+      phone: '+64 22 456 789',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
@@ -490,7 +508,7 @@ export async function seed(knex) {
         first_aid_kit: false,
         survival_kit: false,
         safety_equipment: false,
-        torch_flashlight: false,
+        phone: '',
         rubbish_bag: false,
         booking_confirmation_and_id: false,
         earplugs_for_bunkrooms: false,
@@ -541,8 +559,10 @@ export async function seed(knex) {
       result: '',
     },
     {
+      username: 'hannah',
       name: 'Hannah Harakeke25',
       email: 'hannah@example.com',
+      phone: '+64 21 890 123',
       my_equipment: {
         backpack: false,
         waterproof_pack_liner: false,
