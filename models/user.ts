@@ -7,9 +7,6 @@ export interface UserData {
   name: string
   email: string
   phone: string
-  // my_equipment: {
-  //   [key: string]: boolean;
-  // };
   myEquipment: {
     backpack: boolean
     waterproofPackLiner: boolean
