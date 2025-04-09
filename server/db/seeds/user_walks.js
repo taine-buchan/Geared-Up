@@ -1,6 +1,4 @@
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  await knex('user_walks').del()
   await knex('user_walks').insert([
     {
       user_id: 1,
