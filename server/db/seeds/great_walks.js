@@ -16,7 +16,7 @@ export async function seed(knex) {
         'https://www.hawkesbaynz.com/assets/HBT-See-and-Do/Rivers-Lakes-Waterfalls/HBT-SeeDo-Recreations-RiversLakesWaterfalls-LakeWaikaremoana-Banner-1600x650.jpg',
       doc_link:
         'https://www.doc.govt.nz/parks-and-recreation/places-to-go/east-coast/places/te-urewera/things-to-do/tracks/lake-waikaremoana-great-walk/',
-      required_equipment: JSON.stringify({
+      required_equipment: {
         backpack: true,
         waterproof_pack_liner: true,
         sleeping_bag: true,
@@ -70,7 +70,7 @@ export async function seed(knex) {
         portable_stove_and_fuel: false,
         candles: false,
         doc_confirmation_letter: false,
-      }),
+      },
     },
     {
       id: 2,
@@ -88,7 +88,7 @@ export async function seed(knex) {
         'https://tongarirocrossingshuttles.co.nz/wp-content/uploads/2017/06/Tongariro-Northern-Circuit-Birds-Eye-View-600x394.jpg.webp',
       doc_link:
         'https://www.doc.govt.nz/parks-and-recreation/places-to-go/central-north-island/places/tongariro-national-park/things-to-do/tracks/tongariro-northern-circuit/',
-      required_equipment: JSON.stringify({
+      required_equipment: {
         backpack: true,
         waterproof_pack_liner: true,
         sleeping_bag: true,
@@ -142,7 +142,7 @@ export async function seed(knex) {
         portable_stove_and_fuel: false,
         candles: false,
         doc_confirmation_letter: false,
-      }),
+      },
     },
     {
       id: 3,
@@ -160,7 +160,7 @@ export async function seed(knex) {
         'https://www.landclimate.org/wp-content/uploads/2025/04/W-river-.jpeg',
       doc_link:
         'https://www.doc.govt.nz/globalassets/documents/parks-and-recreation/tracks-and-walks/wanganui/whanganui-journey-brochure.pdf',
-      required_equipment: JSON.stringify({
+      required_equipment: {
         backpack: true,
         waterproof_pack_liner: true,
         sleeping_bag: true,
@@ -214,7 +214,7 @@ export async function seed(knex) {
         portable_stove_and_fuel: false,
         candles: false,
         doc_confirmation_letter: false,
-      }),
+      },
     },
     {
       id: 4,
