@@ -4,14 +4,10 @@ import Nav from './Nav'
 
 export default function App() {
   return (
-    <div className="app-container">
-      <header>
-        <Nav />
-      </header>
-      <main>
-        <Outlet />
-      </main>
+    <>
+      <Nav />
+      <Outlet />
       <Footer />
-    </div>
+    </>
   )
 }
