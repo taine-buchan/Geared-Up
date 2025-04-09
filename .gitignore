@@ -18,5 +18,3 @@ coverage/*
 
 # Build directory
 /dist
-
-/.vscode
