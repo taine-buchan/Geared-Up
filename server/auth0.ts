@@ -1,6 +1,6 @@
 import { auth } from 'express-oauth2-jwt-bearer'
-import * as jose from 'jose'
-import express from 'express'
+// import * as jose from 'jose'
+// import express from 'express'
 import * as oidc from 'express-openid-connect'
 import dotenv from 'dotenv'
 
@@ -33,35 +33,37 @@ const authConfig = {
 
 export const validateAccessToken = auth(authConfig)
 
-export function requiresPermission(requiredPermission: string) {
-  return (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    // Safely extract the access token
-    const accessToken =
-      req.oidc && req.oidc.accessToken
-        ? req.oidc.accessToken.access_token
-        : null
+//This is some stuff needed for p3
 
-    if (!accessToken || typeof accessToken !== 'string') {
-      return res.status(403).send('Forbidden: no or invalid access token')
-    }
+// export function requiresPermission(requiredPermission: string) {
+//   return (
+//     req: express.Request,
+//     res: express.Response,
+//     next: express.NextFunction,
+//   ) => {
+//     // Safely extract the access token
+//     const accessToken =
+//       req.oidc && req.oidc.accessToken
+//         ? req.oidc.accessToken.access_token
+//         : null
 
-    try {
-      const decoded = jose.decodeJwt(accessToken) as { permissions: string[] }
-      const permissions = decoded && (decoded.permissions || [])
+//     if (!accessToken || typeof accessToken !== 'string') {
+//       return res.status(403).send('Forbidden: no or invalid access token')
+//     }
 
-      if (!permissions.includes(requiredPermission)) {
-        return res.status(403).send('Forbidden: insufficient scope')
-      }
+//     try {
+//       const decoded = jose.decodeJwt(accessToken) as { permissions: string[] }
+//       const permissions = decoded && (decoded.permissions || [])
 
-      next()
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(403).send(`Forbidden: invalid token (${err.message})`)
-      }
-    }
-  }
-}
+//       if (!permissions.includes(requiredPermission)) {
+//         return res.status(403).send('Forbidden: insufficient scope')
+//       }
+
+//       next()
+//     } catch (err) {
+//       if (err instanceof Error) {
+//         return res.status(403).send(`Forbidden: invalid token (${err.message})`)
+//       }
+//     }
+//   }
+// }
