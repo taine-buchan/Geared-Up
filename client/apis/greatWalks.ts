@@ -14,7 +14,9 @@ export async function getGreatWalks(): Promise<GreatWalk[] | undefined> {
 }
 
 //GET /api/v1/great-walks/:id
-export async function getGreatWalkById(id: number): Promise<GreatWalk | undefined> {
+export async function getGreatWalkById(
+  id: number,
+): Promise<GreatWalk | undefined> {
   try {
     const res = await request.get(`/api/v1/great-walks/${id}`)
     return res.body as GreatWalk
