@@ -13,6 +13,6 @@ export default createRoutesFromElements(
     <Route path="/great-walks" element={<GreatWalks />} />
     <Route path="/great-walks/:id" element={<GreatWalk />} />
     <Route path="/login-button" element={<LoginButton />} />
-    <Route path="/user/:id" element={<UserProfile />} />
+    <Route path="/user/:sub" element={<UserProfile />} />
   </Route>,
 )
