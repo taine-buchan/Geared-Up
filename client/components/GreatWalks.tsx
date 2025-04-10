@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useGreatWalks } from '../hooks/useGreatWalks'
 import { Link } from 'react-router-dom'
+import LoadingIndicator from './LoadingIndicator'
+
 export default function GreatWalks() {
   const { data, isLoading, isError } = useGreatWalks()
   const [filter, setFilter] = useState<'All' | 'Easy' | 'Intermediate'>('All')
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <LoadingIndicator />
   if (isError) return <p>Error!</p>
 
   const filteredWalks =
@@ -15,13 +17,22 @@ export default function GreatWalks() {
       <div className="flex flex-col justify-center w-3/5">
         <h1 className="text-[60px] font-bold">Great Walks</h1>
         <div className="gap-6 flex flex-row mt-6">
-          <button className="button cursor-pointer" onClick={() => setFilter('All')}>
+          <button
+            className="button cursor-pointer"
+            onClick={() => setFilter('All')}
+          >
             All
           </button>
-          <button className="button cursor-pointer" onClick={() => setFilter('Easy')}>
+          <button
+            className="button cursor-pointer"
+            onClick={() => setFilter('Easy')}
+          >
             Easy
           </button>
-          <button className="button cursor-pointer" onClick={() => setFilter('Intermediate')}>
+          <button
+            className="button cursor-pointer"
+            onClick={() => setFilter('Intermediate')}
+          >
             Intermediate
           </button>
         </div>
