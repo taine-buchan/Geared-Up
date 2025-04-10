@@ -1,7 +1,6 @@
 import { UserProfileData } from '../../models/user'
 
 interface Props {
-  userProfile?: UserProfileData
   handleSubmit: (userProfile: UserProfileData) => void
 }
 export default function ProfileForm(props: Props) {
@@ -34,7 +33,6 @@ export default function ProfileForm(props: Props) {
             name="username"
             id="username"
             required
-            defaultValue={props.userProfile?.username}
           />
         </div>
         <div>
@@ -44,7 +42,6 @@ export default function ProfileForm(props: Props) {
             name="name"
             id="name"
             required
-            defaultValue={props.userProfile?.name}
           />
         </div>
         <div>
@@ -54,7 +51,6 @@ export default function ProfileForm(props: Props) {
             name="email"
             id="email"
             required
-            defaultValue={props.userProfile?.email}
           />
         </div>
         <div>
@@ -64,7 +60,6 @@ export default function ProfileForm(props: Props) {
             name="phone"
             id="phone"
             required
-            defaultValue={props.userProfile?.phone}
           />
         </div>
         <button type='submit'>Submit</button>

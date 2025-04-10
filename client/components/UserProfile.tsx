@@ -6,18 +6,17 @@ import { UserProfileData } from '../../models/user'
 
 export default function UserProfile() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
-  const { data, isLoading, mutation } = useGetUser()
+  const mutation = useGetUser()
 
-  if (isLoading) return <p>Loading...</p>
   if (!isAuthenticated && !user) return <ErrorPage />
 
   async function handleSubmit(form: UserProfileData) {
     const token = await getAccessTokenSilently()
-    mutation.mutate({ form, token} )
+    mutation.mutate({ form, token })
   }
   return (
     <div>
-      <ProfileForm handleSubmit={handleSubmit} userProfile={data} />
+      <ProfileForm handleSubmit={handleSubmit} />
     </div>
   )
 }
