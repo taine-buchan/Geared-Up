@@ -15,14 +15,10 @@ export async function getGreatWalks(): Promise<GreatWalk[] | undefined> {
 
 //GET /api/v1/great-walks/:id
 export async function getGreatWalkById(
-  token: string,
   id: number,
 ): Promise<GreatWalk | undefined> {
   try {
-    const res = await request
-      .get(`/api/v1/great-walks/${id}`)
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json')
+    const res = await request.get(`/api/v1/great-walks/${id}`)
     return res.body as GreatWalk
   } catch (error) {
     if (error instanceof Error) {
