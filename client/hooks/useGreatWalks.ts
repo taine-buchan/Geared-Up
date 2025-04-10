@@ -1,7 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { getGreatWalks } from '../apis/greatWalks.ts'
+import { getGreatWalkById, getGreatWalks } from '../apis/greatWalks.ts'
 
 export function useGreatWalks() {
   const query = useQuery({ queryKey: ['greatWalks'], queryFn: getGreatWalks })
+  return query
+}
+
+export function useGreatWalkById(id: number) {
+  const query = useQuery({ queryKey: ['greatWalk'], queryFn: () => getGreatWalkById(id) })
   return query
 }
