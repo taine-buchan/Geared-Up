@@ -9,8 +9,8 @@ export default function GreatWalk() {
   if (isError) return <p>Error!</p>
   if (greatWalk) {
     const obj = Object.entries(greatWalk.requiredEquipment)
-    const requiredEquipment = obj.filter(arr => {
-      if(arr[1] === true) {
+    const requiredEquipment = obj.filter((arr) => {
+      if (arr[1] === true) {
         return arr[0]
       }
     })
@@ -25,11 +25,26 @@ export default function GreatWalk() {
                 className="w-full h-60 rounded-xl "
               />
               <div>
-                <p className='flex flex-row'><p className='font-bold mr-2'>Location: </p>{greatWalk.location}</p>
-                <p className='flex flex-row'><p className='font-bold mr-2'>Difficulty: </p>{greatWalk.difficulty}</p>
-                <p className='flex flex-row'><p className='font-bold mr-2'>Duration: </p>{greatWalk.duration}</p>
-                <p className='flex flex-row'><p className='font-bold mr-2'>Distance: </p>{greatWalk.distance}</p>
-                <p className='flex flex-row'><p className='font-bold mr-2'>Seasonal: </p>{greatWalk.seasonal}</p>
+                <p className="flex flex-row">
+                  <p className="font-bold mr-2">Location: </p>
+                  {greatWalk.location}
+                </p>
+                <p className="flex flex-row">
+                  <p className="font-bold mr-2">Difficulty: </p>
+                  {greatWalk.difficulty}
+                </p>
+                <p className="flex flex-row">
+                  <p className="font-bold mr-2">Duration: </p>
+                  {greatWalk.duration}
+                </p>
+                <p className="flex flex-row">
+                  <p className="font-bold mr-2">Distance: </p>
+                  {greatWalk.distance}
+                </p>
+                <p className="flex flex-row">
+                  <p className="font-bold mr-2">Seasonal: </p>
+                  {greatWalk.seasonal}
+                </p>
               </div>
             </div>
             <div className="flex flex-col gap-4 w-1/2">
@@ -39,15 +54,19 @@ export default function GreatWalk() {
 
                 <p>{greatWalk.description}</p>
               </div>
+
               <Link to={greatWalk.docLink}>
-                <img src="/images/doclink.svg" alt="Icon" className="w-40" />
+                <button className="button cursor-pointer">Doc Link</button>
               </Link>
             </div>
           </div>
           <div>
-            <h1 className='text-[30px] font-bold mb-4'>Required Equipment</h1>
+            <h1 className="text-[30px] font-bold mb-4">Required Equipment</h1>
             {requiredEquipment.map((item) => (
-              <button key={item[0]} className="border-[1px] p-2 mx-1 my-1 rounded-md">
+              <button
+                key={item[0]}
+                className="border-[1px] p-2 mx-1 my-1 rounded-md"
+              >
                 {item[0]}
               </button>
             ))}
