@@ -11,7 +11,7 @@ const router = express.Router()
 router.post('/', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   const form = req.body
-
+  console.log(form)
   console.log('User Auth ID, server', auth0Id)
 
   if (!auth0Id) {

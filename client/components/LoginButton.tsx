@@ -4,8 +4,6 @@ import Button from './Button.tsx'
 
 function LoginButton() {
   const { user, logout, loginWithRedirect } = useAuth0()
-  
-  console.log(user)
 
   const handleSignOut = () => {
     console.log('sign out')
@@ -15,7 +13,6 @@ function LoginButton() {
 
   const handleSignIn = () => {
     console.log('sign in')
-
     loginWithRedirect()
    
   }
