@@ -1,6 +1,6 @@
 import { useGreatWalks } from '../hooks/useGreatWalks'
 import { Link } from 'react-router-dom'
-function GreatWalks() {
+export default function GreatWalks() {
   const { data: greatWalks, isLoading, isError} = useGreatWalks()
 
   if(isLoading) return <p>Loading...</p>
@@ -13,10 +13,10 @@ function GreatWalks() {
     const easyGreatWalks = () => {
       greatWalks.filter((greatWalk) => greatWalk.difficulty === 'Easy')
     }
-    console.log(greatWalks.map(greatWalk => greatWalk.trackImageUrl))
+    
     return (
-      <>
-        <div className="flex flex-col justify-center items-center mt-10 ">
+      <div className='flex items-center justify-center mt-10'>
+        <div className="flex flex-col justify-center w-3/5">
           <h1 className="text-[60px] font-bold">Great Walks</h1>
           <div className="gap-6 flex flex-row mt-6">
             <button
@@ -25,7 +25,7 @@ function GreatWalks() {
               aria-label="Toggle menu"
             >
               <img
-                src="client/components/assets/icons/easy.svg"
+                src="/images/easy.svg"
                 alt="Icon"
                 className="w-40"
               />
@@ -36,7 +36,7 @@ function GreatWalks() {
               aria-label="Toggle menu"
             >
               <img
-                src="client/components/assets/icons/intermediate.svg"
+                src="/images/intermediate.svg"
                 alt="Icon"
                 className="w-40"
               />
@@ -55,7 +55,7 @@ function GreatWalks() {
                       <img
                         src={greatWalk.trackImageUrl}
                         alt={greatWalk.name}
-                        className="w-[300px] h-[200px]"
+                        className="w-[300px] h-[200px] rounded-xl"
                       />
                     </Link>
                     <div className="flex flex-col gap-4">
@@ -81,8 +81,7 @@ function GreatWalks() {
               ))}
           </ul>
         </div>
-      </>
+      </div>
     )
   }
 }
-export default GreatWalks
