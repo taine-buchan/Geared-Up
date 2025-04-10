@@ -7,7 +7,7 @@ import nock from 'nock'
 describe('Visiting the great walks page', () => {
   it('shows a loading indicator', async () => {
     const screen = renderRoute('/great-walks')
-    const indicator = screen.getByLabelText('Loading...')
+    const indicator = screen.getByText('Loading...')
     expect(indicator).toBeVisible()
   })
 
@@ -24,43 +24,37 @@ describe('Visiting the great walks page', () => {
         id: 1,
         name: 'test-name',
         difficulty: 'Intermediate',
-        elevation:
-          'test-elevation',
+        elevation: 'test-elevation',
         duration: '3-4 days',
         distance: '46 km one way',
         location: 'test-location',
-        description:
-          'test-description',
+        description: 'test-description',
         seasonal: 'All year',
-        trackImageUrl:
-          'test-url',
-        docLink:
-          'test-doclink',
+        trackImageUrl: 'test-url',
+        docLink: 'test-doclink',
         requiredEquipment: '',
       },
       {
         id: 2,
         name: 'test-name',
         difficulty: 'Intermediate',
-        elevation:
-         'test-elevation',
+        elevation: 'test-elevation',
         duration: '3-4 days',
         distance: '46 km one way',
         location: 'test-location',
-        description:
-          'test-description',
+        description: 'test-description',
         seasonal: 'All year',
-        trackImageUrl:
-          'test-url',
-        docLink:
-          'test-doclink',
+        trackImageUrl: 'test-url',
+        docLink: 'test-doclink',
         requiredEquipment: '',
       },
     ]
     nock('http://localhost').get('/api/v1/great-walks').reply(200, testList)
     const screen = renderRoute('/great-walks')
 
-    const listHeading = await screen.findByRole('heading', {name: 'Great Walks'})
+    const listHeading = await screen.findByRole('heading', {
+      name: 'Great Walks',
+    })
 
     expect(listHeading).toBeVisible()
   })
