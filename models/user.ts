@@ -1,5 +1,5 @@
 export interface User extends UserData {
-  id: number
+  id: string
 }
 
 export interface UserData {
@@ -64,4 +64,11 @@ export interface UserData {
   }
 
   result: string
+}
+
+export interface UserProfileData {
+  username: string
+  name: string
+  email: string
+  phone: string
 }

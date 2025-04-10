@@ -7,7 +7,7 @@ import nock from 'nock'
 describe('Visiting the great walks page', () => {
   it('shows a loading indicator', async () => {
     const screen = renderRoute('/great-walks')
-    const indicator = screen.getByText('Loading...')
+    const indicator = screen.getByLabelText('Animation of hiker walking')
     expect(indicator).toBeVisible()
   })
 

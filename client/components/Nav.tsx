@@ -12,7 +12,7 @@ export default function Nav() {
 
         {/* Nav links */}
         <div className="flex items-center space-x-8">
-          <ul className="flex space-x-8">
+          <ul className="flex space-x-8 font-extralight">
             <li>
               <Link to="/" className="">
                 Home

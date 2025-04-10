@@ -7,24 +7,26 @@ export default function Hero() {
         <img
           src="/mark-de-jong-t-7Cy6ZD0-k-unsplash.jpg"
           alt="Mountain landscape for hiking"
-          className="w-full h-full object-cover opacity-50"
+          className="w-full h-full object-cover opacity-40"
         />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 max-w-4xl">
-            Take the quiz and gear up for your Aotearoa Great Walk
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center mb-20">
+          <h1 className="text-3xl lg:text-6xl md:text-5xl max-w-xl m-6">
+            Take the quiz and gear up for your Great Walk
           </h1>
-          <div className="py-6">
+          <div className="mt-4 ">
             <button>
-              <Link to="/sign-in-sign-up" className="button">
+              <Link
+                to="/login-button"
+                className="button bg-[#d0f7a2] hover:bg-[#000000] text-blue-950 hover:text-[#d0f7a2] font-medium py-3 shadow-sm transition-colors drop-shadow"
+              >
                 Get Started
               </Link>
-              {''}
             </button>
           </div>
 
-          <p className="text-xl md:text-2xl mt-8 font-serif space-y-2.5">
-            Companion tool for the Great Walks of New Zealand
+          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex">
+            Companion tool for the Great Walks of Aotearoa
           </p>
         </div>
       </div>
