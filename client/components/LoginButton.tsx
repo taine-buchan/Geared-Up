@@ -27,7 +27,9 @@ function LoginButton() {
         )}
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <Button onClick={handleSignIn}>Sign in</Button>
+        <Button onClick={handleSignIn}>
+          <img src="/icons/your-icon.svg" alt="Icon" className="w-6 h-6" />
+        </Button>
       </IfNotAuthenticated>
     </>
   )
