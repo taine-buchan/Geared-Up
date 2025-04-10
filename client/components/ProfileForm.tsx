@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+
 import { UserProfileData } from '../../models/user'
 
 interface Props {
@@ -67,7 +67,7 @@ export default function ProfileForm(props: Props) {
             className='bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-4 rounded-[45px] text-[20px]'
           />
         </div>
-        <Link to='/quiz-completed'><button className='button'type='submit'>Submit</button></Link>
+        <button className='button'type='submit'>Submit</button>
       </form>
     </div>
   )
