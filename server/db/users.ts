@@ -2,8 +2,6 @@ import { User } from '../../models/user'
 import connection from './connection'
 
 export async function upsertProfile(profile: User) {
-  console.log('equipment db', JSON.stringify(profile.myEquipment))
-  console.log('username db', JSON.stringify(profile.myEquipment))
   await connection('users')
     .insert({
       id: profile.id,
