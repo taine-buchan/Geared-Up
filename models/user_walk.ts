@@ -1,5 +1,5 @@
 export interface UserWalkData {
-  userId: number
+  userId: string
   greatWalkId: number
   isComplete?: boolean
   isPlanned?: boolean
