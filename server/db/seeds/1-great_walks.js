@@ -156,7 +156,7 @@ export async function seed(knex) {
     {
       id: 3,
       name: 'Whanganui Journey',
-      difficulty: 'Canoe Journey, Intermediate',
+      difficulty: 'Intermediate',
       elevation:
         "This is primarily a river journey by canoe or kayak, so elevation change is minimal and gradual along the river's course.",
       duration: '3-5 days',

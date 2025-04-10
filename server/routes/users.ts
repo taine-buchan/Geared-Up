@@ -1,6 +1,6 @@
 import express from 'express'
 
-import * as db from '../db/users'
+import * as db from '../db/user'
 import { validateAccessToken } from '../auth0' //check to see if auth0 has been set up
 import { logError } from '../logger'
 

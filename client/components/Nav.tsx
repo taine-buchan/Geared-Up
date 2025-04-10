@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import LoginButton from './LoginButton'
 
 export default function Nav() {
   return (
@@ -25,9 +26,9 @@ export default function Nav() {
           </ul>
 
           {/* Profile Icon */}
-          <Link to="/user/:id">
-            <img src="/profile_icon.svg" alt="Icon" className="w-10 h-10" />
-          </Link>
+          {/* <Link to="/login-button"> */}
+          <LoginButton />
+          {/* </Link> */}
         </div>
       </div>
     </nav>

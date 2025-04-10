@@ -1,12 +1,12 @@
 export interface User extends UserData {
-  id: number
+  id: string
 }
 
 export interface UserData {
   username: string
   name: string
   email: string
-  phone: string
+  phone?: string
   myEquipment: {
     backpack: boolean
     waterproofPackLiner: boolean
@@ -63,5 +63,12 @@ export interface UserData {
     docConfirmationLetter: boolean
   }
 
-  result: string
+  result?: string
+}
+
+export interface UserProfileData {
+  username: string
+  name: string
+  email: string
+  phone: string
 }
