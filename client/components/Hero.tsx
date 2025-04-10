@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Hero() {
+  const { loginWithRedirect } = useAuth0()
+  const handleSignIn = () => {
+    console.log('sign in')
+
+    loginWithRedirect()
+  }
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">
@@ -15,10 +21,8 @@ export default function Hero() {
             Take the quiz and gear up for your Aotearoa Great Walk
           </h1>
           <div className="py-6">
-            <button>
-              <Link to="/login-button" className="button">
-                Get Started
-              </Link>
+            <button onClick={handleSignIn} className="button">
+              Get Started
             </button>
           </div>
 
