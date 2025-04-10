@@ -10,7 +10,8 @@ export async function getUser(auth0Id: string) {
       'username',
       'name',
       'email',
-      'profile_avatar as profileAvatar'
+      'phone',
+      'my_equipment as myEquipment',
     )) as Profile //create profile model
 }
 
@@ -20,6 +21,7 @@ export async function upsertProfile(profile: Profile) {
     username: profile.username,
     name: profile.name,
     email: profile.email,
-    profile_avatar: profile.profileAvatar,
+    phone: profile.phone,
+    my_equipment: profile.myEquipment,
   })
 }
