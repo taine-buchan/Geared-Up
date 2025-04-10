@@ -16,10 +16,9 @@ export default function Hero() {
           </h1>
           <div className="py-6">
             <button>
-              <Link to="/sign-in-sign-up" className="button">
+              <Link to="/login-button" className="button">
                 Get Started
               </Link>
-              {''}
             </button>
           </div>
 
