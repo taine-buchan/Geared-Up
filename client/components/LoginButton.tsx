@@ -1,9 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import Button from './Button.tsx'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
+import Button from './Button.tsx'
 
 function LoginButton() {
   const { user, logout, loginWithRedirect } = useAuth0()
+  
   console.log(user)
 
   const handleSignOut = () => {
@@ -16,6 +17,7 @@ function LoginButton() {
     console.log('sign in')
 
     loginWithRedirect()
+   
   }
 
   return (

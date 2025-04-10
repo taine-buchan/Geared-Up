@@ -1,6 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 
 export default function Hero() {
+  const { user } = useAuth0()
+
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">
@@ -16,9 +19,15 @@ export default function Hero() {
           </h1>
           <div className="py-6">
             <button>
-              <Link to="/login-button" className="button">
-                Get Started
-              </Link>
+              {user ? (
+                <Link to={`/user/${user.sub}`} className="button">
+                  Kia Ora! {user.name}
+                </Link>
+              ) : (
+                <Link to="/login-button" className="button">
+                  Get Started
+                </Link>
+              )}
             </button>
           </div>
 
