@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "transpileOnly": true
+  },
+
   "compilerOptions": {
     "types": ["vite/client"],
     "target": "es2020", 
@@ -12,6 +16,7 @@
     "strict": true,
     "allowImportingTsExtensions": true,
     "allowJs": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": ["es2021", "dom"],
   }
 }
