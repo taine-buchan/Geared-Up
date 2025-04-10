@@ -3,19 +3,18 @@ import Button from './Button.tsx'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 
 function LoginButton() {
-  // TODO: call the useAuth0 hook and destructure user, logout, and loginWithRedirect
   const { user, logout, loginWithRedirect } = useAuth0()
   console.log(user)
 
   const handleSignOut = () => {
     console.log('sign out')
-    //   TODO: return the logout function
+
     logout()
   }
 
   const handleSignIn = () => {
     console.log('sign in')
-    //   TODO: return the loginWithRedirect function
+
     loginWithRedirect()
   }
 

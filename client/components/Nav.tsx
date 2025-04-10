@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import LoginButton from './LoginButton'
 
 export default function Nav() {
   return (
@@ -31,6 +32,9 @@ export default function Nav() {
                 <Link to="/user/:id" className="">
                   Profile
                 </Link>
+              </li>
+              <li>
+                <LoginButton />
               </li>
             </ul>
 

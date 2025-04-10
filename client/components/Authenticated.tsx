@@ -1,7 +1,5 @@
-// TODO: import useAuth0 function
 import { useAuth0 } from '@auth0/auth0-react'
 const useIsAuthenticated = () => {
-  // TODO: call the useAuth0 hook, destructure and replace `return true`with return isAuthenticated
   const { isAuthenticated } = useAuth0()
   return isAuthenticated
 }
