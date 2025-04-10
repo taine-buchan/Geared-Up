@@ -5,9 +5,11 @@ import Nav from './Nav'
 export default function App() {
   return (
     <>
-      <Nav />
-      <Outlet />
-      <Footer />
+      <body>
+        <Nav />
+        <Outlet />
+        <Footer />
+      </body>
     </>
   )
 }

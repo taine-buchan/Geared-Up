@@ -2,7 +2,7 @@
 
 body {
   color: #d0f7a2;
-  background: linear-gradient(to bottom, #070446 0%, #040328 90%, #090983 100%);
+  background: linear-gradient(to bottom, #070446 0%, #040328 90%, #05054f 100%);
   min-height: 100vh;
   margin: 0;
 }
@@ -17,7 +17,9 @@ body {
   }
 
   .button {
-    @apply max-w-0.5;
+    @apply bg-[#9FFF2E] rounded-tl-full rounded-br-full text-blue-950 text-center self-center px-10 py-2 m-2 font-bold
+    transform transition-all duration-300 ease-in-out 
+    hover:bg-[#d0f7a2] hover:shadow-lg;
   }
 
   .footer {
