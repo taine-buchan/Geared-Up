@@ -11,7 +11,12 @@ export default createRoutesFromElements(
     <Route index element={<Home />} />
     <Route path="/great-walks" element={<GreatWalks />} />
     <Route path="/great-walks/:id" element={<GreatWalk />} />
+<<<<<<< HEAD
 
     <Route path="/user/:id" element={<UserProfile />} />
+=======
+    <Route path="/login-button" element={<LoginButton />} />
+    <Route path="/user/:sub" element={<UserProfile />} />
+>>>>>>> d3ccb29cd33987f9c29efdbf63b1445145d45a43
   </Route>,
 )
