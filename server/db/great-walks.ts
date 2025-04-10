@@ -3,12 +3,99 @@ import connection from './connection'
 
 export async function getAllWalks() {
   const walks = await connection('great_walks')
-  return walks
+  const formattedWalks = walks.map((walk) => {
+    const {
+      id,
+      name,
+      difficulty,
+      elevation,
+      duration,
+      distance,
+      location,
+      description,
+      seasonal,
+      required_equipment,
+      track_image_url,
+      doc_link,
+    } = walk
+
+    const parsedEquipment = JSON.parse(required_equipment)
+    return {
+      id,
+      name,
+      difficulty,
+      elevation,
+      duration,
+      distance,
+      location,
+      description,
+      seasonal,
+      trackImageUrl: track_image_url,
+      docLink: doc_link,
+      requiredEquipment: {
+        backpack: parsedEquipment.backpack,
+        waterproofPackLiner: parsedEquipment.waterproof_pack_liner,
+        sleepingBag: parsedEquipment.sleeping_bag,
+        firstAidKit: parsedEquipment.first_aid_kit,
+        survivalKit: parsedEquipment.survival_kit,
+        safetyEquipment: parsedEquipment.safety_equipment,
+        torchFlashlight: parsedEquipment.torch_flashlight,
+        rubbishBag: parsedEquipment.rubbish_bag,
+        bookingConfirmationAndId: parsedEquipment.booking_confirmation_and_id,
+        earplugsForBunkrooms: parsedEquipment.earplugs_for_bunkrooms,
+        drinkBottle: parsedEquipment.drink_bottle,
+        eatingAndCookingUtensils: parsedEquipment.eating_and_cooking_utensils,
+        gasCookerAndFuel: parsedEquipment.gas_cooker_and_fuel,
+        matchesOrLighter: parsedEquipment.matches_or_lighter,
+        generalToiletries: parsedEquipment.general_toiletries,
+        backupToiletOption: parsedEquipment.backup_toilet_option,
+        tent: parsedEquipment.tent,
+        sleepingMat: parsedEquipment.sleeping_mat,
+        groundSheet: parsedEquipment.ground_sheet,
+        walkingClothes: parsedEquipment.walking_clothes,
+        hikingBoots: parsedEquipment.hiking_boots,
+        socks: parsedEquipment.socks,
+        shorts: parsedEquipment.shorts,
+        shirt: parsedEquipment.shirt,
+        underLayers: parsedEquipment.under_layers,
+        midLayers: parsedEquipment.mid_layers,
+        raincoat: parsedEquipment.raincoat,
+        overtrousers: parsedEquipment.overtrousers,
+        warmHatAndGloves: parsedEquipment.warm_hat_and_gloves,
+        sunhatAndSunglasses: parsedEquipment.sunhat_and_sunglasses,
+        extraSocksUnderwearAndShirt:
+          parsedEquipment.extra_socks_underwear_and_shirt,
+        gaiters: parsedEquipment.gaiters,
+        lightweightShoesForHuts: parsedEquipment.lightweight_shoes_for_huts,
+        carryFood: parsedEquipment.carry_food,
+        lightweightFood: parsedEquipment.lightweight_food,
+        emergencyFood: parsedEquipment.emergency_food,
+        foodStorage: parsedEquipment.food_storage,
+        emergencyShelter: parsedEquipment.emergency_shelter,
+        distressBeacon: parsedEquipment.distress_beacon,
+        cookingFacilities: parsedEquipment.cooking_facilities,
+        sanitaryBins: parsedEquipment.sanitary_bins,
+        gasCooker: parsedEquipment.gas_cooker,
+        fireStarters: parsedEquipment.fire_starters,
+        lifeJacket: parsedEquipment.life_jacket,
+        kayakOrCanoe: parsedEquipment.kayak_or_canoe,
+        paddles: parsedEquipment.paddles,
+        plasticDrumsOrEquivalent: parsedEquipment.plastic_drums_or_equivalent,
+        dryBags: parsedEquipment.dry_bags,
+        swimwear: parsedEquipment.swimwear,
+        sandalsOrAquaShoes: parsedEquipment.sandals_or_aqua_shoes,
+        portableStoveAndFuel: parsedEquipment.portable_stove_and_fuel,
+        candles: parsedEquipment.candles,
+        docConfirmationLetter: parsedEquipment.doc_confirmation_letter,
+      },
+    }
+  })
+
+  return formattedWalks as GreatWalk[]
 }
 
 export async function getWalkById(walkId: number) {
   const walk = await connection('great_walks').where('id', walkId).first()
-  console.log(walk)
   const {
     id,
     name,
@@ -24,8 +111,7 @@ export async function getWalkById(walkId: number) {
     doc_link,
   } = walk
   const newValue = await JSON.parse(required_equipment)
-  // console.log(newValue)
-  // destructure all the equipment values
+
   const {
     backpack,
     waterproof_pack_liner,
@@ -81,7 +167,6 @@ export async function getWalkById(walkId: number) {
     candles,
     doc_confirmation_letter,
   } = newValue
-  console.log('req', newValue)
 
   const jsWalk = {
     id,
@@ -151,7 +236,6 @@ export async function getWalkById(walkId: number) {
       docConfirmationLetter: doc_confirmation_letter,
     },
   }
-  console.log(jsWalk)
   // converted / alias all snake case to camel case
 
   return jsWalk as GreatWalk
