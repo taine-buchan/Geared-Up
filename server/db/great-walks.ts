@@ -1,6 +1,11 @@
 import { GreatWalk } from '../../models/great_walk'
 import connection from './connection'
 
+export async function getAllWalks() {
+  const walks = await connection('great_walks')
+  return walks
+}
+
 export async function getWalkById(walkId: number) {
   const walk = await connection('great_walks').where('id', walkId).first()
   console.log(walk)
@@ -150,9 +155,4 @@ export async function getWalkById(walkId: number) {
   // converted / alias all snake case to camel case
 
   return jsWalk as GreatWalk
-}
-
-export async function getAllWalks() {
-  const walks = await connection('great_walks')
-  return walks
 }
