@@ -6,6 +6,7 @@ import GreatWalks from './components/GreatWalks'
 import SignInSignUp from './components/SignInSignUp'
 import UserProfile from './components/UserProfile'
 import ErrorPage from './components/ErrorPage'
+import QuizOne from './components/quiz/QuizOne'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -14,5 +15,6 @@ export default createRoutesFromElements(
     <Route path="/great-walks/:id" element={<GreatWalk />} />
     <Route path="/sign-in-sign-up" element={<SignInSignUp />} />
     <Route path="/user/:id" element={<UserProfile />} />
+    <Route path="/quiz-one" element={<QuizOne />} />
   </Route>,
 )

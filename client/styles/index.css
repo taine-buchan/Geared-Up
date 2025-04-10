@@ -22,6 +22,12 @@ body {
     hover:bg-[#d0f7a2] hover:shadow-lg;
   }
 
+  .button-reverse {
+    @apply bg-[#9FFF2E] rounded-tr-full rounded-bl-full text-blue-950 text-center self-center px-10 py-2 m-2 font-bold
+    transform transition-all duration-300 ease-in-out 
+    hover:bg-[#d0f7a2] hover:shadow-lg;
+  }
+
   .footer {
     @apply max-w-0.5;
   }

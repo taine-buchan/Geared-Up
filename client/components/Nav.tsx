@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import LoginButton from './LoginButton'
+// import LoginButton from './LoginButton'
 
 export default function Nav() {
   return (
@@ -27,7 +27,7 @@ export default function Nav() {
 
           {/* Profile Icon */}
           <Link to="/profile">
-            <LoginButton />
+            <img src="/profile_icon.svg" alt="profile"></img>
           </Link>
         </div>
       </div>
