@@ -1,7 +1,7 @@
 import { createRoutesFromElements, Route } from 'react-router-dom'
 import GreatWalk from './components/GreatWalk'
 import App from './components/App'
-import Home from './components/Home'
+import Home from './components/Hero'
 import GreatWalks from './components/GreatWalks'
 import SignInSignUp from './components/SignInSignUp'
 import UserProfile from './components/UserProfile'
