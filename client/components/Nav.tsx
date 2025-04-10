@@ -26,9 +26,8 @@ export default function Nav() {
           </ul>
 
           {/* Profile Icon */}
-          {/* <Link to="/login-button"> */}
+
           <LoginButton />
-          {/* </Link> */}
         </div>
       </div>
     </nav>
