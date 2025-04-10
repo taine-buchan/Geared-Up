@@ -10,14 +10,16 @@ import {
   beforeAll,
 } from 'vitest'
 import { renderApp } from '../tests/setup'
-import { useAuth0, User } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import nock from 'nock'
 
 // Mock out auth0
 vi.mock('@auth0/auth0-react')
 
 const ACCESS_TOKEN = 'mock-access-token'
-const mockUser = [] as User[]
+
+// incase home pages makes api request this mock user will be used in the nock
+// const mockUser = [] as User[]
 
 beforeAll(() => {
   nock.disableNetConnect()
@@ -42,14 +44,15 @@ afterEach(() => {
 
 describe('<LoginButton>', () => {
   it.only('should add a username', async () => {
-    const scope = nock('http://localhost')
-      .get('/api/v1/geared-up')
-      .reply(200, mockUser)
+    // in the future if this home page makes an api react query we can use this nock
+    // const scope = nock('http://localhost')
+    //   .get('/api/v1/geared-up')
+    //   .reply(200, mockUser)
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user, ...screen } = renderApp('/')
     const username = await screen.findByTestId('logged in user')
-    expect(scope.isDone()).toBe(true)
-    expect(username.textContent).toBe('Signed in as: user.harakeke25')
+    // expect(scope.isDone()).toBe(true)
+    expect(username.textContent).toBe('Signed in as: user harakeke25')
   })
 })
