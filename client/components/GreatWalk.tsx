@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
+import LoadingIndicator from './LoadingIndicator'
 
 export default function GreatWalk() {
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <LoadingIndicator />
   if (isError) return <p>Error!</p>
   if (greatWalk) {
     const obj = Object.entries(greatWalk.requiredEquipment)
