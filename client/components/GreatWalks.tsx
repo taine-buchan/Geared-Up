@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { useGreatWalks } from '../hooks/useGreatWalks'
 import { Link } from 'react-router-dom'
 import LoadingIndicator from './LoadingIndicator'
+import ErrorComponent from './ErrorComponent'
 
 export default function GreatWalks() {
   const { data, isLoading, isError } = useGreatWalks()
   const [filter, setFilter] = useState<'All' | 'Easy' | 'Intermediate'>('All')
   if (isLoading) return <LoadingIndicator />
-  if (isError) return <p>Error!</p>
+  if (isError) return <ErrorComponent />
 
   const filteredWalks =
     filter === 'All' ? data : data?.filter((walk) => walk.difficulty === filter)

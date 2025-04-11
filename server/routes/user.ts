@@ -18,7 +18,6 @@ router.get('/', validateAccessToken, async (req, res) => {
 
   try {
     const user = await db.getUser(auth0Id)
-    console.log('user info', user)
     res.status(200).json(user)
   } catch (error) {
     logError(error)
