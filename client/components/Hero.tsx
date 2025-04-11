@@ -1,13 +1,30 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
+import { useGetUser } from '../hooks/useUser'
+import LoadingIndicator from './LoadingIndicator'
+import ErrorPage from './ErrorPage'
 
 export default function Hero() {
   const { user, loginWithRedirect } = useAuth0()
+  const { data: existingUserData, isLoading, isError } = useGetUser()
+  if (isLoading) return <LoadingIndicator />
+  if (isError) return <ErrorPage />
+
   const handleSignIn = () => {
     console.log('sign in')
 
     loginWithRedirect()
   }
+
+  const quizButton = existingUserData && user ? (
+    <Link to={`/user/${user.sub}`} className="button">
+      Kia Ora! {user.name}
+    </Link>
+  ) : (
+    <Link to={`/quiz-outlet`} className="button">
+      Go to survey!
+    </Link>
+  )
 
   return (
     <div className="w-full flex justify-center">
@@ -23,11 +40,7 @@ export default function Hero() {
             Take the quiz and gear up for your Great Walk
           </h1>
           <div className="py-6">
-            {user ? (
-              <Link to={`/user/${user.sub}`} className="button">
-                Kia Ora! {user.name}
-              </Link>
-            ) : (
+            {user ? quizButton : (
               <button onClick={handleSignIn} className="button">
                 Get Started
               </button>
