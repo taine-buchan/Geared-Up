@@ -9,8 +9,7 @@ const router = express.Router()
 // GET /api/v1/user/
 
 router.get('/', validateAccessToken, async (req, res) => {
-  const auth0Id = 'auth0|6478f3fd75374ee3d7bc4d94'
-  // const auth0Id = req.auth?.payload.sub
+  const auth0Id = req.auth?.payload.sub
   console.log('authId server', auth0Id)
 
   if (!auth0Id) {
