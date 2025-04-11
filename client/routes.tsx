@@ -3,7 +3,7 @@ import GreatWalk from './components/GreatWalk'
 import App from './components/App'
 import Home from './components/Hero'
 import GreatWalks from './components/GreatWalks'
-import UserProfile from './components/UserProfile'
+import Profile from './components/Profile'
 import ErrorPage from './components/ErrorPage'
 import LoginButton from './components/LoginButton'
 import QuizWhichGreatWalks from './components/quiz/QuizWhichGreatWalks'
@@ -17,9 +17,8 @@ export default createRoutesFromElements(
     <Route index element={<Home />} />
     <Route path="/great-walks" element={<GreatWalks />} />
     <Route path="/great-walks/:id" element={<GreatWalk />} />
-    <Route path="/user/:sub" element={<UserProfile />} />
+    <Route path="/user/:sub" element={<Profile />} />
     <Route path="/login-button" element={<LoginButton />} />
-    <Route path="/user/:id" element={<UserProfile />} />
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
       <Route index element={<QuizHaveYouCompleted />} />
       <Route path="quiz-fitness-level" element={<QuizFitnessLevel />} />

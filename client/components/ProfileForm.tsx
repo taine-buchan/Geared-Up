@@ -1,8 +1,9 @@
 
-import { UserProfileData } from '../../models/user'
+import { UserData } from '../../models/user'
 
 interface Props {
-  handleSubmit: (userProfile: UserProfileData) => void
+  form: UserData
+  handleSubmit: (userProfile: UserData) => void
 }
 export default function ProfileForm(props: Props) {
 
@@ -14,11 +15,13 @@ export default function ProfileForm(props: Props) {
     const email = formData.get('email') as string
     const phone = formData.get('phone') as string
     if(!username || !name || !email || !phone) return alert('Please fill up all of the form.')
-    const form: UserProfileData = {
+    const form: UserData = {
       username: username,
       name: name,
       email: email,
       phone: phone,
+      myEquipment: props.form?.myEquipment,
+      result: props.form?.result,
     }
 
     props.handleSubmit(form)
@@ -35,6 +38,7 @@ export default function ProfileForm(props: Props) {
             id="username"
             required
             className='bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-4 rounded-[45px] text-[20px]'
+            defaultValue={props.form.username}
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -45,6 +49,7 @@ export default function ProfileForm(props: Props) {
             id="name"
             required
             className='bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-4 rounded-[45px] text-[20px]'
+            defaultValue={props.form.name}
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -55,6 +60,7 @@ export default function ProfileForm(props: Props) {
             id="email"
             required
             className='bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-4 rounded-[45px] text-[20px]'
+            defaultValue={props.form.email}
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -65,6 +71,7 @@ export default function ProfileForm(props: Props) {
             id="phone"
             required
             className='bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-4 rounded-[45px] text-[20px]'
+            defaultValue={props.form.phone}
           />
         </div>
         <button className='button'type='submit'>Submit</button>
