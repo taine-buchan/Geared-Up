@@ -96,7 +96,6 @@ router.post('/', validateAccessToken, async (req, res) => {
     candles: form.myEquipment.candles,
     doc_confirmation_letter: form.myEquipment.docConfirmationLetter,
   }
-  console.log(snakeEquipment)
 
   const profile = {
     id: auth0Id,
@@ -105,7 +104,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     email: form.email,
     phone: form.phone,
     result: form.result || '',
-    myEquipment: snakeEquipment || {},
+    my_equipment: snakeEquipment || {},
   }
 
   try {
