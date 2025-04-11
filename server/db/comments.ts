@@ -14,3 +14,17 @@ export async function getCommentsByGreatWalkId(id: number) {
       'updated_at as updatedAt',
     )
 }
+
+export async function addNewByGreatWalkId(
+  newLocation: LocationData,
+): Promise<number> {
+  return await connection('locations')
+    .insert({
+      user_id: 'auth0|648fd1c873375442becf2c60',
+      great_walk_id: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
+      comment: 'hello!',
+    })
+    .returning('id')
+}
