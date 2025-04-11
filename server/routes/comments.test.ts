@@ -38,7 +38,7 @@ describe('add comment', () => {
       updatedAt: 1111,
     }
 
-    vi.mocked(db.addComment).mockResolvedValue()
+    vi.mocked(db.createComment).mockResolvedValue()
     const response = await request(server)
       .post('/api/v1/comments')
       .set('authorization', `Bearer ${getMockToken()}`)

@@ -24,16 +24,22 @@ router.get('/:id', validateAccessToken, async (req, res) => {
 
 // POST: /api/v1/comments
 router.post('/', validateAccessToken, async (req, res) => {
-  const { greatWalkId, comment } = req.body
-  const userId = req.auth?.sub // this is coming from the header we set in the client/apis/ratings.ts request
-  console.log('userId route', userId)
+  const { greatWalkId, comment, createdAt, updatedAt } = req.body
+  const userId = req.auth?.payload.sub // this is coming from the header we set in the client/apis/ratings.ts request
+  console.log('greatWalk route', greatWalkId)
 
   if (!userId) {
     console.error('No auth0Id')
     return res.status(401).send('Unauthorized')
   }
   try {
-    const newComment = await db.createComment(Number(Id), comment, userId)
+    const newComment = await db.createComment(
+      userId,
+      greatWalkId,
+      comment,
+      createdAt,
+      updatedAt,
+    )
     res.status(201).json({ newComment })
   } catch (error) {
     console.error(error)
