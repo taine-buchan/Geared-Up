@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { UserData } from '../../models/user'
 import { useUpsertUser } from '../hooks/useUser'
-import ErrorPage from './ErrorPage'
+import ErrorComponent from './ErrorPage'
 import ProfileForm from './ProfileForm'
 
 export default function AddProfile() {
@@ -71,7 +71,7 @@ export default function AddProfile() {
     },
   }
 
-  if (!isAuthenticated && !user) return <ErrorPage />
+  if (!isAuthenticated && !user) return <ErrorComponent />
 
   async function handleSubmit(form: UserData) {
     const token = await getAccessTokenSilently()

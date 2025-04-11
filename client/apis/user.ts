@@ -10,7 +10,6 @@ export async function getUser(
       .get('/api/v1/user')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
-      console.log('api', res.body)
     return res.body
   } catch (error) {
     if (error instanceof Error) {
