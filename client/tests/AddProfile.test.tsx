@@ -2,8 +2,8 @@ import { waitFor } from '@testing-library/react'
 import nock from 'nock'
 import { describe, expect, it, vi } from 'vitest'
 
+import AddProfile from '../components/AddProfile.tsx'
 import { renderWithQuery } from './setup.tsx'
-import UserProfile from '../components/UserProfile'
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
@@ -25,8 +25,8 @@ describe('UserProfilePage', () => {
       phone: '000-0000-0000',
     })
 
-    const container = renderWithQuery(<UserProfile />)
-    if(!scope.isDone()) return 
+    const container = renderWithQuery(<AddProfile />)
+    if (!scope.isDone()) return
     await waitFor(() => expect(scope.isDone()).toBeTruthy())
 
     const name = container.getByRole('input', { name: /Name */i })

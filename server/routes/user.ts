@@ -30,7 +30,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     username: form.username,
     name: form.name,
     email: form.email,
-    phone: form.phone || null,
+    phone: form.phone,
     result: form.result || '',
     myEquipment: form.myEquipment || {},
   }
