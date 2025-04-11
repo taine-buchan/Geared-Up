@@ -60,8 +60,8 @@ router.patch('/', validateAccessToken, async (req, res) => {
   } catch (error) {
     logError(error)
     res.status(500).json({ message: 'Unable to find comment in the database' })
-  }
-})
+
+  }})
 
 //DELETE /api/v1/comments/:id
 
