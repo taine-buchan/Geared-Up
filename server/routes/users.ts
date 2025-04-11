@@ -6,7 +6,7 @@ import { logError } from '../logger'
 
 const router = express.Router()
 
-// GET /api/v1/users/:id
+// GET /api/v1/user/:id
 
 router.get('/:id', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
