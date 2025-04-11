@@ -1,3 +1,4 @@
+import { Comment } from '../../models/comments'
 import connection from './connection'
 
 export async function getCommentsByGreatWalkId(id: number) {
@@ -33,6 +34,16 @@ export async function createComment(
     .returning('*')
 }
 
+export async function editCommentsById(updatedComment: Comment) {
+  await connection('comments')
+    .join('users', 'users.id', 'comments.user_id')
+    .join('great_walks', 'great_walks.id', 'comments.great_walk_id')
+    .where('comments.id', updatedComment.id)
+    .update({
+      comment: updatedComment.comment,
+      updated_at: updatedComment.updatedAt,
+    })
+}
 export async function deleteComment(id: number) {
   return await connection('comments').where({ id }).delete()
 }
