@@ -18,7 +18,7 @@ describe('Visiting the great walk page', () => {
       .get(`/api/v1/great-walks/${testId}`)
       .reply(500, 'Error!')
     const screen = renderRoute(`/great-walks/${testId}`)
-    const errorMessage = await screen.findByText(/Error!/)
+    const errorMessage = await screen.findByText(/Something went wrong.../)
     expect(errorMessage).toBeVisible()
   })
 

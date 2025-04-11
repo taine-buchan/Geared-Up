@@ -10,6 +10,47 @@ const router = express.Router()
 // POST /api/v1/user-walks
 // This route is used for both creating and updating a user-walk
 
+// router.post('/', validateAccessToken, async (req, res) => {
+//   const auth0Id = req.auth?.payload.sub
+//   console.log(req.body)
+//   if (!auth0Id) {
+//     res.status(400).json({ message: 'Missing auth0 id' })
+//     return
+//   }
+//   // if no walkID?
+//   try {
+//     if (req.body.length !== undefined) {
+//       console.log('try!')
+
+//       const newData = req.body.map((walk: UserWalkData) => ({
+//         user_id: auth0Id,
+//         great_walk_id: walk.greatWalkId,
+//         is_complete: walk.isComplete,
+//         is_planned: walk.isPlanned,
+//       }))
+//       console.log('New Data: ', newData)
+
+//       await db.addUserWalk(newData)
+//       res.sendStatus(201)
+//     } else {
+//       const walk = req.body
+//       const snakeWalk = {
+//         user_id: auth0Id,
+//         great_walk_id: walk.greatWalkId,
+//         is_complete: walk.isComplete,
+//         is_planned: walk.isPlanned,
+//       }
+//       await db.addUserWalk(snakeWalk)
+//       res.sendStatus(201)
+//     }
+//   } catch (e) {
+//     logError(e)
+//     res
+//       .status(500)
+//       .json({ message: 'Unable to insert new User Walk into Database' })
+//   }
+// })
+
 router.post('/', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   console.log(req.body)
@@ -17,32 +58,40 @@ router.post('/', validateAccessToken, async (req, res) => {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
   }
-  // if no walkID?
   try {
-    if (req.body.length !== undefined) {
-      console.log('try!')
+    const newData = req.body.map((walk: UserWalkData) => ({
+      user_id: auth0Id,
+      great_walk_id: walk.greatWalkId,
+      is_complete: true,
+      is_planned: false,
+    }))
 
-      const newData = req.body.map((walk: UserWalkData) => ({
-        user_id: auth0Id,
-        great_walk_id: walk.greatWalkId,
-        is_complete: walk.isComplete,
-        is_planned: walk.isPlanned,
-      }))
-      console.log('New Data: ', newData)
+    await db.addUserWalk(newData)
+    res.sendStatus(201)
+  } catch (e) {
+    logError(e)
+    res
+      .status(500)
+      .json({ message: 'Unable to insert new User Walk into Database' })
+  }
+})
 
-      await db.addUserWalk(newData)
-      res.sendStatus(201)
-    } else {
-      const walk = req.body
-      const snakeWalk = {
-        user_id: auth0Id,
-        great_walk_id: walk.greatWalkId,
-        is_complete: walk.isComplete,
-        is_planned: walk.isPlanned,
-      }
-      await db.addUserWalk(snakeWalk)
-      res.sendStatus(201)
+router.post('/', validateAccessToken, async (req, res) => {
+  const auth0Id = req.auth?.payload.sub
+  if (!auth0Id) {
+    res.status(400).json({ message: 'Missing auth0 id' })
+    return
+  }
+  try {
+    const walk = req.body
+    const snakeWalk = {
+      user_id: auth0Id,
+      great_walk_id: walk.greatWalkId,
+      is_complete: false,
+      is_planned: true,
     }
+    await db.addUserWalk(snakeWalk)
+    res.sendStatus(201)
   } catch (e) {
     logError(e)
     res

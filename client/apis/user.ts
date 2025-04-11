@@ -8,7 +8,6 @@ export async function getUser(token: string): Promise<UserData | undefined> {
       .get('/api/v1/user')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
-    console.log('api', token)
     return res.body
   } catch (error) {
     if (error instanceof Error) {
