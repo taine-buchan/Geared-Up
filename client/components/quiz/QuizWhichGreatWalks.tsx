@@ -3,6 +3,7 @@ import LoadingIndicator from '../LoadingIndicator'
 import { useGreatWalks } from '../../hooks/useGreatWalks'
 import { useState } from 'react'
 import { useUpsertUserWalks } from '../../hooks/useUpsertUserWalks'
+import ErrorComponent from '../ErrorComponent'
 
 export interface SelectedWalkData {
   greatWalkId: number
@@ -27,8 +28,7 @@ export default function QuizWhichGreatWalks() {
   ])
 
   if (isLoading) return <LoadingIndicator />
-  if (!greatWalks) return <p>Something happened, try refreshing</p>
-  if (isError) return <p>Error!</p>
+  if (isError || !greatWalks) return <ErrorComponent />
 
   const greatWalk = greatWalks.map((walk) => {
     return { walkId: walk.id, walkName: walk.name }
@@ -42,7 +42,6 @@ export default function QuizWhichGreatWalks() {
       const isExisting = prevSelectedWalk.find(
         (greatWalk) => greatWalk.greatWalkId === walk.walkId,
       )
-
       if (isExisting) {
         return prevSelectedWalk.map((prevWalk) =>
           prevWalk.greatWalkId === walk.walkId
@@ -60,8 +59,6 @@ export default function QuizWhichGreatWalks() {
         ]
       }
     })
-
-    console.log(selectedWalks)
   }
 
   const handleSubmit = () => {
