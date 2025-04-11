@@ -33,7 +33,6 @@ export default function QuizWhichGreatWalks() {
 
   const [greatWalkId, setGreatWalkId] = useState<number | null>(null)
   const mutation = useUpsertUserWalks()
-  // what is the information that the back end is expecting? (database).
 
   const [selectedWalks, setSelectedWalks] = useState<SelectedWalkData[]>({
     userId: userId,
@@ -41,7 +40,6 @@ export default function QuizWhichGreatWalks() {
     isCompleted: true,
   })
 
-  //handle toggle
   if (isLoading) return <LoadingIndicator />
   if (!greatWalks) return <p>Something happened, try refreshing</p>
   if (isError) return <p>Error!</p>
@@ -60,15 +58,15 @@ export default function QuizWhichGreatWalks() {
     }
   }
 
-  const handleToggle = (walk: WalkData) => {
-    //we set the state, it updates the state with previous state.
+  // const handleToggle = (walk: WalkData) => {
+  //   //we set the state, it updates the state with previous state.
 
-    setSelectedWalks((prevSelectedWalks) => [
-      ...prevSelectedWalks,
-      { greatWalkId: walk.walkId, isComplete: true, isPlanned: false },
-    ])
-    console.log(selectedWalks)
-  }
+  //   setSelectedWalks((prevSelectedWalks) => [
+  //     ...prevSelectedWalks,
+  //     { greatWalkId: walk.walkId, isComplete: true, isPlanned: false },
+  //   ])
+  //   console.log(selectedWalks)
+  // }
 
   const handleSubmit = () => {
     // gives the form data to the custom hook :)
