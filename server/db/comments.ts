@@ -14,3 +14,7 @@ export async function getCommentsByGreatWalkId(id: number) {
       'updated_at as updatedAt',
     )
 }
+
+export async function deleteComment(id: number) {
+  return await connection('comments').where({ id }).delete()
+}
