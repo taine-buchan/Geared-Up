@@ -12,8 +12,6 @@ router.post('/', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   const form = req.body
 
-  console.log('User Auth ID, server', auth0Id)
-
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
@@ -24,7 +22,6 @@ router.post('/', validateAccessToken, async (req, res) => {
     return
   }
 
-  console.log('Received user form  data:', JSON.stringify(form, null, 2))
   const profile = {
     id: auth0Id,
     username: form.username,

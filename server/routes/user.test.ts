@@ -8,7 +8,7 @@ import { User } from '../../models/user'
 vi.mock('../db/users')
 vi.mock('../logger.ts')
 
-describe('POST /api/v1/users', () => {
+describe('POST /api/v1/user', () => {
   it('should return 201 when creating a new profile', async () => {
     const equip = {
       backpack: false,
