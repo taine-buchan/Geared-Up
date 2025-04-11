@@ -1,11 +1,11 @@
 import { vi, describe, it, expect } from 'vitest'
 import request from 'supertest'
 import server from '../server'
-import * as db from '../db/users'
+import * as db from '../db/user'
 import { getMockToken } from './mockToken'
 import { User } from '../../models/user'
 
-vi.mock('../db/users')
+vi.mock('../db/user')
 vi.mock('../logger.ts')
 
 describe('POST /api/v1/user', () => {
