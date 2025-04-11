@@ -24,6 +24,25 @@ router.get('/:id', validateAccessToken, async (req, res) => {
   }
 })
 
+// POST: /api/v1/comments
+router.post('/', validateAccessToken, async (req, res) => {
+  const { greatWalkId, comment } = req.body
+  const userId = req.auth?.sub // this is coming from the header we set in the client/apis/ratings.ts request
+  console.log('userId route', userId)
+
+  if (!userId) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }
+  try {
+    const newComment = await db.createComment(Number(Id), comment, userId)
+    res.status(201).json({ newComment })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Oops could not create comment' })
+  }
+})
+
 //DELETE /api/v1/comments/:id
 
 router.delete('/:id', async (req, res, next) => {
