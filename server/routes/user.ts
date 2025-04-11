@@ -3,6 +3,7 @@ import * as db from '../db/user.ts'
 
 import { validateAccessToken } from '../auth0'
 import { logError } from '../logger.ts'
+import { UserData } from '../../models/user.ts'
 
 const router = express.Router()
 
@@ -28,8 +29,8 @@ router.get('/', validateAccessToken, async (req, res) => {
 // POST /api/v1/user
 // this route is used for both creating and updating a user
 router.post('/', validateAccessToken, async (req, res) => {
-  const auth0Id = req.auth?.payload.sub
-  const form = req.body
+  const auth0Id: string | undefined = req.auth?.payload.sub
+  const form: UserData = req.body
 
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })

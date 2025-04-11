@@ -3,14 +3,14 @@ import request from 'supertest'
 import server from '../server'
 import * as db from '../db/user'
 import { getMockToken } from './mockToken'
-import { User } from '../../models/user'
+import { JustEquipment, User } from '../../models/user'
 
 vi.mock('../db/user')
 vi.mock('../logger.ts')
 
 describe('POST /api/v1/user', () => {
   it('should return 201 when creating a new profile', async () => {
-    const equip = {
+    const equip: JustEquipment = {
       backpack: false,
       waterproofPackLiner: false,
       sleepingBag: false,

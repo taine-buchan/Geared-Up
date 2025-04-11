@@ -1,6 +1,6 @@
 import connection from './connection.ts'
 
-import { User, UserSC } from '../../models/user.ts'
+import { User, UserDBRawRecord, UserSC } from '../../models/user.ts'
 
 export async function upsertProfile(profile: UserSC) {
   await connection('users')
@@ -12,7 +12,7 @@ export async function upsertProfile(profile: UserSC) {
       phone: profile.phone,
       result: profile.result,
       my_equipment: JSON.stringify(profile.my_equipment, null, 2),
-    })
+    } as UserDBRawRecord)
     .onConflict('id') // assumes id is the primary or unique key
     .merge()
 }
