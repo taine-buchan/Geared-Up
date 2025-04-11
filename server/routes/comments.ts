@@ -3,6 +3,7 @@ import * as db from '../db/comments.ts'
 
 import { validateAccessToken } from '../auth0'
 import { logError } from '../logger.ts'
+import { CommentData } from '../../models/comments.ts'
 
 const router = express.Router()
 // GET /api/v1/comments/:id
@@ -24,22 +25,23 @@ router.get('/:id', validateAccessToken, async (req, res) => {
 
 // POST: /api/v1/comments
 router.post('/', validateAccessToken, async (req, res) => {
-  const { greatWalkId, comment, createdAt, updatedAt } = req.body
-  const userId = req.auth?.payload.sub // this is coming from the header we set in the client/apis/ratings.ts request
+  const { greatWalkId, comment } = req.body
+  const userId = req.auth?.payload.sub
   console.log('greatWalk route', greatWalkId)
 
   if (!userId) {
     console.error('No auth0Id')
     return res.status(401).send('Unauthorized')
   }
+
+  const commentInfo: CommentData = {
+    userId,
+    greatWalkId,
+    comment,
+  }
+
   try {
-    const newComment = await db.createComment(
-      userId,
-      greatWalkId,
-      comment,
-      createdAt,
-      updatedAt,
-    )
+    const newComment = await db.createComment(commentInfo)
     res.status(201).json({ newComment })
   } catch (error) {
     console.error(error)
@@ -60,8 +62,8 @@ router.patch('/', validateAccessToken, async (req, res) => {
   } catch (error) {
     logError(error)
     res.status(500).json({ message: 'Unable to find comment in the database' })
-
-  }})
+  }
+})
 
 //DELETE /api/v1/comments/:id
 

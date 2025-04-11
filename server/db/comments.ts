@@ -1,4 +1,4 @@
-import { Comment } from '../../models/comments'
+import { Comment, CommentData } from '../../models/comments'
 import connection from './connection'
 
 export async function getCommentsByGreatWalkId(id: number) {
@@ -15,21 +15,14 @@ export async function getCommentsByGreatWalkId(id: number) {
       'updated_at as updatedAt',
     )
 }
-export async function createComment(
-  userId: string,
-  greatWalkId: number,
-  comment: string,
-  createdAt: number,
-  updatedAt: number,
-  db = connection,
-) {
-  return await db('comments')
+export async function createComment(commentInfo: CommentData) {
+  return await connection('comments')
     .insert({
-      user_id: userId,
-      great_walk_id: greatWalkId,
-      comment_text: comment,
-      created_at: Date.now(),
-      updated_at: Date.now(),
+      user_id: commentInfo.userId,
+      great_walk_id: commentInfo.greatWalkId,
+      comment: commentInfo.comment,
+      created_at: new Date(),
+      updated_at: new Date(),
     })
     .returning('*')
 }
@@ -43,8 +36,8 @@ export async function editCommentsById(updatedComment: Comment) {
       comment: updatedComment.comment,
       updated_at: updatedComment.updatedAt,
     })
-  }
-  
+}
+
 export async function deleteComment(id: number) {
   return await connection('comments').where({ id }).delete()
 }
