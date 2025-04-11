@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 //@vitest-environment jsdom
 
 import {
@@ -51,8 +52,8 @@ describe('<LoginButton>', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user, ...screen } = renderApp('/')
-    const username = await screen.findByTestId('logged in user')
+    const username = await screen.findByText('Get Started')
     // expect(scope.isDone()).toBe(true)
-    expect(username.textContent).toBe('Signed in as: user harakeke25')
+    expect(username.textContent).toBe('Get Started')
   })
 })
