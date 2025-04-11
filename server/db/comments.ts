@@ -28,3 +28,7 @@ export async function addNewByGreatWalkId(
     })
     .returning('id')
 }
+
+export async function deleteComment(id: number) {
+  return await connection('comments').where({ id }).delete()
+}
