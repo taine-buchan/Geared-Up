@@ -1,10 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import Button from './Button.tsx'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
+import Button from './Button.tsx'
 
 function LoginButton() {
   const { user, logout, loginWithRedirect } = useAuth0()
-  console.log(user)
 
   const handleSignOut = () => {
     console.log('sign out')
@@ -14,8 +13,8 @@ function LoginButton() {
 
   const handleSignIn = () => {
     console.log('sign in')
-
     loginWithRedirect()
+   
   }
 
   return (
@@ -28,7 +27,7 @@ function LoginButton() {
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Button onClick={handleSignIn}>
-          <img src="/icons/your-icon.svg" alt="Icon" className="w-6 h-6" />
+          <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
         </Button>
       </IfNotAuthenticated>
     </>

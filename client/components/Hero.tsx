@@ -1,6 +1,14 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 
 export default function Hero() {
+  const { user, loginWithRedirect } = useAuth0()
+  const handleSignIn = () => {
+    console.log('sign in')
+
+    loginWithRedirect()
+  }
+
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">
@@ -14,15 +22,16 @@ export default function Hero() {
           <h1 className="text-3xl lg:text-6xl md:text-5xl max-w-xl m-6">
             Take the quiz and gear up for your Great Walk
           </h1>
-          <div className="mt-4 ">
-            <button>
-              <Link
-                to="/login-button"
-                className="button bg-[#d0f7a2] hover:bg-[#000000] text-blue-950 hover:text-[#d0f7a2] font-medium py-3 shadow-sm transition-colors drop-shadow"
-              >
-                Get Started
+          <div className="py-6">
+            {user ? (
+              <Link to={`/user/${user.sub}`} className="button">
+                Kia Ora! {user.name}
               </Link>
-            </button>
+            ) : (
+              <button onClick={handleSignIn} className="button">
+                Get Started
+              </button>
+            )}
           </div>
 
           <p className="text-l md:text-2xl m-6 py-6 font-extralight flex">
