@@ -14,7 +14,7 @@ describe('Visiting the great walks page', () => {
   it('shows an error message when server failed', async () => {
     nock('http://localhost').get('/api/v1/great-walks').reply(500, 'Error!')
     const screen = renderRoute('/great-walks')
-    const errorMessage = await screen.findByText(/Error!/)
+    const errorMessage = await screen.findByText(/Something went wrong.../)
     expect(errorMessage).toBeVisible()
   })
 
