@@ -25,6 +25,7 @@ router.get('/:id', validateAccessToken, async (req, res) => {
 })
 
 //DELETE /api/v1/comments/:id
+
 router.delete('/:id', async (req, res, next) => {
   try {
     const id = Number(req.params.id)
