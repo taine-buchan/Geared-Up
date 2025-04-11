@@ -38,6 +38,8 @@ router.post('/', validateAccessToken, async (req, res) => {
     userId,
     greatWalkId,
     comment,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   }
 
   try {
