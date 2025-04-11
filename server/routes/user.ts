@@ -10,7 +10,6 @@ const router = express.Router()
 
 router.get('/', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
-  console.log('authId server', auth0Id)
 
   if (!auth0Id) {
     res.status(400).json({ message: 'Please provide an id' })
