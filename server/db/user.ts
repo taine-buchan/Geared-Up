@@ -90,3 +90,7 @@ export async function getUser(id: string) {
 
   return userWithParsedEquipment as User
 }
+
+export function getCommentsByGreatWalkId(id: string) {
+  throw new Error('Function not implemented.')
+}

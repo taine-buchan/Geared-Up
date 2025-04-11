@@ -4,7 +4,7 @@ export async function up(knex) {
     table.string('user_id').references('users.id')
     table.integer('great_walk_id').references('great_walks.id')
     table.timestamps()
-    table.string('comments')
+    table.string('comment')
   })
 }
 
