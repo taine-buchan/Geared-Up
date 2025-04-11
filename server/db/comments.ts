@@ -25,7 +25,8 @@ export async function editCommentsById(updatedComment: Comment) {
       comment: updatedComment.comment,
       updated_at: updatedComment.updatedAt,
     })
-}
+  }
+  
 export async function deleteComment(id: number) {
   return await connection('comments').where({ id }).delete()
 }

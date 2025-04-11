@@ -16,9 +16,9 @@ router.get('/', validateAccessToken, async (req, res) => {
     res.status(400).json({ message: 'Please provide an id' })
     return
   }
-
   try {
     const user = await db.getUser(auth0Id)
+    console.log(user)
     res.status(200).json(user)
   } catch (error) {
     logError(error)
