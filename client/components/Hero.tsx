@@ -10,16 +10,6 @@ export default function Hero() {
     loginWithRedirect()
   }
 
-  // const quizButton = existingUserData && user ? (
-  //   <Link to={`/user/${user.sub}`} className="button">
-  //     Kia Ora! {user.name}
-  //   </Link>
-  // ) : (
-  //   <Link to={`/quiz-outlet`} className="button">
-  //     Go to survey!
-  //   </Link>
-  // )
-
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">
@@ -34,9 +24,11 @@ export default function Hero() {
             Take the quiz and gear up for your Great Walk
           </h1>
           <div className="py-6">
-            {user ? (<Link to={`/user`} className="button">
-      Kia Ora! {user.name}
-    </Link>) : (
+            {user ? (
+              <Link to={`/user`} className="button">
+                Kia Ora! {user.name}
+              </Link>
+            ) : (
               <button onClick={handleSignIn} className="button">
                 Get Started
               </button>
