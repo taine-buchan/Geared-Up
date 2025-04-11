@@ -17,7 +17,7 @@ export async function getCommentsByGreatWalkId(id: number) {
 }
 
 export async function editCommentsById(updatedComment: Comment) {
-   await connection('comments')
+  await connection('comments')
     .join('users', 'users.id', 'comments.user_id')
     .join('great_walks', 'great_walks.id', 'comments.great_walk_id')
     .where('comments.id', updatedComment.id)
@@ -25,6 +25,7 @@ export async function editCommentsById(updatedComment: Comment) {
       comment: updatedComment.comment,
       updated_at: updatedComment.updatedAt,
     })
+}
 export async function deleteComment(id: number) {
   return await connection('comments').where({ id }).delete()
 }
