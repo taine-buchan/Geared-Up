@@ -17,7 +17,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 export interface SelectedWalkData {
   greatWalkId: number
-  isComplete: boolean
+  isCompleted: boolean
   isPlanned: boolean
 }
 
@@ -26,20 +26,15 @@ interface WalkData {
   walkName: string
 }
 export default function QuizWhichGreatWalks() {
-  const user = useAuth0()
-  const userId = user.user?.sub
-
   const { data: greatWalks, isLoading, isError } = useGreatWalks()
-
-  const [greatWalkId, setGreatWalkId] = useState<number | null>(null)
   const mutation = useUpsertUserWalks()
   // what is the information that the back end is expecting? (database).
 
-  const [selectedWalks, setSelectedWalks] = useState<SelectedWalkData[]>({
-    userId: userId,
-    greatWalkId: greatWalkId,
+  const [selectedWalks, setSelectedWalks] = useState<SelectedWalkData[]>([{
+    greatWalkId: 0,
     isCompleted: true,
-  })
+    isPlanned: false
+  }])
 
   //handle toggle
   if (isLoading) return <LoadingIndicator />
@@ -51,15 +46,22 @@ export default function QuizWhichGreatWalks() {
     return { walkId: walk.id, walkName: walk.name }
   })
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    walkId: number,
-  ) => {
-    if (event.target.value) {
-      setGreatWalkId(walkId)
-    }
-  }
+  // const handleChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   walkId: number,
+  // ) => {
+  //   if (event.target.value) {
+  //     setGreatWalkId(walkId)
+  //   }
+  // }
 
+
+//---To check if the check box is checked or no, you can use event.target,checked in handleToggle
+//---You dont need useState for greatWalkId or isCompleted. you can find all of data(only greatWalkId and isCompleted, not userId and isPlanned) from handle toggle
+//---It takes event and walk as parameters
+//---To filter the data to submit, you might want to check specific greatWalkId data is already exist in selectedWalks array. use arr.find first to see the specific greatWalkId exist in the array
+//---And use spread syntex and add whatever data you need, but make sure you return an array in setSelectedWalks
+//---I just deleted few functions that you dont need here. I made seperate branch f/14/display-quiz-daisy and its working there. If you are not really sure, you can take a look! But I believe you can do it!!!!!!!
   const handleToggle = (walk: WalkData) => {
     //we set the state, it updates the state with previous state.
 
@@ -70,6 +72,8 @@ export default function QuizWhichGreatWalks() {
     console.log(selectedWalks)
   }
 
+  //---handleSubmit should work in form with onSubmit={handleSubmit}
+  //---You dont need to add any more code here, its enough with mutaion.
   const handleSubmit = () => {
     // gives the form data to the custom hook :)
 
@@ -95,7 +99,7 @@ export default function QuizWhichGreatWalks() {
                   id={`${walk.walkName.toLowerCase()}-checkbox`}
                   type="checkbox"
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  onChange={(event) => handleChange(event, walk.walkId)}
+                  onChange={(event) => handleToggle(event, walk.walkId)}
                 />
                 <label
                   htmlFor={`${walk.walkName.toLowerCase()}-checkbox`}
