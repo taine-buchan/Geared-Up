@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 export default function QuizFitnessLevel() {
+  //
   return (
     <div>
       <h3 className="mb-4 text-4xl text-center">Personal Equipment:</h3>

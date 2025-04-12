@@ -83,7 +83,6 @@ export async function getUser(id: string) {
   if (!user) {
     throw new Error(`User with id ${id} not found`)
   }
-  console.log(user)
   const parsedEquipment = JSON.parse(user.my_equipment)
 
   const userWithParsedEquipment = {

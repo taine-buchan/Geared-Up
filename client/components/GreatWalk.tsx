@@ -3,6 +3,7 @@ import { useGreatWalkById } from '../hooks/useGreatWalks'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorComponent from './ErrorComponent'
 import { useGetUser } from '../hooks/useUser'
+import Comments from './Comments'
 
 export default function GreatWalk() {
   const { id } = useParams()
@@ -14,7 +15,7 @@ export default function GreatWalk() {
   } = useGetUser()
 
   if (isLoading || existingUserLoading) return <LoadingIndicator />
-  if (isError || existingUserError) return <ErrorComponent />
+  if (isError || existingUserError || !id) return <ErrorComponent />
   if (greatWalk) {
     const obj = Object.entries(greatWalk.requiredEquipment)
     const requiredEquipment = obj.filter((arr) => {
@@ -72,7 +73,7 @@ export default function GreatWalk() {
               </Link>
             </div>
           </div>
-          {/* <div>
+          <div>
             <h1 className="text-[30px] font-bold mb-4">Required Equipment</h1>
             {requiredEquipment.map((item) => (
               <button
@@ -82,7 +83,7 @@ export default function GreatWalk() {
                 {item[0]}
               </button>
             ))}
-          </div> */}
+          </div>
 
           <div className="grid grid-cols-2 gap-2">
             {obj.map(([key, value]) => (
@@ -106,6 +107,7 @@ export default function GreatWalk() {
                 </span>
               </label>
             ))}
+            <Comments id={greatWalk.id} />
           </div>
         </div>
       </div>
