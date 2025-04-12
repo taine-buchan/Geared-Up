@@ -1,6 +1,6 @@
 export interface Comment {
   id: number
-  userId: string
+  username: string
   greatWalkId: number
   comment: string
   createdAt: number
