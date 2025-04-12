@@ -2,13 +2,19 @@ import { Link, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorComponent from './ErrorComponent'
+import { useGetUser } from '../hooks/useUser'
 
 export default function GreatWalk() {
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
+  const {
+    data: existingUserData,
+    isLoading: existingUserLoading,
+    isError: existingUserError,
+  } = useGetUser()
 
-  if (isLoading) return <LoadingIndicator />
-  if (isError) return <ErrorComponent />
+  if (isLoading || existingUserLoading) return <LoadingIndicator />
+  if (isError || existingUserError) return <ErrorComponent />
   if (greatWalk) {
     const obj = Object.entries(greatWalk.requiredEquipment)
     const requiredEquipment = obj.filter((arr) => {
@@ -16,6 +22,10 @@ export default function GreatWalk() {
         return arr[0]
       }
     })
+
+    if (existingUserData) {
+      console.log('user equipment', existingUserData.myEquipment)
+    }
     return (
       <div className="flex items-center justify-center mt-10">
         <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10  mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
@@ -62,7 +72,7 @@ export default function GreatWalk() {
               </Link>
             </div>
           </div>
-          <div>
+          {/* <div>
             <h1 className="text-[30px] font-bold mb-4">Required Equipment</h1>
             {requiredEquipment.map((item) => (
               <button
@@ -71,6 +81,30 @@ export default function GreatWalk() {
               >
                 {item[0]}
               </button>
+            ))}
+          </div> */}
+
+          <div className="grid grid-cols-2 gap-2">
+            {obj.map(([key, value]) => (
+              <label
+                key={key}
+                className="flex items-center gap-2 p-2 bg-white/10 rounded-md"
+              >
+                <input
+                  type="checkbox"
+                  checked={value}
+                  disabled
+                  className="accent-blue-500 scale-150"
+                />
+
+                <span
+                  className={
+                    value ? 'font-medium' : 'text-gray-400 line-through'
+                  }
+                >
+                  {key}
+                </span>
+              </label>
             ))}
           </div>
         </div>
