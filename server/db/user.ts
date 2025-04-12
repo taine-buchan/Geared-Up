@@ -20,11 +20,12 @@ export async function upsertProfile(profile: UserSC) {
 export async function getUser(id: string) {
   const user = await connection('users')
     .where('id', id)
-    .select('id', 'username', 'name', 'email', 'phone', 'my_equipment').first()
-    if (!user) {
-      throw new Error(`User with id ${id} not found`)
-    }
-console.log(user)
+    .select('id', 'username', 'name', 'email', 'phone', 'my_equipment')
+    .first()
+  if (!user) {
+    throw new Error(`User with id ${id} not found`)
+  }
+
   const parsedEquipment = JSON.parse(user.my_equipment)
 
   const userWithParsedEquipment = {
