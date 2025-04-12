@@ -25,6 +25,8 @@ router.get('/:id', validateAccessToken, async (req, res) => {
 
 // POST: /api/v1/comments
 router.post('/', validateAccessToken, async (req, res) => {
+  console.log('I should see this')
+
   const { greatWalkId, comment } = req.body
   const userId = req.auth?.payload.sub
   console.log('greatWalk route', greatWalkId)
