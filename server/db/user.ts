@@ -56,17 +56,6 @@ export async function upsertProfile(profile: Partial<UserSC>) {
   await connection('users').insert(insertData).onConflict('id').merge(mergeData)
 }
 
-export async function updateUserEquipment(
-  auth0Id: string,
-  equipment: Record<string, boolean>
-) {
-  await connection('users')
-    .where({ id: auth0Id })
-    .update({
-      my_equipment: JSON.stringify(equipment, null, 2), // Convert the equipment object to JSON string
-    })
-}
-
 export async function getUser(id: string) {
   const user = await connection('users')
     .where('id', id)
