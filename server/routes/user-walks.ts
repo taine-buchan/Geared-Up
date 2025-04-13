@@ -3,7 +3,7 @@ import * as db from '../db/user-walks'
 
 import { validateAccessToken } from '../auth0'
 import { logError } from '../logger'
-import { UserWalkData, UserWalkDataDB } from '../../models/user_walk'
+import { UserWalkDataDB } from '../../models/user_walk'
 
 const router = express.Router()
 
@@ -51,7 +51,7 @@ const router = express.Router()
 //   }
 // })
 
-router.post('/', validateAccessToken, async (req, res) => {
+router.post('/completed', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   console.log(req.body)
   if (!auth0Id) {
@@ -59,12 +59,14 @@ router.post('/', validateAccessToken, async (req, res) => {
     return
   }
   try {
-    const newData: UserWalkDataDB[] = req.body.map((walk: UserWalkData) => ({
-      user_id: auth0Id,
-      great_walk_id: walk.greatWalkId,
-      is_complete: true,
-      is_planned: false,
-    }))
+    const newData: UserWalkDataDB[] = req.body.greatWalkIds.map(
+      (great_walk_id: number) => ({
+        user_id: auth0Id,
+        great_walk_id,
+        is_complete: true,
+        is_planned: false,
+      }),
+    )
 
     await db.addUserWalk(newData)
     res.sendStatus(201).json({ message: 'User Walk created successfully' })
@@ -76,22 +78,21 @@ router.post('/', validateAccessToken, async (req, res) => {
   }
 })
 
-router.post('/', validateAccessToken, async (req, res) => {
+router.post('/planned', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
   }
   try {
-    const walk: UserWalkData = req.body
     const snakeWalk: UserWalkDataDB = {
       user_id: auth0Id,
-      great_walk_id: walk.greatWalkId,
+      great_walk_id: req.body.walkId,
       is_complete: false,
       is_planned: true,
     }
     await db.addUserWalk(snakeWalk)
-    res.sendStatus(201)
+    res.sendStatus(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
@@ -103,7 +104,7 @@ router.post('/', validateAccessToken, async (req, res) => {
 router.patch('/:id', validateAccessToken, async (req, res) => {
   const id = Number(req.params.id)
   const auth0Id = req.auth?.payload.sub
-  const { greatWalkId, isComplete, isPlanned } = req.body
+  const { greatWalkId } = req.body
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
@@ -112,8 +113,8 @@ router.patch('/:id', validateAccessToken, async (req, res) => {
     const walk: UserWalkDataDB = {
       user_id: auth0Id,
       great_walk_id: greatWalkId,
-      is_complete: !isComplete,
-      is_planned: !isPlanned,
+      is_complete: true, // Can make this a flip if we need this to be reusable, e.g. !req.body.isComplete
+      is_planned: false,
     }
     await db.editUserWalk(id, walk)
     res.status(200).json({ message: 'User Walk updated successfully' })
