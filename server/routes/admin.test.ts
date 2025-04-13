@@ -1,6 +1,7 @@
 import request from 'supertest'
 import server from '../server'
-import { getMockToken } from '../server/routes/mockToken'
+import { test, expect } from 'vitest'
+import { getMockToken } from './mockToken'
 
 test('GET /api/v1/admin/all-users as admin', async () => {
   const token = getMockToken('admin') // you can add `role` to the mock payload

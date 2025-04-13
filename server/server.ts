@@ -5,7 +5,7 @@ import walksRoutes from './routes/great-walks.ts'
 import userRoutes from './routes/user.ts'
 import userWalksRoutes from './routes/user-walks.ts'
 import commentsRoutes from './routes/comments.ts'
-import adminRoutes from './admin.ts'
+import adminRoutes from './routes/admin.ts'
 const server = express()
 
 server.use(express.json())

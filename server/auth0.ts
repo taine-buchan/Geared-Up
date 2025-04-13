@@ -1,6 +1,6 @@
 import { auth } from 'express-oauth2-jwt-bearer'
-// import * as jose from 'jose'
-// import express from 'express'
+import * as jose from 'jose'
+import express, { NextFunction } from 'express'
 import * as oidc from 'express-openid-connect'
 import dotenv from 'dotenv'
 
@@ -9,7 +9,7 @@ dotenv.config()
 export const oidcConfig: oidc.ConfigParams = {
   authorizationParams: {
     response_type: 'code',
-    scope: 'openid profile email create:orders update:users',
+    scope: 'openid',
     audience: process.env.VITE_AUTH0_AUDIENCE,
   },
   authRequired: false,
@@ -22,7 +22,7 @@ export const oidcConfig: oidc.ConfigParams = {
   secret: 'LONG_RANDOM_STRING',
   routes: {
     login: false,
-    postLogoutRedirect: '/moderator/home',
+    postLogoutRedirect: '/',
   },
 }
 
@@ -33,37 +33,35 @@ const authConfig = {
 
 export const validateAccessToken = auth(authConfig)
 
-//This is some stuff needed for p3
+export function requiresPermission(requiredPermission: string) {
+  console.log('requiresPErmish')
+  return (req: express.Request, res: express.Response, next: NextFunction) => {
+    // Safely extract the access token
+    const accessToken =
+      req.oidc && req.oidc.accessToken
+        ? req.oidc.accessToken.access_token
+        : null
 
-// export function requiresPermission(requiredPermission: string) {
-//   return (
-//     req: express.Request,
-//     res: express.Response,
-//     next: express.NextFunction,
-//   ) => {
-//     // Safely extract the access token
-//     const accessToken =
-//       req.oidc && req.oidc.accessToken
-//         ? req.oidc.accessToken.access_token
-//         : null
+    if (!accessToken || typeof accessToken !== 'string') {
+      console.log('pre try', accessToken)
+      return res.status(403).send('Forbidden: no or invalid access token')
+    }
 
-//     if (!accessToken || typeof accessToken !== 'string') {
-//       return res.status(403).send('Forbidden: no or invalid access token')
-//     }
+    try {
+      console.log('try block auth0', accessToken)
 
-//     try {
-//       const decoded = jose.decodeJwt(accessToken) as { permissions: string[] }
-//       const permissions = decoded && (decoded.permissions || [])
+      const decoded = jose.decodeJwt(accessToken) as { permissions: string[] }
+      const permissions = decoded && (decoded.permissions || [])
+      console.log('try permissions', permissions)
+      if (!permissions.includes(requiredPermission)) {
+        return res.status(403).send('Forbidden: insufficient scope')
+      }
 
-//       if (!permissions.includes(requiredPermission)) {
-//         return res.status(403).send('Forbidden: insufficient scope')
-//       }
-
-//       next()
-//     } catch (err) {
-//       if (err instanceof Error) {
-//         return res.status(403).send(`Forbidden: invalid token (${err.message})`)
-//       }
-//     }
-//   }
-// }
+      next()
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(403).send(`Forbidden: invalid token (${err.message})`)
+      }
+    }
+  }
+}
