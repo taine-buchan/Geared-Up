@@ -7,16 +7,15 @@ import { getMockToken } from './mockToken'
 vi.mock('../db/comments')
 vi.mock('../logger.ts')
 
-
 describe('Get a comments by great walk id', () => {
   it('should return 200 with the correct comments', async () => {
     const fakeComment = {
       id: 3,
-      username: "fake-username",
+      username: 'fake-username',
       greatWalkId: 1,
-      comment: "fake-comment",
+      comment: 'fake-comment',
       createdAt: 2222,
-      updatedAt: 1111
+      updatedAt: 1111,
     }
 
     vi.mocked(db.getCommentsByGreatWalkId).mockResolvedValue([fakeComment])
@@ -28,16 +27,42 @@ describe('Get a comments by great walk id', () => {
   })
 })
 
+describe('add comment', () => {
+  it('should return 201 when succesfully added', async () => {
+    const fakeComment = {
+      userId: 3,
+      greatWalkId: 1,
+      comment: 'fake-comment',
+      createdAt: 2222,
+      updatedAt: 1111,
+    }
+
+    vi.mocked(db.createComment).mockResolvedValue([
+      {
+        user_id: fakeComment.userId,
+        great_walk_id: fakeComment.greatWalkId,
+        comment: fakeComment.comment,
+        created_at: fakeComment.createdAt,
+        updated_at: fakeComment.updatedAt,
+      },
+    ])
+    const response = await request(server)
+      .post('/api/v1/comments')
+      .set('authorization', `Bearer ${getMockToken()}`)
+      .send(fakeComment)
+    expect(response.status).toBe(201)
+  })
+})
+
 describe('Update comment by id', () => {
   it('should return 201 when succesfully updated', async () => {
-
     const fakeComment = {
       id: 3,
-      username: "fake-username",
+      username: 'fake-username',
       greatWalkId: 1,
-      comment: "fake-comment",
+      comment: 'fake-comment',
       createdAt: 2222,
-      updatedAt: 1111
+      updatedAt: 1111,
     }
 
     vi.mocked(db.editCommentsById).mockResolvedValue()
@@ -47,7 +72,5 @@ describe('Update comment by id', () => {
       .send(fakeComment)
     expect(response.status).toBe(201)
     expect(response.body.message).toEqual('Comment updated successfully')
-
-
   })
 })

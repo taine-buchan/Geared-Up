@@ -3,11 +3,12 @@ import * as db from '../db/comments.ts'
 
 import { validateAccessToken } from '../auth0'
 import { logError } from '../logger.ts'
+import { CommentData } from '../../models/comments.ts'
 
 const router = express.Router()
 // GET /api/v1/comments/:id
 
-router.get('/:id', validateAccessToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   const id = req.params.id
 
   if (!id) {
@@ -22,6 +23,37 @@ router.get('/:id', validateAccessToken, async (req, res) => {
   }
 })
 
+// POST: /api/v1/comments
+router.post('/', validateAccessToken, async (req, res) => {
+  console.log('I should see this')
+
+  const { greatWalkId, comment } = req.body
+  const userId = req.auth?.payload.sub
+  console.log('greatWalk route', greatWalkId)
+
+  if (!userId) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }
+
+  const commentInfo: CommentData = {
+    userId,
+    greatWalkId,
+    comment,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  }
+
+  try {
+    const newComment = await db.createComment(commentInfo)
+    res.status(201).json({ newComment })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Oops could not create comment' })
+  }
+})
+
+// PATCH: /api/v1/comments
 router.patch('/', validateAccessToken, async (req, res) => {
   const updatedComment = req.body
 
@@ -34,8 +66,8 @@ router.patch('/', validateAccessToken, async (req, res) => {
   } catch (error) {
     logError(error)
     res.status(500).json({ message: 'Unable to find comment in the database' })
-
-  }})
+  }
+})
 
 //DELETE /api/v1/comments/:id
 
