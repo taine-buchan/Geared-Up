@@ -1,4 +1,10 @@
-export function checkAdmin(req, res, next) {
+import { NextFunction, Response } from 'express'
+
+export function checkAdmin(
+  req: Express.Request,
+  res: Response,
+  next: NextFunction,
+) {
   const user = req.auth?.payload
 
   if (!user || user.role !== 'admin') {
