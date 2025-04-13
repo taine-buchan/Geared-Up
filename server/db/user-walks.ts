@@ -3,7 +3,7 @@ import connection from './connection'
 
 //Todo: Make database model for this DB query
 
-export async function addUserWalk(data: UserWalkDataDB) {
+export async function addUserWalk(data: UserWalkDataDB | UserWalkDataDB[]) {
   await connection('user_walks').insert(data)
 }
 

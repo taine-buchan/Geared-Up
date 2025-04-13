@@ -12,6 +12,9 @@ export function useUserWalks(token: string) {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
       navigate(`/user/${token}`)
     },
+    onError: (error) => {
+      console.error('Error adding planning great walk:', error)
+    },
   })
   return mutation
 }

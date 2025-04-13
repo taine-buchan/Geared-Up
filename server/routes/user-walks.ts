@@ -59,7 +59,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     return
   }
   try {
-    const newData = req.body.map((walk: UserWalkData) => ({
+    const newData: UserWalkDataDB[] = req.body.map((walk: UserWalkData) => ({
       user_id: auth0Id,
       great_walk_id: walk.greatWalkId,
       is_complete: true,
@@ -67,7 +67,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     }))
 
     await db.addUserWalk(newData)
-    res.sendStatus(201)
+    res.sendStatus(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
@@ -83,8 +83,8 @@ router.post('/', validateAccessToken, async (req, res) => {
     return
   }
   try {
-    const walk = req.body
-    const snakeWalk = {
+    const walk: UserWalkData = req.body
+    const snakeWalk: UserWalkDataDB = {
       user_id: auth0Id,
       great_walk_id: walk.greatWalkId,
       is_complete: false,
@@ -116,7 +116,7 @@ router.patch('/:id', validateAccessToken, async (req, res) => {
       is_planned: !isPlanned,
     }
     await db.editUserWalk(id, walk)
-    res.sendStatus(201)
+    res.status(200).json({ message: 'User Walk updated successfully' })
   } catch (e) {
     logError(e)
     res.status(500).json({ message: 'Unable to edit this User Walk' })
