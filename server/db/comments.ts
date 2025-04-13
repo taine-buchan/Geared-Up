@@ -21,8 +21,8 @@ export async function createComment(commentInfo: CommentData) {
       user_id: commentInfo.userId,
       great_walk_id: commentInfo.greatWalkId,
       comment: commentInfo.comment,
-      created_at: Date.now(),
-      updated_at: Date.now(),
+      created_at: commentInfo.createdAt,
+      updated_at: commentInfo.updatedAt,
     })
     .returning('*')
 }
