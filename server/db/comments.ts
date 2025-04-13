@@ -1,7 +1,10 @@
 import { Comment, CommentData } from '../../models/comments'
+import { CommentMessage } from '../../models/comments'
 import connection from './connection'
 
-export async function getCommentsByGreatWalkId(id: number) {
+export async function getCommentsByGreatWalkId(
+  id: number,
+): Promise<Comment[] | CommentMessage> {
   return await connection('comments')
     .join('users', 'users.id', 'comments.user_id')
     .join('great_walks', 'great_walks.id', 'comments.great_walk_id')

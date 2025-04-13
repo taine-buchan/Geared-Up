@@ -8,7 +8,7 @@ import { CommentData } from '../../models/comments.ts'
 const router = express.Router()
 // GET /api/v1/comments/:id
 
-router.get('/:id', validateAccessToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   const id = req.params.id
 
   if (!id) {
