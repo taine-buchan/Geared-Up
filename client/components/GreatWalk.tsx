@@ -2,13 +2,14 @@ import { Link, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorComponent from './ErrorComponent'
+import Comments from './Comments'
 
 export default function GreatWalk() {
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
 
   if (isLoading) return <LoadingIndicator />
-  if (isError) return <ErrorComponent />
+  if (isError || !id) return <ErrorComponent />
   if (greatWalk) {
     const obj = Object.entries(greatWalk.requiredEquipment)
     const requiredEquipment = obj.filter((arr) => {
@@ -72,6 +73,7 @@ export default function GreatWalk() {
                 {item[0]}
               </button>
             ))}
+        <Comments id={greatWalk.id}/>
           </div>
         </div>
       </div>
