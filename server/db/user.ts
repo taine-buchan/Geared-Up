@@ -11,6 +11,7 @@ export async function upsertProfile(profile: UserSC) {
       email: profile.email,
       phone: profile.phone,
       result: profile.result,
+      role: profile.role || 'user',
       my_equipment: JSON.stringify(profile.my_equipment, null, 2),
     } as UserDBRawRecord)
     .onConflict('id') // assumes id is the primary or unique key
@@ -20,7 +21,7 @@ export async function upsertProfile(profile: UserSC) {
 export async function getUser(id: string) {
   const user = await connection('users')
     .where('id', id)
-    .select('id', 'username', 'name', 'email', 'phone', 'my_equipment')
+    .select('id', 'username', 'name', 'email', 'phone', 'my_equipment', 'role')
     .first()
   if (!user) {
     throw new Error(`User with id ${id} not found`)
@@ -34,6 +35,7 @@ export async function getUser(id: string) {
     name: user.name,
     email: user.email,
     phone: user.phone,
+    role: user.role,
     myEquipment: {
       backpack: parsedEquipment.backpack,
       waterproofPackLiner: parsedEquipment.waterproof_pack_liner,
