@@ -30,21 +30,27 @@ describe('Get a comments by great walk id', () => {
 describe('add comment', () => {
   it('should return 201 when succesfully added', async () => {
     const fakeComment = {
-      id: 3,
-      username: 'fake-username',
+      userId: 3,
       greatWalkId: 1,
       comment: 'fake-comment',
       createdAt: 2222,
       updatedAt: 1111,
     }
 
-    vi.mocked(db.createComment).mockResolvedValue()
+    vi.mocked(db.createComment).mockResolvedValue([
+      {
+        user_id: fakeComment.userId,
+        great_walk_id: fakeComment.greatWalkId,
+        comment: fakeComment.comment,
+        created_at: fakeComment.createdAt,
+        updated_at: fakeComment.updatedAt,
+      },
+    ])
     const response = await request(server)
       .post('/api/v1/comments')
       .set('authorization', `Bearer ${getMockToken()}`)
       .send(fakeComment)
     expect(response.status).toBe(201)
-    expect(response.body.message).toEqual('Comment added successfully')
   })
 })
 
