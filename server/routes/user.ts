@@ -27,7 +27,7 @@ router.get('/', validateAccessToken, async (req, res) => {
 })
 
 // POST /api/v1/user
-// this route is used for both creating and updating a user
+// this route is used for both creating and updating a user (upsert)
 router.post('/', validateAccessToken, async (req, res) => {
   const auth0Id: string | undefined = req.auth?.payload.sub
   const form: UserData = req.body
@@ -104,7 +104,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     name: form.name,
     email: form.email,
     phone: form.phone,
-    result: form.result || '',
+    result: form.result || form.result != null ? form.result : '',
     my_equipment: snakeEquipment || {},
   }
 
