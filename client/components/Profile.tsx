@@ -11,12 +11,13 @@ export default function Profile() {
   const mutation = useUpsertUser()
 
   if (isLoading) return <LoadingIndicator />
-  if ((!isAuthenticated && !user) || isError || !existingUserData) return <ErrorComponent />
+  if ((!isAuthenticated && !user) || isError || !existingUserData)
+    return <ErrorComponent />
 
   async function handleSubmit(form: UserData) {
     const token = await getAccessTokenSilently()
+    console.log(token)
     mutation.mutate({ form, token })
-    
   }
   return (
     <div>
