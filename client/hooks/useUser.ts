@@ -62,6 +62,7 @@ export function useUpdateUserEquipment() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
+     
     },
     onError: (error) => {
       console.error('Failed to update user equipment:', error)
