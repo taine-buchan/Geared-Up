@@ -55,15 +55,16 @@ nock(`https://${process.env.VITE_AUTH0_DOMAIN}/`)
   .get('/.well-known/jwks.json')
   .reply(200, nockReply)
 
-export const getMockToken = () => {
+export const getMockToken = (role = 'user') => {
   const user = {
-    email: 'member@example.com',
+    email: 'user.harakeke25@example.com',
   }
 
   const payload = {
     nickname: user.email.split('@').shift(),
     name: user.email,
     sub: 'auth0|123',
+    'https://geared-up/role': role,
   }
 
   const options: SignOptions = {

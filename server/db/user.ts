@@ -66,7 +66,8 @@ export async function getUser(id: string) {
       'email',
       'phone',
       'my_equipment',
-      'result'
+      'result',
+      'role',
     )
     .first()
   if (!user) {
@@ -81,6 +82,7 @@ export async function getUser(id: string) {
     email: user.email,
     phone: user.phone,
     result: user.result,
+    role: user.role,
     myEquipment: {
       backpack: parsedEquipment.backpack,
       waterproofPackLiner: parsedEquipment.waterproof_pack_liner,
