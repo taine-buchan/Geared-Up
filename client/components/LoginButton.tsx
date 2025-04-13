@@ -11,11 +11,10 @@ function LoginButton() {
   }
 
   const handleSignIn = () => {
-   if(user) {
-    console.log(user.sub)
-    return navigate(`/user/${user.sub}`)
-   } else loginWithRedirect()
-   
+    if (user) {
+      console.log(user.sub)
+      return navigate(`/user/${user.sub}`)
+    } else loginWithRedirect()
   }
 
   return (
@@ -27,9 +26,9 @@ function LoginButton() {
         )} */}
       </IfAuthenticated>
       {/* <IfNotAuthenticated> */}
-        <Button onClick={handleSignIn}>
-          <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
-        </Button>
+      <Button onClick={handleSignIn}>
+        <img src="/profile_icon.svg" alt="Icon" className="w-12 h-12" />
+      </Button>
       {/* </IfNotAuthenticated> */}
     </>
   )

@@ -35,7 +35,7 @@ export default function Hero() {
             )}
           </div>
 
-          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex">
+          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex ">
             Companion tool for the Great Walks of Aotearoa
           </p>
         </div>

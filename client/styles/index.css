@@ -7,6 +7,11 @@ body {
   margin: 0;
 }
 
+.tracking {
+  letter-spacing: 3px;
+  font-weight: 200;
+}
+
 @layer components {
   .nav {
     @apply max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center;
@@ -25,9 +30,7 @@ body {
   }
 
   .button-square {
-    @apply bg-[#9FFF2E] rounded text-blue-950 text-center self-center px-10 py-2 m-2 font-bold
-    transform transition-all duration-300 ease-in-out 
-    hover:bg-[#d0f7a2] hover:shadow-lg;
+    @apply font-extralight;
   }
 
   .footer {
