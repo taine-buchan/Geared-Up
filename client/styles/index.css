@@ -2,13 +2,14 @@
 
 body {
   color: #d0f7a2;
-  background: linear-gradient(to bottom, #070446 0%, #040328 90%, #05054f 100%);
+  background: linear-gradient(to bottom, #070446 0%, #040328 90%, #070762 100%);
   min-height: 100vh;
   margin: 0;
+  letter-spacing: 2px;
 }
 
 .tracking {
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   font-weight: 200;
 }
 
