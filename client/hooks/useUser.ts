@@ -1,4 +1,4 @@
-import { useAuth0, User } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { JustUserEquipment, UserData } from '../../models/user'
@@ -62,7 +62,6 @@ export function useUpdateUserEquipment() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
-     
     },
     onError: (error) => {
       console.error('Failed to update user equipment:', error)
