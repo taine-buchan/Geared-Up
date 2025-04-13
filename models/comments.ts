@@ -1,6 +1,9 @@
-export interface Comment {
+export interface Comment extends CommentData {
   id: number
-  username: string
+}
+
+export interface CommentData {
+  userId: string
   greatWalkId: number
   comment: string
   createdAt: number
