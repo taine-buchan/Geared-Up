@@ -9,16 +9,9 @@ export function useGetUser() {
   const query = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      console.log('hi! hook here')
-
       const token = await getAccessTokenSilently()
-      console.log('token hook', token)
-
       if (user && user.sub) {
-        console.log('user from hook', user)
         const response = await getUser(token)
-        console.log('hook response', response)
-
         return response
       }
     },

@@ -1,16 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { IfAuthenticated } from './Authenticated.tsx'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
 function PlanningButton() {
   const { user, loginWithRedirect } = useAuth0()
-  const { walkId } = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
   const addWalk = usePlannedWalks()
 
-  if (!walkId) {
+  if (!id) {
     return null
   }
 
@@ -24,11 +24,18 @@ function PlanningButton() {
   return (
     <>
       <IfAuthenticated>
-        <Button onClick={() => addWalk.mutate(+walkId)}>Plan this Walk</Button>
+        <Button
+          onClick={() => addWalk.mutate(+id)}
+          className="button cursor-pointer"
+        >
+          Plan this Walk
+        </Button>
       </IfAuthenticated>
-      {/* <IfNotAuthenticated> */}
-      <Button onClick={handleSignIn}>Sign in to Plan</Button>
-      {/* </IfNotAuthenticated> */}
+      <IfNotAuthenticated>
+        <Button onClick={handleSignIn} className="button cursor-pointer">
+          Sign in
+        </Button>
+      </IfNotAuthenticated>
     </>
   )
 }

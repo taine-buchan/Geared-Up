@@ -4,11 +4,11 @@ import { describe, expect, it } from 'vitest'
 import { getMockToken } from './mockToken'
 
 // Token helper for different permission setups
-// const getTokenWithPermissions = (permissions: string[] = []) =>
-//   getMockToken({
-//     permissions,
-//     sub: 'auth0|admin-user-id',
-//   })
+const getTokenWithPermissions = (permissions: string[] = []) =>
+  getMockToken({
+    permissions,
+    sub: 'auth0|admin-user-id',
+  })
 
 describe('GET /api/v1/admin/all-users', () => {
   it('returns 200 if user has delete:comments permission', async () => {
