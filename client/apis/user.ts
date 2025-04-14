@@ -3,6 +3,7 @@ import { UserData } from '../../models/user'
 
 //GET /api/v1/user
 export async function getUser(token: string): Promise<UserData | undefined> {
+  console.log(token)
   try {
     const res = await request
       .get('/api/v1/user')

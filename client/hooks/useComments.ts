@@ -3,8 +3,9 @@ import {
   addCommentToGreatWalk,
   getCommentsByGreatWalkId,
   deleteCommentById,
+  updateCommentById,
 } from '../apis/comments.ts'
-import { NewComment } from '../../models/comments.ts'
+import { CommentUpdate, NewComment } from '../../models/comments.ts'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export function useGetCommentsByGreatWalkId(id: number) {
@@ -15,7 +16,7 @@ export function useGetCommentsByGreatWalkId(id: number) {
   return query
 }
 
-export function useAddCommentToGreatWalk() {
+export function useAddCommentToGreatWalk(id: number) {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
