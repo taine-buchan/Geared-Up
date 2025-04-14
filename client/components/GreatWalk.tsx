@@ -131,7 +131,7 @@ export default function GreatWalk() {
   ][]
 
   return (
-    <div className="flex items-center justify-center mt-10">
+    <div className="flex items-center justify-center">
       <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10 mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
         <div className="flex flex-row gap-6">
           <div className="flex flex-col w-1/2 gap-6">

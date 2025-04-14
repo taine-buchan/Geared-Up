@@ -77,6 +77,7 @@ export default function Comments(props: Props) {
       return alert('Leave a comment to update the comment...')
     try {
       updateMutation.mutate(updatedComment)
+      setEditingCommentId(null)
     } catch (error) {
       console.error('Error submitting comment', error)
     }
@@ -90,9 +91,8 @@ export default function Comments(props: Props) {
           Comments Section
         </h1>
 
-        {/* Add Comment Form */}
-        <form onSubmit={handleSubmit} className="mb-8">
-          <label htmlFor="comment" className="block text-sm font-medium mb-2">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-6 mb-10">
+          <label htmlFor="comment" className="block text-sm text-[#d0f7a2]">
             Post a comment!
           </label>
           <input
@@ -102,17 +102,17 @@ export default function Comments(props: Props) {
             required
             value={form.comment}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 text-black"
+            placeholder="Share your thoughts..."
+            className="w-full rounded-md px-4 py-2 bg-gray-700 text-gray-100 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#d0f7a2]"
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            className="bg-[#070446] text-[#d0f7a2] px-6 py-2 rounded-md hover:bg-[#0a055f] transition"
           >
             Submit
           </button>
         </form>
 
-        {/* Comments List */}
         <ul className="space-y-6">
           {comments.length > 0 ? (
             comments.map((comment) => {
@@ -126,7 +126,6 @@ export default function Comments(props: Props) {
                   key={comment.id}
                   className="bg-gray-800/60 p-6 rounded-xl shadow-md border border-gray-700 flex flex-col justify-between h-full"
                 >
-                  {/* Header: Username & Date */}
                   <div className="flex justify-between items-center mb-2">
                     <p className="font-semibold text-[#d0f7a2] tracking-wide">
                       {comment.username}
@@ -136,7 +135,6 @@ export default function Comments(props: Props) {
                     </p>
                   </div>
 
-                  {/* Either Edit Form or Comment Text */}
                   <div>
                     {editingCommentId === comment.id ? (
                       <form
@@ -154,7 +152,7 @@ export default function Comments(props: Props) {
                       >
                         <label
                           htmlFor="edit-comment"
-                          className="block text-sm mb-1"
+                          className="block text-sm text-[#d0f7a2] mb-1"
                         >
                           Edit your comment
                         </label>
@@ -165,7 +163,8 @@ export default function Comments(props: Props) {
                           required
                           value={editComment}
                           onChange={handleEditChange}
-                          className="w-full border border-gray-300 rounded-md px-4 py-2 text-black"
+                          className="w-full rounded-md px-4 py-2 bg-gray-700 text-gray-100 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#d0f7a2]"
+                          placeholder="Write something thoughtful..."
                         />
                       </form>
                     ) : (
@@ -175,7 +174,6 @@ export default function Comments(props: Props) {
                     )}
                   </div>
 
-                  {/* Buttons Bottom Right */}
                   <div className="flex justify-end mt-4 gap-2">
                     {editingCommentId === comment.id ? (
                       <button
@@ -201,15 +199,15 @@ export default function Comments(props: Props) {
                             setEditingCommentId(comment.id)
                             setEditComment(comment.comment)
                           }}
-                          className="text-sm bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
+                          className="text-xl bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
                         >
-                          Edit
+                          ✏️
                         </button>
                         <button
                           onClick={(event) => handleDelete(comment.id, event)}
-                          className="text-sm bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                          className="text-xl bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
                         >
-                          Delete
+                          🗑️
                         </button>
                       </>
                     )}
