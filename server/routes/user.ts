@@ -106,6 +106,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     phone: form.phone,
     result: form.result || form.result != null ? form.result : '',
     my_equipment: snakeEquipment || {},
+    role: form.role,
   }
 
   try {
