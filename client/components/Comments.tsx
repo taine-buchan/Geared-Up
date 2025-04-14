@@ -52,7 +52,6 @@ export default function Comments(props: Props) {
   if (isLoading) return <LoadingIndicator />
   if (isError) return <ErrorComponent />
   if (comments) {
-    if (comments.length === 0) return <p>Comments does not exist.</p>
     return (
       <div>
         <h1>Comments</h1>
@@ -68,23 +67,36 @@ export default function Comments(props: Props) {
           />
           <button type="submit">Submit</button>
         </form>
-        <ul>
-          {comments.map((comment) => {
-            const date =
-              comment.createdAt === comment.updatedAt
-                ? comment.createdAt
-                : comment.updatedAt
-            return (
-              <li key={comment.username}>
-                <p>{comment.username}</p>
-                <p>{new Date(date).toLocaleString()}</p>
-                <p>{comment.comment}</p>
-              </li>
-            )
-          })}
+        <ul className="space-y-6 mt-6">
+          {comments.length > 0 ? (
+            comments.map((comment) => {
+              const date =
+                comment.createdAt === comment.updatedAt
+                  ? comment.createdAt
+                  : comment.updatedAt
+
+              return (
+                <li
+                  className="bg-gray-800/60 p-5 rounded-xl shadow-md border border-gray-700"
+                  key={comment.username}
+                >
+                  <p className="font-semibold text-[#d0f7a2] tracking-wide">
+                    {comment.username}
+                  </p>
+                  <p className="text-xs text-gray-400 mb-2 italic">
+                    {new Date(date).toLocaleString()}
+                  </p>
+                  <p className="text-sm text-gray-100 leading-relaxed">
+                    {comment.comment}
+                  </p>
+                </li>
+              )
+            })
+          ) : (
+            <p>No comments yet. Be the first to comment!</p>
+          )}
         </ul>
       </div>
     )
-    return <p>No comments available.</p>
   }
 }
