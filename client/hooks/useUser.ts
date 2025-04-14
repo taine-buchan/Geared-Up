@@ -33,7 +33,22 @@ export function useUpsertUser() {
   return mutation
 }
 
-export function useUpdateUserEquipment() {
+export function useGetUserByWalk(walkId: number) {
+  const { user, getAccessTokenSilently } = useAuth0()
+
+  const query = useQuery({
+    queryKey: ['userWalkById', walkId],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await getUser(token)
+        return response
+      }
+    },
+  })
+  return query
+}
+export function useUpdateUserEquipment(walkId: number) {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
 
@@ -61,7 +76,12 @@ export function useUpdateUserEquipment() {
       return await upsertUser(form, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] })
+      console.log('pre user query')
+      console.log('walkid', walkId)
+
+      queryClient.invalidateQueries({ queryKey: ['userWalkById', walkId] })
+
+      console.log('post user query')
     },
     onError: (error) => {
       console.error('Failed to update user equipment:', error)

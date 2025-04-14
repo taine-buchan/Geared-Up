@@ -3,7 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorComponent from './ErrorComponent'
-import { useGetUser, useUpdateUserEquipment } from '../hooks/useUser'
+import {
+  useGetUser,
+  useGetUserByWalk,
+  useUpdateUserEquipment,
+} from '../hooks/useUser'
 import Comments from './Comments'
 import { useEffect, useState } from 'react'
 import { JustUserEquipment, UserData } from '../../models/user'
@@ -79,18 +83,22 @@ export default function GreatWalk() {
     data: existingUserData,
     isLoading: existingUserLoading,
     isError: existingUserError,
-  } = useGetUser()
+    refetch,
+  } = useGetUserByWalk(Number(id))
 
-  const updateUserEquipmentMutation = useUpdateUserEquipment()
+  const updateUserEquipmentMutation = useUpdateUserEquipment(Number(id))
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isAuthenticated && existingUserData?.myEquipment) {
-      setUserEquipment(existingUserData.myEquipment)
+    refetch()
+    if (existingUserData?.myEquipment) {
+      console.log(existingUserData)
+
+      setUserEquipment(existingUserData.myEquipment as JustUserEquipment)
     }
-  }, [isAuthenticated, existingUserData])
+  }, [])
 
   function handleSubmit() {
     if (!isAuthenticated) {
@@ -102,34 +110,37 @@ export default function GreatWalk() {
       return
     }
 
-    const { id, ...userWithoutId } = existingUserData as UserData & {
-      id: string
+    const { idUserExist, ...userWithoutId } = existingUserData as UserData & {
+      idUserExist: string
     }
 
     updateUserEquipmentMutation.mutate({
       currentUser: userWithoutId,
       equipment: userEquipment,
     })
-    navigate(`/great-walks`)
+    console.log('user data post mutate', existingUserData)
+
+    navigate(`/great-walks/${id}`)
   }
 
-  if (isLoading || (isAuthenticated && existingUserLoading)) {
+  if (isLoading) {
     return <LoadingIndicator />
   }
 
-  if (isError || (isAuthenticated && existingUserError) || !id) {
+  if (isError) {
     return <ErrorComponent />
   }
 
   if (!greatWalk) return null
 
+  if (!existingUserData) return <p>no user </p>
   const requiredEquipmentDisplay = Object.entries(
     greatWalk.requiredEquipment,
   ).filter(([_, isRequired]) => isRequired) as unknown as [
     keyof JustUserEquipment,
     false,
   ][]
-
+  console.log('user data', existingUserData)
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10 mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
@@ -201,7 +212,7 @@ export default function GreatWalk() {
             userEquipment={userEquipment}
             setUserEquipment={setUserEquipment}
             handleSubmit={handleSubmit}
-            isDisabled={!existingUserData}
+            // isDisabled={!existingUserData}
           />
         )}
 
