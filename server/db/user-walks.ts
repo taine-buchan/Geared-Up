@@ -8,7 +8,7 @@ export async function addUserWalk(data: UserWalkDataDB | UserWalkDataDB[]) {
 }
 
 export async function editUserWalk(id: number, data: UserWalkDataDB) {
-  return await connection('user_walks').where({ id }).update({
+  return await connection('user_walks').where('great_walk_id', id).update({
     is_complete: data.is_complete,
     is_planned: data.is_planned,
   })

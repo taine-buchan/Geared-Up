@@ -7,50 +7,6 @@ import { UserWalkDataDB } from '../../models/user_walk'
 
 const router = express.Router()
 
-// POST /api/v1/user-walks
-// This route is used for both creating and updating a user-walk
-
-// router.post('/', validateAccessToken, async (req, res) => {
-//   const auth0Id = req.auth?.payload.sub
-//   console.log(req.body)
-//   if (!auth0Id) {
-//     res.status(400).json({ message: 'Missing auth0 id' })
-//     return
-//   }
-//   // if no walkID?
-//   try {
-//     if (req.body.length !== undefined) {
-//       console.log('try!')
-
-//       const newData = req.body.map((walk: UserWalkData) => ({
-//         user_id: auth0Id,
-//         great_walk_id: walk.greatWalkId,
-//         is_complete: walk.isComplete,
-//         is_planned: walk.isPlanned,
-//       }))
-//       console.log('New Data: ', newData)
-
-//       await db.addUserWalk(newData)
-//       res.sendStatus(201)
-//     } else {
-//       const walk = req.body
-//       const snakeWalk = {
-//         user_id: auth0Id,
-//         great_walk_id: walk.greatWalkId,
-//         is_complete: walk.isComplete,
-//         is_planned: walk.isPlanned,
-//       }
-//       await db.addUserWalk(snakeWalk)
-//       res.sendStatus(201)
-//     }
-//   } catch (e) {
-//     logError(e)
-//     res
-//       .status(500)
-//       .json({ message: 'Unable to insert new User Walk into Database' })
-//   }
-// })
-
 router.post('/completed', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
   console.log(req.body)
@@ -101,10 +57,9 @@ router.post('/planned', validateAccessToken, async (req, res) => {
   }
 })
 
-router.patch('/:id', validateAccessToken, async (req, res) => {
-  const id = Number(req.params.id)
+router.patch('/:walkId', validateAccessToken, async (req, res) => {
+  const walkId = Number(req.params.id)
   const auth0Id = req.auth?.payload.sub
-  const { greatWalkId } = req.body
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
@@ -112,11 +67,11 @@ router.patch('/:id', validateAccessToken, async (req, res) => {
   try {
     const walk: UserWalkDataDB = {
       user_id: auth0Id,
-      great_walk_id: greatWalkId,
+      great_walk_id: walkId,
       is_complete: true, // Can make this a flip if we need this to be reusable, e.g. !req.body.isComplete
       is_planned: false,
     }
-    await db.editUserWalk(id, walk)
+    await db.editUserWalk(walkId, walk)
     res.status(200).json({ message: 'User Walk updated successfully' })
   } catch (e) {
     logError(e)
