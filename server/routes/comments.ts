@@ -53,8 +53,8 @@ router.post('/', validateAccessToken, async (req, res) => {
   }
 })
 
-// PATCH: /api/v1/comments
-router.patch('/', validateAccessToken, async (req, res) => {
+// PATCH: /api/v1/comments/:id
+router.patch('/:id', validateAccessToken, async (req, res) => {
   const updatedComment = req.body
 
   if (!updatedComment) {
