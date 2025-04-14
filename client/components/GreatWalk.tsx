@@ -67,6 +67,10 @@ const initState: JustUserEquipment = {
 }
 
 export default function GreatWalk() {
+  const [activeComponent, setActiveComponent] = useState<
+    'Equipment List' | 'Comments'
+  >('Equipment List')
+
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
   const { isAuthenticated, loginWithRedirect } = useAuth0()
@@ -173,27 +177,32 @@ export default function GreatWalk() {
         </div>
 
         <div>
-          <h1 className="text-[30px] font-bold mb-4">Required Equipment</h1>
+          <button
+            className="button cursor-pointer"
+            onClick={() => setActiveComponent('Equipment List')}
+          >
+            Required Equipment
+          </button>
 
-          {!isAuthenticated && (
-            <button
-              onClick={() => loginWithRedirect()}
-              className="button cursor-pointer"
-            >
-              Sign in to Save Your Checklist
-            </button>
-          )}
+          <button
+            className="button cursor-pointer"
+            onClick={() => setActiveComponent('Comments')}
+          >
+            Comments Section
+          </button>
         </div>
 
-        <UserEquipmentChecklist
-          requiredEquipmentDisplay={requiredEquipmentDisplay}
-          userEquipment={userEquipment}
-          setUserEquipment={setUserEquipment}
-          handleSubmit={handleSubmit}
-          isDisabled={!existingUserData}
-        />
+        {activeComponent === 'Equipment List' && (
+          <UserEquipmentChecklist
+            requiredEquipmentDisplay={requiredEquipmentDisplay}
+            userEquipment={userEquipment}
+            setUserEquipment={setUserEquipment}
+            handleSubmit={handleSubmit}
+            isDisabled={!existingUserData}
+          />
+        )}
 
-        <Comments id={greatWalk.id} />
+        {activeComponent === 'Comments' && <Comments id={greatWalk.id} />}
       </div>
     </div>
   )
