@@ -1,18 +1,17 @@
 import { Router } from 'express'
-import { requiresPermission, validateAccessToken } from '../auth0.ts'
-// import { checkAdmin } from '../db/adminOnly.ts'
-// import connection from '../db/connection.ts'
+import { requiresPermissionAuth0, validateAccessToken } from '../auth0.ts'
+import connection from '../db/connection.ts'
 
 const router = Router()
 
 router.get(
   '/all-users',
-  // validateAccessToken,
-  requiresPermission('delete:comments'),
-  (req, res) => {
+  validateAccessToken,
+  requiresPermissionAuth0('delete:comments'),
+  async (req, res) => {
     // const users = await connection('users').select()
-    res.send('admin yipee')
     // res.json(users)
+    res.send(`you have a 'delete:comments' permission yipee`)
   },
 )
 
