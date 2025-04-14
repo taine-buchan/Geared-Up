@@ -5,16 +5,20 @@ import {
   editCompletedWalk,
 } from '../apis/user-walks'
 import { useNavigate } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
-export function usePlannedWalks(token: string) {
+export function usePlannedWalks() {
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
+  const { getAccessTokenSilently } = useAuth0()
 
   const mutation = useMutation({
-    mutationFn: (walkId: number) => addPlanningGreatWalk(walkId, token),
+    mutationFn: async (walkId: number) => {
+      const token = await getAccessTokenSilently()
+      addPlanningGreatWalk(walkId, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
-      navigate(`/user/${token}`) // TODO: Comfirm correct url
+      // navigate(`/user/${token}`) // TODO: Comfirm correct url
     },
     onError: (error) => {
       console.error('Error adding planning great walk:', error)

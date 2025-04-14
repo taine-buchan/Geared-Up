@@ -4,11 +4,11 @@ import Button from './Button.tsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
-function PlanningButton(token: string) {
+function PlanningButton() {
   const { user, loginWithRedirect } = useAuth0()
   const { walkId } = useParams()
   const navigate = useNavigate()
-  const addWalk = usePlannedWalks(token)
+  const addWalk = usePlannedWalks()
 
   if (!walkId) {
     return null
