@@ -85,10 +85,16 @@ export default function Comments(props: Props) {
   if (isError) return <ErrorComponent />
   if (comments) {
     return (
-      <div>
-        <h1>Comments</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="comment">Post a comment!</label>
+      <div className="w-full max-w-4xl mx-auto px-4 py-6">
+        <h1 className="text-2xl font-bold mb-4 text-[#d0f7a2]">
+          Comments Section
+        </h1>
+
+        {/* Add Comment Form */}
+        <form onSubmit={handleSubmit} className="mb-8">
+          <label htmlFor="comment" className="block text-sm font-medium mb-2">
+            Post a comment!
+          </label>
           <input
             type="text"
             id="comment"
@@ -96,42 +102,42 @@ export default function Comments(props: Props) {
             required
             value={form.comment}
             onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 text-black"
           />
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
         </form>
-        <div>
-          <ul className="space-y-6 mt-6">
-            {comments.length > 0 ? (
-              comments.map((comment) => {
-                const date =
-                  comment.createdAt === comment.updatedAt
-                    ? comment.createdAt
-                    : comment.updatedAt
 
-                return (
-                  <li
-                    className="bg-gray-800/60 p-5 rounded-xl shadow-md border border-gray-700"
-                    key={comment.id}
-                  >
+        {/* Comments List */}
+        <ul className="space-y-6">
+          {comments.length > 0 ? (
+            comments.map((comment) => {
+              const date =
+                comment.createdAt === comment.updatedAt
+                  ? comment.createdAt
+                  : comment.updatedAt
+
+              return (
+                <li
+                  key={comment.id}
+                  className="bg-gray-800/60 p-6 rounded-xl shadow-md border border-gray-700 flex flex-col justify-between h-full"
+                >
+                  {/* Header: Username & Date */}
+                  <div className="flex justify-between items-center mb-2">
                     <p className="font-semibold text-[#d0f7a2] tracking-wide">
                       {comment.username}
                     </p>
-                    <p className="text-xs text-gray-400 mb-2 italic">
+                    <p className="text-xs text-gray-400 italic">
                       {new Date(date).toLocaleString()}
                     </p>
-                    <button
-                      onClick={() => {
-                        setEditingCommentId(comment.id)
-                        setEditComment(comment.comment)
-                      }}
-                    >
-                      Edit Comment
-                    </button>
-                    <button
-                      onClick={(event) => handleDelete(comment.id, event)}
-                    >
-                      X
-                    </button>
+                  </div>
+
+                  {/* Either Edit Form or Comment Text */}
+                  <div>
                     {editingCommentId === comment.id ? (
                       <form
                         onSubmit={(event) =>
@@ -144,31 +150,79 @@ export default function Comments(props: Props) {
                             event,
                           )
                         }
+                        className="space-y-2"
                       >
-                        <label htmlFor="comment">Edit a comment!</label>
+                        <label
+                          htmlFor="edit-comment"
+                          className="block text-sm mb-1"
+                        >
+                          Edit your comment
+                        </label>
                         <input
                           type="text"
-                          id="comment"
+                          id="edit-comment"
                           name="comment"
                           required
                           value={editComment}
                           onChange={handleEditChange}
+                          className="w-full border border-gray-300 rounded-md px-4 py-2 text-black"
                         />
-                        <button type="submit">Submit</button>
                       </form>
                     ) : (
                       <p className="text-sm text-gray-100 leading-relaxed">
                         {comment.comment}
                       </p>
                     )}
-                  </li>
-                )
-              })
-            ) : (
-              <p>No comments yet. Be the first to comment!</p>
-            )}
-          </ul>
-        </div>
+                  </div>
+
+                  {/* Buttons Bottom Right */}
+                  <div className="flex justify-end mt-4 gap-2">
+                    {editingCommentId === comment.id ? (
+                      <button
+                        type="submit"
+                        onClick={(event) =>
+                          handleUpdate(
+                            {
+                              id: comment.id,
+                              comment: editComment,
+                              updatedAt: Number(new Date()),
+                            },
+                            event,
+                          )
+                        }
+                        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+                      >
+                        Submit Edit
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => {
+                            setEditingCommentId(comment.id)
+                            setEditComment(comment.comment)
+                          }}
+                          className="text-sm bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={(event) => handleDelete(comment.id, event)}
+                          className="text-sm bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </li>
+              )
+            })
+          ) : (
+            <p className="text-gray-400">
+              No comments yet. Be the first to comment!
+            </p>
+          )}
+        </ul>
       </div>
     )
   }
