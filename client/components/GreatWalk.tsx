@@ -9,6 +9,7 @@ import Comments from './Comments'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
+import PlanningButton from './PlanningButton'
 
 const initState: JustUserEquipment = {
   backpack: false,
