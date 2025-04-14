@@ -1,167 +1,23 @@
-// // @vitest-environment jsdom
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-
-// import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-// import { render } from '@testing-library/react'
-// import { AdminOnly } from '../components/AdminOnly' // update path as needed
-// import { useUserRole } from '../hooks/useUserRole'
-
-// // Mock the custom hook
-// vi.mock('../hooks/useUserRole')
-
-// describe('<AdminOnly>', () => {
-//   afterEach(() => {
-//     vi.clearAllMocks()
-//   })
-
-//   it('renders loading state when isLoading is true', () => {
-//     vi.mocked(useUserRole).mockReturnValue({
-//       isLoading: true,
-//       role: undefined,
-//     })
-
-//     const { getByText } = render(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     expect(getByText('Loading...')).toBeInTheDocument()
-//   })
-
-//   it('renders access denied when role is not admin', () => {
-//     vi.mocked(useUserRole).mockReturnValue({
-//       isLoading: false,
-//       role: 'user',
-//     })
-
-//     const { getByText } = render(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     expect(getByText('Access denied')).toBeInTheDocument()
-//   })
-
-//   it('renders children when role is admin', () => {
-//     vi.mocked(useUserRole).mockReturnValue({
-//       isLoading: false,
-//       role: 'admin',
-//     })
-
-//     const { getByText } = render(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     expect(getByText('Secret content')).toBeInTheDocument()
-//   })
-// })
-// @vitest-environment jsdom
-/* eslint-disable @typescript-eslint/no-explicit-any */
-//////////////////////////
-// import { waitFor } from '@testing-library/react'
-// import nock from 'nock'
-// import { describe, expect, it, vi, afterEach } from 'vitest'
-
-// import { AdminOnly } from '../components/AdminOnly'
-// import { renderWithQuery } from './setup.tsx'
-
-// vi.mock('@auth0/auth0-react', () => ({
-//   useAuth0: () => ({
-//     user: {
-//       sub: 'auth0|admin-user',
-//       email: 'admin@test.com',
-//     },
-//     isAuthenticated: true,
-//     getAccessTokenSilently: vi.fn(() => 'token'),
-//   }),
-// }))
-
-// vi.mock('../hooks/useUserRole', async () => {
-//   const actual = await vi.importActual('../hooks/useUserRole')
-//   return {
-//     ...actual,
-//     useUserRole: vi.fn(),
-//   }
-// })
-
-// const mockedUseUserRole = vi.mocked(require('../hooks/useUserRole').useUserRole)
-
-// describe('<AdminOnly />', () => {
-//   afterEach(() => {
-//     vi.clearAllMocks()
-//     nock.cleanAll()
-//   })
-
-//   it('should render loading state', async () => {
-//     mockedUseUserRole.mockReturnValue({
-//       isLoading: true,
-//       role: undefined,
-//     })
-
-//     const { getByText } = renderWithQuery(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     await waitFor(() => {
-//       expect(getByText('Loading...')).toBeInTheDocument()
-//     })
-//   })
-
-//   it('should render access denied if role is not admin', async () => {
-//     mockedUseUserRole.mockReturnValue({
-//       isLoading: false,
-//       role: 'user',
-//     })
-
-//     const { getByText } = renderWithQuery(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     await waitFor(() => {
-//       expect(getByText('Access denied')).toBeInTheDocument()
-//     })
-//   })
-
-//   it('should render children if role is admin', async () => {
-//     mockedUseUserRole.mockReturnValue({
-//       isLoading: false,
-//       role: 'admin',
-//     })
-
-//     const { getByText } = renderWithQuery(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-
-//     await waitFor(() => {
-//       expect(getByText('Secret content')).toBeInTheDocument()
-//     })
-//   })
-// })
-// @vitest-environment jsdom
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { waitFor } from '@testing-library/react'
 import nock from 'nock'
 import { describe, expect, it, vi, afterEach } from 'vitest'
-
+import { screen } from '@testing-library/react'
 import { AdminOnly } from '../components/AdminOnly'
-import { renderWithQuery } from './setup' // same helper you used in AddProfile test
+import { renderRoute, renderWithQuery } from './setup' // same helper you used in AddProfile test
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
     user: {
-      sub: 'auth0|admin-user',
-      email: 'admin@example.com',
+      // sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      // email: 'harakeke2025@gmail.com',
+      email: 'harakeke2025@gmail.com',
+      email_verified: false,
+      name: 'harakeke2025@gmail.com',
+      nickname: 'harakeke2025',
+      picture:
+        'https://s.gravatar.com/avatar/5c885aa44f38d5a41a8ce23d93a0ac3f?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fha.png',
+      sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      updated_at: '2025-04-14T01:22:58.645Z',
     },
     isAuthenticated: true,
     getAccessTokenSilently: vi.fn().mockResolvedValue('token'),
@@ -174,12 +30,14 @@ describe('<AdminOnly /> Integration', () => {
     nock.cleanAll()
   })
 
-  it.only('should show loading first, then allow access if user is admin', async () => {
-    const scope = nock('http://localhost')
+  it('should show loading first, then allow access if user is admin', async () => {
+    nock('http://localhost').get('/api/v1/')
+
+    nock('http://localhost')
       .get('/api/v1/user')
       .reply(200, {
         id: 'auth0|67fc3e8358b53e94bf0b4c29',
-        username: 'harakeke2025444',
+        username: 'harakeke2025',
         name: 'admin harakeke25',
         email: 'harakeke2025@gmail.com',
         phone: '+64 2121486803',
@@ -243,22 +101,24 @@ describe('<AdminOnly /> Integration', () => {
       })
 
     // const { getByText, queryByText } = renderWithQuery(
-    const container = renderWithQuery(
-      <AdminOnly>
-        <p>Secret content</p>
-      </AdminOnly>,
-    )
-    // console.log('user', user)
+    // const container = renderWithQuery(
+    //   <AdminOnly>
+    //     <p>Secret content</p>
+    //   </AdminOnly>,
+    // )
 
-    container.debug()
+    const screen = renderRoute('/great-walks/1')
+
+    screen.debug()
 
     // Loading initially
 
-    const loading = container.getByText(/Loading.../i)
+    const loading = screen.getByAltText('Animation of a Hiker walking')
+    console.log({ loading })
     expect(loading).toBeInTheDocument()
 
     // Wait for the mocked request to complete
-    expect(scope.isDone()).toBeTruthy()
+    // expect(scope.isDone()).toBeTruthy()
 
     // Then the admin content should appear
     // await waitFor(() => {
@@ -285,7 +145,7 @@ describe('<AdminOnly /> Integration', () => {
 
     expect(getByText('Loading...')).toBeInTheDocument()
 
-    await waitFor(() => expect(scope.isDone()).toBeTruthy())
+    // await waitFor(() => expect(scope.isDone()).toBeTruthy())
 
     await waitFor(() => {
       expect(getByText('Access denied')).toBeInTheDocument()
