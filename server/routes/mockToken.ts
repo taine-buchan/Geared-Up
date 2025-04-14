@@ -65,6 +65,8 @@ export const getMockToken = (role = 'user') => {
     name: user.email,
     sub: 'auth0|123',
     'https://geared-up/role': role,
+    permissions:
+      role === 'admin' ? ['delete:comments', 'read:data'] : ['read:data'],
   }
 
   const options: SignOptions = {

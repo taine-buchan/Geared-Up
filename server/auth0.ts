@@ -9,7 +9,7 @@ dotenv.config()
 export const oidcConfig: oidc.ConfigParams = {
   authorizationParams: {
     response_type: 'code',
-    scope: 'openid',
+    scope: 'openid profile email offline_access read:data',
     audience: process.env.VITE_AUTH0_AUDIENCE,
   },
   authRequired: false,
@@ -37,13 +37,22 @@ export function requiresPermission(requiredPermission: string) {
   console.log('requiresPErmish')
   return (req: express.Request, res: express.Response, next: NextFunction) => {
     // Safely extract the access token
-    const accessToken =
-      req.oidc && req.oidc.accessToken
-        ? req.oidc.accessToken.access_token
-        : null
+    // const accessToken =
+    //   req.oidc && req.oidc.accessToken
+    //     ? req.oidc.accessToken.access_token
+    //     : null
 
+    const accessToken = req.oidc?.accessToken?.access_token
+
+    // if (!accessToken || typeof accessToken !== 'string') {
+    //   console.log('pre try', accessToken)
+    //   return res.status(403).send('Forbidden: no or invalid access token')
+    // }
+    if (!Array.isArray(Permissions)) {
+      return res.status(403).send('Forbidden: permissions not found in token')
+    }
     if (!accessToken || typeof accessToken !== 'string') {
-      console.log('pre try', accessToken)
+      console.error('Access token missing or invalid:', req.oidc)
       return res.status(403).send('Forbidden: no or invalid access token')
     }
 

@@ -68,6 +68,7 @@ export async function getUser(id: string) {
       'phone',
       'my_equipment',
       'result',
+      'role',
     )
     .first()
   if (!user) {
