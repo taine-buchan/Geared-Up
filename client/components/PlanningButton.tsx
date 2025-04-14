@@ -6,28 +6,28 @@ import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
 function PlanningButton() {
   const { user, loginWithRedirect } = useAuth0()
-  const { walkId } = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
   const addWalk = usePlannedWalks()
 
-  if (!walkId) {
+  if (!id) {
     return null
   }
 
-  const handleSignIn = () => {
-    if (user) {
-      console.log(user.sub)
-      return navigate(`/user/${user.sub}`)
-    } else loginWithRedirect()
-  }
+  // const handleSignIn = () => {
+  //   if (user) {
+  //     console.log(user.sub)
+  //     return navigate(`/user/${user.sub}`)
+  //   } else loginWithRedirect()
+  // }
 
   return (
     <>
       <IfAuthenticated>
-        <Button onClick={() => addWalk.mutate(+walkId)}>Plan this Walk</Button>
+        <Button onClick={() => addWalk.mutate(+id)}>Plan this Walk</Button>
       </IfAuthenticated>
       {/* <IfNotAuthenticated> */}
-      <Button onClick={handleSignIn}>Sign in to Plan</Button>
+      {/* <Button onClick={handleSignIn}>Sign in to Plan</Button> */}
       {/* </IfNotAuthenticated> */}
     </>
   )
