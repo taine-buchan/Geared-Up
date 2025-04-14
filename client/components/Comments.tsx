@@ -2,10 +2,12 @@ import { useState } from 'react'
 import {
   useAddCommentToGreatWalk,
   useGetCommentsByGreatWalkId,
+  useDeleteComment,
 } from '../hooks/useComments'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
 import { NewComment } from '../../models/comments'
+import { AdminOnly } from './AdminOnly'
 
 type Props = {
   id: number
@@ -25,6 +27,7 @@ export default function Comments(props: Props) {
   } = useGetCommentsByGreatWalkId(props.id)
 
   const mutation = useAddCommentToGreatWalk()
+  const deleteMutation = useDeleteComment()
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prevForm) => ({
       ...prevForm,
@@ -48,7 +51,11 @@ export default function Comments(props: Props) {
       console.error('Error submitting comment', error)
     }
   }
-
+  const handleDelete = (commentId: number) => {
+    if (window.confirm('Are you sure you want to delete this comment?')) {
+      deleteMutation.mutate(commentId)
+    }
+  }
   if (isLoading) return <LoadingIndicator />
   if (isError) return <ErrorComponent />
   if (comments) {
@@ -79,6 +86,11 @@ export default function Comments(props: Props) {
                 <p>{comment.username}</p>
                 <p>{new Date(date).toLocaleString()}</p>
                 <p>{comment.comment}</p>
+                <AdminOnly>
+                  <button onClick={() => handleDelete(comment.id)}>
+                    Delete
+                  </button>
+                </AdminOnly>
               </li>
             )
           })}

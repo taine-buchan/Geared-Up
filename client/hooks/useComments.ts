@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addCommentToGreatWalk,
   getCommentsByGreatWalkId,
+  deleteCommentById,
 } from '../apis/comments.ts'
 import { NewComment } from '../../models/comments.ts'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -27,4 +28,20 @@ export function useAddCommentToGreatWalk() {
     },
   })
   return mutation
+}
+
+export function useDeleteComment() {
+  const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0()
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const token = await getAccessTokenSilently()
+      await deleteCommentById(id, token)
+    },
+    onSuccess: () => {
+      // Invalidate and refetch the comments
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
+    },
+  })
 }

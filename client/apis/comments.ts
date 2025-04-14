@@ -34,3 +34,19 @@ export async function addCommentToGreatWalk(
     }
   }
 }
+
+// DELETE /api/v1/comments/:id
+export async function deleteCommentById(
+  id: number,
+  token: string,
+): Promise<void> {
+  try {
+    await request
+      .delete(`/api/v1/comments/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    }
+  }
+}
