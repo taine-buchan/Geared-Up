@@ -1,5 +1,9 @@
 import request from 'superagent'
-import { CommentUpdate, CommentWithUsername, NewComment } from '../../models/comments'
+import {
+  CommentUpdate,
+  CommentWithUsername,
+  NewComment,
+} from '../../models/comments'
 
 //GET /api/v1/comments/:id
 export async function getCommentsByGreatWalkId(
@@ -53,8 +57,11 @@ export async function updateCommentById(
   }
 }
 
-//DELETE /api/v1/comments/:id
-export async function deleteComment(id: number | undefined, token: string) {
+// DELETE /api/v1/comments/:id
+export async function deleteCommentById(
+  id: number | undefined,
+  token: string,
+): Promise<void> {
   try {
     const res = await request
       .delete(`/api/v1/comments/${id}`)

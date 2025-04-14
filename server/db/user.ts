@@ -1,6 +1,6 @@
 import connection from './connection.ts'
 
-import { User, UserDBRawRecord, UserSC } from '../../models/user.ts'
+import { User, UserSC } from '../../models/user.ts'
 
 // export async function upsertProfile(profile: Partial<UserSC>) {
 //   await connection('users')
@@ -37,6 +37,7 @@ export async function upsertProfile(profile: Partial<UserSC>) {
   }
 
   // 3. Build insert object (only add fields that are provided)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const insertData: any = {
     id: profile.id,
     ...(profile.username && { username: profile.username }),
@@ -66,7 +67,8 @@ export async function getUser(id: string) {
       'email',
       'phone',
       'my_equipment',
-      'result'
+      'result',
+      'role',
     )
     .first()
   if (!user) {
@@ -80,6 +82,7 @@ export async function getUser(id: string) {
     name: user.name,
     email: user.email,
     phone: user.phone,
+    role: user.role,
     result: user.result,
     myEquipment: {
       backpack: parsedEquipment.backpack,

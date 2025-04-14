@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addCommentToGreatWalk,
-  deleteComment,
   getCommentsByGreatWalkId,
+  deleteCommentById,
   updateCommentById,
 } from '../apis/comments.ts'
 import { CommentUpdate, NewComment } from '../../models/comments.ts'
@@ -22,42 +22,27 @@ export function useAddCommentToGreatWalk(id: number) {
   const mutation = useMutation({
     mutationFn: async (newComment: NewComment) => {
       const token = await getAccessTokenSilently()
-      return await addCommentToGreatWalk(newComment, token)
+      addCommentToGreatWalk(newComment, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
     },
   })
   return mutation
 }
 
-export function useUpdateCommentById(id: number) {
+export function useDeleteComment() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
-  const mutation = useMutation({
-    mutationFn: async (updateComment: CommentUpdate) => {
+
+  return useMutation({
+    mutationFn: async (id: number) => {
       const token = await getAccessTokenSilently()
-      return await updateCommentById(updateComment, token)
+      await deleteCommentById(id, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
+      // Invalidate and refetch the comments
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
     },
   })
-  return mutation
-}
-
-
-export function useDeleteComment(id: number) {
-  const queryClient = useQueryClient()
-  const { getAccessTokenSilently } = useAuth0()
-  const mutation = useMutation({
-    mutationFn: async (commentId: number) => {
-      const token = await getAccessTokenSilently()
-      return await deleteComment(commentId, token)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
-    },
-  })
-  return mutation
 }

@@ -9,6 +9,7 @@ export interface UserData {
   phone?: string
   myEquipment: JustUserEquipment
   result?: string
+  role?: 'user' | 'admin'
 }
 
 export interface UserProfileData {
@@ -27,6 +28,7 @@ export interface UserDataSC {
   name: string
   email: string
   phone?: string
+  role: string
   my_equipment: {
     backpack: boolean
     waterproof_pack_liner: boolean
