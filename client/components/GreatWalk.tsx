@@ -1,13 +1,13 @@
 // components/GreatWalk.tsx
+import { useAuth0 } from '@auth0/auth0-react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { JustUserEquipment, UserData } from '../../models/user'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
-import LoadingIndicator from './LoadingIndicator'
-import ErrorComponent from './ErrorComponent'
 import { useGetUser, useUpdateUserEquipment } from '../hooks/useUser'
 import Comments from './Comments'
-import { useEffect, useState } from 'react'
-import { JustUserEquipment, UserData } from '../../models/user'
-import { useAuth0 } from '@auth0/auth0-react'
+import ErrorComponent from './ErrorComponent'
+import LoadingIndicator from './LoadingIndicator'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 
 const initState: JustUserEquipment = {
@@ -119,10 +119,10 @@ export default function GreatWalk() {
   if (!greatWalk) return null
 
   const requiredEquipmentDisplay = Object.entries(
-    greatWalk.requiredEquipment,
+    greatWalk.requiredEquipment
   ).filter(([_, isRequired]) => isRequired) as unknown as [
     keyof JustUserEquipment,
-    false,
+    false
   ][]
 
   return (

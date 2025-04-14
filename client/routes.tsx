@@ -1,17 +1,18 @@
 import { createRoutesFromElements, Route } from 'react-router-dom'
-import GreatWalk from './components/GreatWalk'
+import AddProfile from './components/AddProfile'
 import App from './components/App'
-import Home from './components/Hero'
-import GreatWalks from './components/GreatWalks'
-import Profile from './components/Profile'
 import ErrorPage from './components/ErrorPage'
+import GreatWalk from './components/GreatWalk'
+import GreatWalks from './components/GreatWalks'
+import Home from './components/Hero'
 import LoginButton from './components/LoginButton'
-import QuizWhichGreatWalks from './components/quiz/QuizWhichGreatWalks'
-import QuizHaveYouCompleted from './components/quiz/QuizHaveYouCompleted'
+import Profile from './components/Profile'
 import QuizFitnessLevel from './components/quiz/QuizFitness'
+import QuizHaveYouCompleted from './components/quiz/QuizHaveYouCompleted'
 import QuizLinkToDoc from './components/quiz/QuizLinkToDoc'
 import QuizOutlet from './components/quiz/QuizOutlet'
-import AddProfile from './components/AddProfile'
+import QuizWhichGreatWalks from './components/quiz/QuizWhichGreatWalks'
+import UserGearListPage from './components/UserGearListPage'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -21,11 +22,13 @@ export default createRoutesFromElements(
     <Route path="/user" element={<AddProfile />} />
     <Route path="/user/:sub" element={<Profile />} />
     <Route path="/login-button" element={<LoginButton />} />
+    <Route path="/gear-lists" element={<UserGearListPage />} />
+
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
       <Route index element={<QuizHaveYouCompleted />} />
       <Route path="quiz-fitness-level" element={<QuizFitnessLevel />} />
       <Route path="quiz-great-walks" element={<QuizWhichGreatWalks />} />
       <Route path="quiz-link-to-doc" element={<QuizLinkToDoc />} />
     </Route>
-  </Route>,
+  </Route>
 )
