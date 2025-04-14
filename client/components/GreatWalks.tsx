@@ -14,63 +14,51 @@ export default function GreatWalks() {
     filter === 'All' ? data : data?.filter((walk) => walk.difficulty === filter)
 
   return (
-    <div className="flex items-center justify-center mt-10">
-      <div className="flex flex-col justify-center w-3/5">
-        <h1 className="text-[60px] font-bold">Great Walks</h1>
-        <div className="gap-6 flex flex-row mt-6">
-          <button
-            className="button cursor-pointer"
-            onClick={() => setFilter('All')}
-          >
+    <div className="flex items-center justify-center mt-10 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col w-full max-w-screen-2xl">
+        <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-bold text-center sm:text-left mb-6 text-[#d0f7a2]">
+          Great Walks
+        </h1>
+
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap gap-4 sm:gap-6 mb-10 justify-center sm:justify-start">
+          <button className="button" onClick={() => setFilter('All')}>
             All
           </button>
-          <button
-            className="button cursor-pointer"
-            onClick={() => setFilter('Easy')}
-          >
+          <button className="button" onClick={() => setFilter('Easy')}>
             Easy
           </button>
-          <button
-            className="button cursor-pointer"
-            onClick={() => setFilter('Intermediate')}
-          >
+          <button className="button" onClick={() => setFilter('Intermediate')}>
             Intermediate
           </button>
         </div>
 
+        {/* Card Grid */}
         <ul
           className="
-    grid 
-    grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
-    gap-8 
-    px-4 sm:px-6 lg:px-12 
-    py-8
-  "
+      grid 
+      grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
+      gap-6 
+      justify-items-center 
+      sm:justify-items-stretch
+    "
         >
           {filteredWalks &&
             filteredWalks.map((greatWalk) => (
               <li
                 key={greatWalk.id}
-                className="
-          bg-[#1e293b]/60 
-          drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] 
-          rounded-[30px] sm:rounded-[40px] 
-          p-6 
-          flex flex-col 
-          text-[#d0f7a2]
-          transition hover:scale-[1.02] hover:shadow-xl
-        "
+                className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] rounded-[20px] sm:rounded-[30px] p-4 sm:p-6 flex flex-col text-[#d0f7a2] transition hover:scale-[1.02] hover:shadow-xl"
               >
                 <Link to={`/great-walks/${greatWalk.id}`}>
                   <img
                     src={greatWalk.trackImageUrl}
                     alt={greatWalk.name}
-                    className="w-full h-[200px] object-cover rounded-xl mb-4"
+                    className="w-full h-[180px] sm:h-[220px] object-cover rounded-xl mb-4"
                   />
                 </Link>
 
                 <Link to={`/great-walks/${greatWalk.id}`}>
-                  <h1 className="text-[24px] font-bold mb-2">
+                  <h1 className="text-lg sm:text-xl font-bold mb-2">
                     {greatWalk.name}
                   </h1>
                 </Link>
