@@ -20,6 +20,7 @@ export default createRoutesFromElements(
     <Route path="/great-walks/:id" element={<GreatWalk />} />
     <Route path="/user" element={<AddProfile />} />
     <Route path="/user/:sub" element={<Profile />} />
+    <Route path="/profile-form" element={<Profile />} />
     <Route path="/login-button" element={<LoginButton />} />
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
       <Route index element={<QuizHaveYouCompleted />} />
