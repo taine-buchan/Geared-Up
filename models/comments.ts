@@ -24,3 +24,18 @@ export interface CommentDraft {
   createdAt: number
   updatedAt: number
 }
+
+export interface CommentWithUsername {
+  id: number
+  username: string
+  greatWalkId: number
+  comment: string
+  createdAt: number
+  updatedAt: number
+  userId: string
+}
+export interface CommentUpdate {
+  id: number
+  comment: string
+  updatedAt: number
+}
