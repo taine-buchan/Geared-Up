@@ -25,7 +25,7 @@ router.post('/completed', validateAccessToken, async (req, res) => {
     )
 
     await db.addUserWalk(newData)
-    res.sendStatus(201).json({ message: 'User Walk created successfully' })
+    res.status(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
@@ -48,7 +48,7 @@ router.post('/planned', validateAccessToken, async (req, res) => {
       is_planned: true,
     }
     await db.addUserWalk(snakeWalk)
-    res.sendStatus(201).json({ message: 'User Walk created successfully' })
+    res.status(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
@@ -88,7 +88,7 @@ router.delete('/:id', validateAccessToken, async (req, res) => {
   try {
     const id = Number(req.params.id)
     await db.deleteUserWalk(id)
-    res.sendStatus(204).json({ message: 'User Walk deleted successfully' })
+    res.status(204).json({ message: 'User Walk deleted successfully' })
   } catch (e) {
     logError(e)
     res.status(500).json({ message: 'Unable to delete User Walk' })
