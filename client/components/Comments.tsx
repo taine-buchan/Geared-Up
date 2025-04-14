@@ -3,7 +3,7 @@ import {
   useAddCommentToGreatWalk,
   useDeleteComment,
   useGetCommentsByGreatWalkId,
-  useUpdateCommentById,
+  useUpdateCommentToGreatWalk,
 } from '../hooks/useComments'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
@@ -28,9 +28,9 @@ export default function Comments(props: Props) {
     isError,
   } = useGetCommentsByGreatWalkId(props.id)
 
-  const addMutation = useAddCommentToGreatWalk(props.id)
-  const deleteMutation = useDeleteComment(props.id)
-  const updateMutation = useUpdateCommentById(props.id)
+  const addMutation = useAddCommentToGreatWalk()
+  const deleteMutation = useDeleteComment()
+  const updateMutation = useUpdateCommentToGreatWalk()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prevForm) => ({
