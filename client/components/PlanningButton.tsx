@@ -1,19 +1,41 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { IfAuthenticated } from './Authenticated.tsx'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useUserWalks } from '../hooks/useUserWalks.ts'
+import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
-function PlanningButton(token: string) {
-  const { walkId } = useParams()
+function PlanningButton() {
+  const { user, loginWithRedirect } = useAuth0()
+  const { id } = useParams()
   const navigate = useNavigate()
-  const addWalk = useUserWalks(token)
+  const addWalk = usePlannedWalks()
+
+  if (!id) {
+    return null
+  }
+
+  const handleSignIn = () => {
+    if (user) {
+      console.log(user.sub)
+      return navigate(`/user/${user.sub}`)
+    } else loginWithRedirect()
+  }
 
   return (
     <>
       <IfAuthenticated>
-        <Button onClick={() => addWalk.mutate(+walkId)}>Plan this Walk</Button>
+        <Button
+          onClick={() => addWalk.mutate(+id)}
+          className="button cursor-pointer"
+        >
+          Plan this Walk
+        </Button>
       </IfAuthenticated>
+      <IfNotAuthenticated>
+        <Button onClick={handleSignIn} className="button cursor-pointer">
+          Sign in
+        </Button>
+      </IfNotAuthenticated>
     </>
   )
 }

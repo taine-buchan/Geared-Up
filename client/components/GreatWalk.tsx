@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
+import PlanningButton from './PlanningButton'
 
 const initState: JustUserEquipment = {
   backpack: false,
@@ -169,6 +170,8 @@ export default function GreatWalk() {
               <p>Elevation: {greatWalk.elevation}</p>
               <p>{greatWalk.description}</p>
             </div>
+
+            <PlanningButton />
 
             <Link to={greatWalk.docLink}>
               <button className="button cursor-pointer">Doc Link</button>

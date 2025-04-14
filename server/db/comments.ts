@@ -1,10 +1,9 @@
-import { Comment, CommentData } from '../../models/comments'
-import { CommentMessage } from '../../models/comments'
+import { CommentData, CommentUpdate, CommentWithUsername } from '../../models/comments'
 import connection from './connection'
 
 export async function getCommentsByGreatWalkId(
   id: number,
-): Promise<Comment[] | CommentMessage> {
+): Promise<CommentWithUsername[]> {
   return await connection('comments')
     .join('users', 'users.id', 'comments.user_id')
     .join('great_walks', 'great_walks.id', 'comments.great_walk_id')
@@ -16,6 +15,7 @@ export async function getCommentsByGreatWalkId(
       'comment',
       'created_at as createdAt',
       'updated_at as updatedAt',
+      'user_id as userId'
     )
 }
 export async function createComment(commentInfo: CommentData) {
@@ -30,11 +30,9 @@ export async function createComment(commentInfo: CommentData) {
     .returning('*')
 }
 
-export async function editCommentsById(updatedComment: Comment) {
+export async function editCommentsById(updatedComment: CommentUpdate) {
   await connection('comments')
-    .join('users', 'users.id', 'comments.user_id')
-    .join('great_walks', 'great_walks.id', 'comments.great_walk_id')
-    .where('comments.id', updatedComment.id)
+    .where('id', updatedComment.id)
     .update({
       comment: updatedComment.comment,
       updated_at: updatedComment.updatedAt,

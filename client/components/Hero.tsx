@@ -1,7 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
+// import RegisterButton from './RegisterButton'
 
 export default function Hero() {
+  // const { user } = useAuth0()
   const { user, loginWithRedirect } = useAuth0()
 
   const handleSignIn = () => {
@@ -32,6 +34,7 @@ export default function Hero() {
               <button onClick={handleSignIn} className="button">
                 Get Started
               </button>
+              // <RegisterButton />
             )}
           </div>
 
