@@ -27,7 +27,7 @@ export default function Hero() {
           </h1>
           <div className="py-6">
             {user ? (
-              <Link to={`/user`} className="button">
+              <Link to="/great-walks/recommend" className="button">
                 Kia Ora! {user.name}
               </Link>
             ) : (
