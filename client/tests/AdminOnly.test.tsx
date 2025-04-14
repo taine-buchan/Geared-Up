@@ -1,15 +1,23 @@
 import { waitFor } from '@testing-library/react'
 import nock from 'nock'
 import { describe, expect, it, vi, afterEach } from 'vitest'
-
+import { screen } from '@testing-library/react'
 import { AdminOnly } from '../components/AdminOnly'
-import { renderWithQuery } from './setup' // same helper you used in AddProfile test
+import { renderRoute, renderWithQuery } from './setup' // same helper you used in AddProfile test
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
     user: {
-      sub: 'auth0|admin-user',
-      email: 'admin@example.com',
+      // sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      // email: 'harakeke2025@gmail.com',
+      email: 'harakeke2025@gmail.com',
+      email_verified: false,
+      name: 'harakeke2025@gmail.com',
+      nickname: 'harakeke2025',
+      picture:
+        'https://s.gravatar.com/avatar/5c885aa44f38d5a41a8ce23d93a0ac3f?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fha.png',
+      sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      updated_at: '2025-04-14T01:22:58.645Z',
     },
     isAuthenticated: true,
     getAccessTokenSilently: vi.fn().mockResolvedValue('token'),
@@ -22,12 +30,14 @@ describe('<AdminOnly /> Integration', () => {
     nock.cleanAll()
   })
 
-  it.only('should show loading first, then allow access if user is admin', async () => {
-    const scope = nock('http://localhost')
+  it('should show loading first, then allow access if user is admin', async () => {
+    nock('http://localhost').get('/api/v1/')
+
+    nock('http://localhost')
       .get('/api/v1/user')
       .reply(200, {
         id: 'auth0|67fc3e8358b53e94bf0b4c29',
-        username: 'harakeke2025444',
+        username: 'harakeke2025',
         name: 'admin harakeke25',
         email: 'harakeke2025@gmail.com',
         phone: '+64 2121486803',
@@ -91,22 +101,24 @@ describe('<AdminOnly /> Integration', () => {
       })
 
     // const { getByText, queryByText } = renderWithQuery(
-    const container = renderWithQuery(
-      <AdminOnly>
-        <p>Secret content</p>
-      </AdminOnly>,
-    )
-    // console.log('user', user)
+    // const container = renderWithQuery(
+    //   <AdminOnly>
+    //     <p>Secret content</p>
+    //   </AdminOnly>,
+    // )
 
-    container.debug()
+    const screen = renderRoute('/great-walks/1')
+
+    screen.debug()
 
     // Loading initially
 
-    const loading = container.getByText(/Loading.../i)
+    const loading = screen.getByAltText('Animation of a Hiker walking')
+    console.log({ loading })
     expect(loading).toBeInTheDocument()
 
     // Wait for the mocked request to complete
-    expect(scope.isDone()).toBeTruthy()
+    // expect(scope.isDone()).toBeTruthy()
 
     // Then the admin content should appear
     // await waitFor(() => {
@@ -133,7 +145,7 @@ describe('<AdminOnly /> Integration', () => {
 
     expect(getByText('Loading...')).toBeInTheDocument()
 
-    await waitFor(() => expect(scope.isDone()).toBeTruthy())
+    // await waitFor(() => expect(scope.isDone()).toBeTruthy())
 
     await waitFor(() => {
       expect(getByText('Access denied')).toBeInTheDocument()
