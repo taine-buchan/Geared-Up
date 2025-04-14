@@ -1,4 +1,5 @@
 // components/UserEquipmentChecklist.tsx
+import { useAuth0 } from '@auth0/auth0-react'
 import { JustUserEquipment } from '../../models/user'
 
 interface Props {
@@ -16,6 +17,7 @@ export default function UserEquipmentChecklist({
   handleSubmit,
   isDisabled,
 }: Props) {
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   function handleToggleItem(item: keyof JustUserEquipment) {
     const updated = {
       ...userEquipment,
@@ -26,7 +28,16 @@ export default function UserEquipmentChecklist({
 
   return (
     <div className="w-full flex flex-col items-center gap-4 mt-6">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-3 gap-4">
+        {/* Show login button if not authenticated */}
+        {!isAuthenticated && (
+          <button
+            onClick={() => loginWithRedirect()}
+            className="button cursor-pointer"
+          >
+            Sign in to Save Your Checklist
+          </button>
+        )}
         {requiredEquipmentDisplay.map(([key]) => {
           const userHasItem = userEquipment?.[key] ?? false
           return (
