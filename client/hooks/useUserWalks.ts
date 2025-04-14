@@ -3,6 +3,7 @@ import {
   addPlanningGreatWalk,
   addCompletedGreatWalks,
   editCompletedWalk,
+  deleteUserWalk,
 } from '../apis/user-walks'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -29,14 +30,16 @@ export function usePlannedWalks() {
 
 export function useCompletedWalks() {
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
   const { getAccessTokenSilently } = useAuth0()
+  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: async (walkIds: number[]) => {
+    mutationFn: async (walkId: number[]) => {
       const token = await getAccessTokenSilently()
-      addCompletedGreatWalks(walkIds, token)
+      addCompletedGreatWalks(walkId, token)
     },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
       navigate(`/quiz-outlet/quiz-gear-list`)
@@ -48,16 +51,39 @@ export function useCompletedWalks() {
   return mutation
 }
 
-export function useEditCompleteWalk(token: string) {
+export function useEditCompleteWalk() {
   const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0()
 
   const mutation = useMutation({
-    mutationFn: (walkId: number) => editCompletedWalk(walkId, token),
+    mutationFn: async (walkId: number) => {
+      const token = await getAccessTokenSilently()
+      editCompletedWalk(walkId, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
     },
     onError: (error) => {
       console.error('Error editing great walk', error)
+    },
+  })
+  return mutation
+}
+
+export function useDeleteUserWalk() {
+  const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0()
+
+  const mutation = useMutation({
+    mutationFn: async (id: number) => {
+      const token = await getAccessTokenSilently()
+      deleteUserWalk(id, token)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user-walks'] })
+    },
+    onError: (error) => {
+      console.error('Error deleting great walk', error)
     },
   })
   return mutation

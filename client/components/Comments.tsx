@@ -3,11 +3,12 @@ import {
   useAddCommentToGreatWalk,
   useDeleteComment,
   useGetCommentsByGreatWalkId,
-  useUpdateCommentById,
+  useUpdateCommentToGreatWalk,
 } from '../hooks/useComments'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
 import { CommentUpdate, NewComment } from '../../models/comments'
+import { AdminOnly } from './AdminOnly'
 
 type Props = {
   id: number
@@ -27,20 +28,19 @@ export default function Comments(props: Props) {
     isError,
   } = useGetCommentsByGreatWalkId(props.id)
 
-  const addMutation = useAddCommentToGreatWalk(props.id)
-  const deleteMutation = useDeleteComment(props.id)
-  const updateMutation = useUpdateCommentById(props.id)
-  
-  
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setForm((prevForm) => ({
-        ...prevForm,
-        comment: event.target.value,
-      }))
-    }
-    const handleEditChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEditComment(event.target.value,)
-    }
+  const addMutation = useAddCommentToGreatWalk()
+  const deleteMutation = useDeleteComment()
+  const updateMutation = useUpdateCommentToGreatWalk()
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      comment: event.target.value,
+    }))
+  }
+  const handleEditChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditComment(event.target.value)
+  }
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
@@ -111,16 +111,32 @@ export default function Comments(props: Props) {
               <li key={comment.id}>
                 <p>{comment.username}</p>
                 <p>{new Date(date).toLocaleString()}</p>
-                <button onClick={() => {
-                  setEditingCommentId(comment.id)
-                  setEditComment(comment.comment)}}>
+                <button
+                  onClick={() => {
+                    setEditingCommentId(comment.id)
+                    setEditComment(comment.comment)
+                  }}
+                >
                   Edit Comment
                 </button>
-                <button onClick={(event) => handleDelete(comment.id, event)}>
-                  X
-                </button>
+                <AdminOnly>
+                  <button onClick={(event) => handleDelete(comment.id, event)}>
+                    X
+                  </button>
+                </AdminOnly>
                 {editingCommentId === comment.id ? (
-                  <form onSubmit={(event) => handleUpdate({id: comment.id, comment: editComment, updatedAt: Number(new Date())}, event)}>
+                  <form
+                    onSubmit={(event) =>
+                      handleUpdate(
+                        {
+                          id: comment.id,
+                          comment: editComment,
+                          updatedAt: Number(new Date()),
+                        },
+                        event,
+                      )
+                    }
+                  >
                     <label htmlFor="comment">Edit a comment!</label>
                     <input
                       type="text"
@@ -136,7 +152,6 @@ export default function Comments(props: Props) {
                   <p>{comment.comment}</p>
                 )}
               </li>
-              
             )
           })}
         </ul>

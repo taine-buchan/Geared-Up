@@ -1,21 +1,22 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import { Link } from 'react-router-dom'
 import { IfAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
-import { useNavigate } from 'react-router-dom'
 
 function LoginButton() {
-  const { user, logout, loginWithRedirect } = useAuth0()
-  const navigate = useNavigate()
+  const { logout } = useAuth0()
+  // const navigate = useNavigate()
   const handleSignOut = () => {
     logout()
   }
 
-  const handleSignIn = () => {
-    if (user) {
-      console.log(user.sub)
-      return navigate(`/user/${user.sub}`)
-    } else loginWithRedirect()
-  }
+  // const handleSignIn = () => {
+  //  if(user) {
+  //   console.log(user.sub)
+  //   return navigate(`/user/${user.sub}`)
+  //  } else loginWithRedirect()
+
+  // }
 
   return (
     <>
@@ -26,9 +27,9 @@ function LoginButton() {
         )} */}
       </IfAuthenticated>
       {/* <IfNotAuthenticated> */}
-      <Button onClick={handleSignIn}>
-        <img src="/profile_icon.svg" alt="Icon" className="w-12 h-12" />
-      </Button>
+      <Link to="/user-information">
+        <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
+      </Link>
       {/* </IfNotAuthenticated> */}
     </>
   )

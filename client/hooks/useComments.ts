@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addCommentToGreatWalk,
-  deleteComment,
   getCommentsByGreatWalkId,
+  deleteCommentById,
   updateCommentById,
 } from '../apis/comments.ts'
 import { CommentUpdate, NewComment } from '../../models/comments.ts'
@@ -16,48 +16,48 @@ export function useGetCommentsByGreatWalkId(id: number) {
   return query
 }
 
-export function useAddCommentToGreatWalk(id: number) {
+export function useAddCommentToGreatWalk() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
-    mutationFn: async (newComment: NewComment) => {
+    mutationFn: async (updateComent: NewComment) => {
       const token = await getAccessTokenSilently()
-      return await addCommentToGreatWalk(newComment, token)
+      addCommentToGreatWalk(updateComent, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
     },
   })
   return mutation
 }
 
-export function useUpdateCommentById(id: number) {
+export function useUpdateCommentToGreatWalk() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
-    mutationFn: async (updateComment: CommentUpdate) => {
+    mutationFn: async (newComment: CommentUpdate) => {
       const token = await getAccessTokenSilently()
-      return await updateCommentById(updateComment, token)
+      updateCommentById(newComment, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
     },
   })
   return mutation
 }
 
-
-export function useDeleteComment(id: number) {
+export function useDeleteComment() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
-  const mutation = useMutation({
-    mutationFn: async (commentId: number) => {
+
+  return useMutation({
+    mutationFn: async (id: number) => {
       const token = await getAccessTokenSilently()
-      return await deleteComment(commentId, token)
+      await deleteCommentById(id, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', id] })
+      // Invalidate and refetch the comments
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
     },
   })
-  return mutation
 }

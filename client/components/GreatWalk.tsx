@@ -171,6 +171,8 @@ export default function GreatWalk() {
               <p>{greatWalk.description}</p>
             </div>
 
+            <PlanningButton />
+
             <Link to={greatWalk.docLink}>
               <button className="button cursor-pointer">Doc Link</button>
             </Link>
