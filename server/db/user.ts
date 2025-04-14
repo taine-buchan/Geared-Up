@@ -45,6 +45,7 @@ export async function upsertProfile(profile: Partial<UserSC>) {
     ...(profile.email && { email: profile.email }),
     ...(profile.phone && { phone: profile.phone }),
     ...(profile.result && { result: profile.result }),
+    ...(profile.role && { role: profile.role }),
     ...(profile.my_equipment && {
       my_equipment: JSON.stringify(finalEquipment, null, 2),
     }),
