@@ -79,4 +79,20 @@ router.patch('/:walkId', validateAccessToken, async (req, res) => {
   }
 })
 
+router.delete('/:id', validateAccessToken, async (req, res) => {
+  const auth0Id = req.auth?.payload.sub
+  if (!auth0Id) {
+    res.status(400).json({ message: 'Missing auth0 id' })
+    return
+  }
+  try {
+    const id = Number(req.params.id)
+    await db.deleteUserWalk(id)
+    res.sendStatus(204).json({ message: 'User Walk deleted successfully' })
+  } catch (e) {
+    logError(e)
+    res.status(500).json({ message: 'Unable to delete User Walk' })
+  }
+})
+
 export default router

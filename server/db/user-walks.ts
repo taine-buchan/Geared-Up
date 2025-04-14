@@ -13,3 +13,7 @@ export async function editUserWalk(id: number, data: UserWalkDataDB) {
     is_planned: data.is_planned,
   })
 }
+
+export async function deleteUserWalk(id: number) {
+  return await connection('user_walks').where('id', id).delete()
+}
