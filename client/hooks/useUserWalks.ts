@@ -27,15 +27,19 @@ export function usePlannedWalks() {
   return mutation
 }
 
-export function useCompletedWalks(token: string) {
+export function useCompletedWalks() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const { getAccessTokenSilently } = useAuth0()
 
   const mutation = useMutation({
-    mutationFn: (walkId: number[]) => addCompletedGreatWalks(walkId, token),
+    mutationFn: async (walkIds: number[]) => {
+      const token = await getAccessTokenSilently()
+      addCompletedGreatWalks(walkIds, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
-      navigate(`/user/${token}`) // TODO: Comfirm correct url
+      navigate(`/quiz-outlet/quiz-gear-list`)
     },
     onError: (error) => {
       console.error('Error adding planning great walk:', error)

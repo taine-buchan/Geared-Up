@@ -12,6 +12,8 @@ import QuizFitnessLevel from './components/quiz/QuizFitness'
 import QuizLinkToDoc from './components/quiz/QuizLinkToDoc'
 import QuizOutlet from './components/quiz/QuizOutlet'
 import AddProfile from './components/AddProfile'
+import UserGearListPage from './components/UserGearListPage'
+import QuizGearList from './components/quiz/QuizGearList'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -21,11 +23,14 @@ export default createRoutesFromElements(
     <Route path="/user" element={<AddProfile />} />
     <Route path="/user/:sub" element={<Profile />} />
     <Route path="/login-button" element={<LoginButton />} />
+    <Route path="/gear-lists/:id" element={<UserGearListPage />} />
+
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
       <Route index element={<QuizHaveYouCompleted />} />
       <Route path="quiz-fitness-level" element={<QuizFitnessLevel />} />
       <Route path="quiz-great-walks" element={<QuizWhichGreatWalks />} />
       <Route path="quiz-link-to-doc" element={<QuizLinkToDoc />} />
+      <Route path="quiz-gear-list" element={<QuizGearList />} />
     </Route>
   </Route>,
 )

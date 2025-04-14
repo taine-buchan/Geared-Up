@@ -1,0 +1,77 @@
+"Lake Waikaremoana": 
+"Tongariro Northern Circuit":
+"Whanganui Journey":
+"Abel Tasman Coast Track":
+"Heaphy Track":
+"Paparoa Track":
+"Routeburn Track":
+"Kepler Track":
+"Milford Track":
+"Tuatapere Hump Ridge Track":
+"Rakiura Track":
+
+
+/// QUIZ WHICH GREAT WALK DRAFT.
+
+  const greatWalk = greatWalks.map((walk) => {
+    return { walkId: walk.id, walkName: walk.name }
+  })
+
+  // const handleChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   walkId: number,
+  // ) => {
+  //   if (event.target.value) {
+  //     setGreatWalkId(walkId)
+  //   }
+  // }
+
+  //---To check if the check box is checked or no, you can use event.target,checked in handleToggle
+  //---You dont need useState for greatWalkId or isCompleted. you can find all of data(only greatWalkId and isCompleted, not userId and isPlanned) from handle toggle
+  //---It takes event and walk as parameters
+  //---To filter the data to submit, you might want to check specific greatWalkId data is already exist in selectedWalks array. use arr.find first to see the specific greatWalkId exist in the array
+  //---And use spread syntex and add whatever data you need, but make sure you return an array in setSelectedWalks
+  //---I just deleted few functions that you dont need here. I made seperate branch f/14/display-quiz-daisy and its working there. If you are not really sure, you can take a look! But I believe you can do it!!!!!!!
+  // const handleToggle = (walk: WalkData, event) => {
+  //   //we set the state, it updates the state with previous state.
+
+  //   setSelectedWalks((prevSelectedWalks) => [
+  //     ...prevSelectedWalks,
+  //     { greatWalkId: walk.walkId, isComplete: true, isPlanned: false },
+  //   ])
+  //   console.log(selectedWalks)
+  // }
+
+  const handleToggle = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    walk: WalkData,
+  ) => {
+    const checked = event.target
+    setSelectedWalks((prevSelectedWalk) => {
+      const isExisting = prevSelectedWalk.find(
+        (greatWalk) => greatWalk.greatWalkId === walk.walkId,
+      )
+
+      if (isExisting) {
+        return prevSelectedWalk.map((prevWalk) =>
+          prevWalk.greatWalkId === walk.walkId
+            ? { ...prevWalk, isCompleted: event.target.checked }
+            : prevWalk,
+        )
+      } else {
+        return [
+          ...prevSelectedWalk,
+          {
+            greatWalkId: walk.walkId,
+            isCompleted: event.target.checked,
+            isPlanned: false,
+          },
+        ]
+      }
+    })
+
+    //---handleSubmit should work in form with onSubmit={handleSubmit}
+    //---You dont need to add any more code here, its enough with mutaion.
+    const handleSubmit = () => {
+      mutation.mutate(selectedWalks)
+    }

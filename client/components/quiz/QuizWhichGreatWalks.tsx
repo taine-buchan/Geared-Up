@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import LoadingIndicator from '../LoadingIndicator'
 import { useGreatWalks } from '../../hooks/useGreatWalks'
 import { useState } from 'react'
-import { useUpsertUserWalks } from '../../hooks/useUpsertUserWalks'
 import ErrorComponent from '../ErrorComponent'
+import { useCompletedWalks } from '../../hooks/useUserWalks'
 
 export interface SelectedWalkData {
   greatWalkId: number
@@ -11,98 +11,110 @@ export interface SelectedWalkData {
   isPlanned: boolean
 }
 
-interface WalkData {
-  walkId: number
-  walkName: string
-}
+// interface WalkData {
+//   walkId: number
+//   walkName: string
+// }
 export default function QuizWhichGreatWalks() {
   const { data: greatWalks, isLoading, isError } = useGreatWalks()
-  const mutation = useUpsertUserWalks()
-  // what is the information that the back end is expecting? (database).
+  // const [selectedCount, setSelectedCount] = useState(0)
 
-  const [selectedWalks, setSelectedWalks] = useState<SelectedWalkData[]>([
-    {
-      greatWalkId: 0,
-      isCompleted: true,
-      isPlanned: false,
-    },
-  ])
+  const mutation = useCompletedWalks()
+
+  interface Walks {
+    1: boolean
+    2: boolean
+    3: boolean
+    4: boolean
+    5: boolean
+    6: boolean
+    7: boolean
+    8: boolean
+    9: boolean
+    10: boolean
+    11: boolean
+  }
+
+  type WalksKey = keyof Walks
+
+  const [walks, setWalks] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+  } as Walks)
 
   if (isLoading) return <LoadingIndicator />
   if (isError || !greatWalks) return <ErrorComponent />
 
-  const greatWalk = greatWalks.map((walk) => {
-    return { walkId: walk.id, walkName: walk.name }
-  })
-
-  // const handleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  //   walkId: number,
-  // ) => {
-  //   if (event.target.value) {
-  //     setGreatWalkId(walkId)
-  //   }
-  // }
-
-  //---To check if the check box is checked or no, you can use event.target,checked in handleToggle
-  //---You dont need useState for greatWalkId or isCompleted. you can find all of data(only greatWalkId and isCompleted, not userId and isPlanned) from handle toggle
-  //---It takes event and walk as parameters
-  //---To filter the data to submit, you might want to check specific greatWalkId data is already exist in selectedWalks array. use arr.find first to see the specific greatWalkId exist in the array
-  //---And use spread syntex and add whatever data you need, but make sure you return an array in setSelectedWalks
-  //---I just deleted few functions that you dont need here. I made seperate branch f/14/display-quiz-daisy and its working there. If you are not really sure, you can take a look! But I believe you can do it!!!!!!!
-  const handleToggle = (walk: WalkData) => {
-    //we set the state, it updates the state with previous state.
-
-    setSelectedWalks((prevSelectedWalks) => [
-      ...prevSelectedWalks,
-      { greatWalkId: walk.walkId, isComplete: true, isPlanned: false },
-    ])
-    console.log(selectedWalks)
+  function handleToggle(
+    _event: React.ChangeEvent<HTMLInputElement>,
+    name: WalksKey,
+  ) {
+    setWalks((w) => ({
+      //updating state
+      ...w, // existing state object
+      [name]: !w[name], // for this particular walk, flip the boolean to the opposite of current
+    }))
   }
 
-  //---handleSubmit should work in form with onSubmit={handleSubmit}
-  //---You dont need to add any more code here, its enough with mutaion.
-  const handleSubmit = () => {
-    mutation.mutate(selectedWalks)
+  function handleSubmit(event: React.FormEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    // Use reduce to create an array containing only the IDs of selected walks
+    // Object.entries(walks) converts the walks object to an array of [key, value] pairs
+    const walkNames = Object.entries(walks).reduce((acc, curr) => {
+      // curr[0] is the walk ID (key), curr[1] is the boolean value (selected or not)
+      if (curr[1] === true) return [...acc, +curr[0]]
+      else return acc
+    }, [] as number[])
+    walkNames.length
+    mutation.mutate(walkNames)
+    navigator
   }
 
   return (
-    // <></>
     <div>
       <h3 className="mb-4 text-4xl text-center">
         Which great walks have you completed?
       </h3>
       <form>
-        <ul className=" m-auto w-120 text-sm font-large  text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-          {greatWalk.map((walk) => (
+        <ul className=" m-auto w-120 text-sm font-large bg-white border border-gray-200 rounded-lg dark:text-white">
+          {greatWalks.map((walk) => (
             <li
-              key={walk.walkId}
-              className="w-full border-b border-gray-200 last:border-b-0 dark:border-gray-600"
+              key={walk.id}
+              className="w-full border-b border-gray-200 last:border-b-0"
             >
               <div className="flex items-center ps-3">
                 <input
-                  id={`${walk.walkName.toLowerCase()}-checkbox`}
+                  id={`${walk.name.toLowerCase()}-checkbox`}
                   type="checkbox"
-                  className="w-4 h-4 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  onChange={(event) => handleToggle(event, walk.walkId)}
+                  className="w-4 h-4 border-gray-300 rounded-sm focus:ring-blue-500"
+                  onChange={(event) => handleToggle(event, walk.id as WalksKey)}
                 />
                 <label
-                  htmlFor={`${walk.walkName.toLowerCase()}-checkbox`}
-                  className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  htmlFor={`${walk.name.toLowerCase()}-checkbox`}
+                  className="w-full py-3 ms-2 text-sm font-medium text-black"
                 >
-                  {walk.walkName}
+                  {walk.name}
                 </label>
               </div>
             </li>
           ))}
           <div className="flex justify-center py-4 gap-10">
             <button className="button-reverse" aria-label="button to home page">
-              <Link to={'/'}>Back</Link>
+              <Link to={'/quiz-outlet'}>Back</Link>
             </button>
             <button
               className="button"
               aria-label="button to home page"
-              onSubmit={handleSubmit}
+              onClick={(e) => handleSubmit(e)}
             >
               Submit
             </button>

@@ -26,6 +26,16 @@ export default function UserEquipmentChecklist({
     setUserEquipment(updated)
   }
 
+  const formatCamelCase = (text: string): string => {
+    if (!text) return ''
+
+    const formatted = text
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, (str) => str.toUpperCase())
+
+    return formatted
+  }
+
   return (
     <div className="w-full flex flex-col items-center gap-4 mt-6">
       <div className="grid grid-cols-3 gap-4">
@@ -43,7 +53,7 @@ export default function UserEquipmentChecklist({
           return (
             <label
               key={key}
-              className="flex items-center gap-2 p-2 bg-white/10 rounded-md cursor-pointer"
+              className="flex items-center gap-4 p-4 bg-white/10 rounded-md cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -52,7 +62,9 @@ export default function UserEquipmentChecklist({
                 disabled={isDisabled}
                 className="accent-green-500 scale-175"
               />
-              <span className="font-medium">{key}</span>
+              <span className="font-medium">
+                {formatCamelCase(key as string)}
+              </span>
             </label>
           )
         })}
@@ -67,7 +79,7 @@ export default function UserEquipmentChecklist({
             : 'bg-gray-400 cursor-not-allowed'
         }`}
       >
-        Submit
+        Update Gear
       </button>
     </div>
   )

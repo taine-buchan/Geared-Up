@@ -13,6 +13,9 @@ export default function Nav() {
           <Link to="/" className="button-square">
             Home
           </Link>
+          <Link to="/gear-lists" className="button-square">
+            gear list
+          </Link>
           <Link to="/great-walks" className="button-square">
             Great Walks
           </Link>
