@@ -1,143 +1,154 @@
-// import { waitFor } from '@testing-library/react'
-// import nock from 'nock'
-// import { describe, expect, it, vi, afterEach } from 'vitest'
+import { waitFor } from '@testing-library/react'
+import nock from 'nock'
+import { describe, expect, it, vi, afterEach } from 'vitest'
 
-// import { AdminOnly } from '../components/AdminOnly'
-// import { renderWithQuery } from './setup' // same helper you used in AddProfile test
+import { AdminOnly } from '../components/AdminOnly'
+import { renderRoute, renderWithQuery } from './setup' // same helper you used in AddProfile test
 
-// vi.mock('@auth0/auth0-react', () => ({
-//   useAuth0: () => ({
-//     user: {
-//       sub: 'auth0|admin-user',
-//       email: 'admin@example.com',
-//     },
-//     isAuthenticated: true,
-//     getAccessTokenSilently: vi.fn().mockResolvedValue('token'),
-//   }),
-// }))
+vi.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => ({
+    user: {
+      // sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      // email: 'harakeke2025@gmail.com',
+      email: 'harakeke2025@gmail.com',
+      email_verified: false,
+      name: 'harakeke2025@gmail.com',
+      nickname: 'harakeke2025',
+      picture:
+        'https://s.gravatar.com/avatar/5c885aa44f38d5a41a8ce23d93a0ac3f?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fha.png',
+      sub: 'auth0|67fc3e8358b53e94bf0b4c29',
+      updated_at: '2025-04-14T01:22:58.645Z',
+    },
+    isAuthenticated: true,
+    getAccessTokenSilently: vi.fn().mockResolvedValue('token'),
+  }),
+}))
 
-// describe('<AdminOnly /> Integration', () => {
-//   afterEach(() => {
-//     vi.clearAllMocks()
-//     nock.cleanAll()
-//   })
+describe('<AdminOnly /> Integration', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+    nock.cleanAll()
+  })
 
-//   it('should show loading first, then allow access if user is admin', async () => {
-//     nock('http://localhost')
-//       .get('/api/v1/user')
-//       .reply(200, {
-//         id: 'auth0|67fc3e8358b53e94bf0b4c29',
-//         username: 'harakeke2025444',
-//         name: 'admin harakeke25',
-//         email: 'harakeke2025@gmail.com',
-//         phone: '+64 2121486803',
-//         role: 'admin',
-//         result: '',
-//         myEquipment: {
-//           backpack: true,
-//           waterproofPackLiner: true,
-//           sleepingBag: false,
-//           firstAidKit: false,
-//           survivalKit: false,
-//           safetyEquipment: false,
-//           torchFlashlight: false,
-//           rubbishBag: false,
-//           bookingConfirmationAndId: false,
-//           earplugsForBunkrooms: false,
-//           drinkBottle: false,
-//           eatingAndCookingUtensils: false,
-//           gasCookerAndFuel: false,
-//           matchesOrLighter: false,
-//           generalToiletries: false,
-//           backupToiletOption: false,
-//           tent: false,
-//           sleepingMat: false,
-//           groundSheet: false,
-//           walkingClothes: false,
-//           hikingBoots: false,
-//           socks: false,
-//           shorts: false,
-//           shirt: false,
-//           underLayers: false,
-//           midLayers: false,
-//           raincoat: false,
-//           overtrousers: false,
-//           warmHatAndGloves: false,
-//           sunhatAndSunglasses: false,
-//           extraSocksUnderwearAndShirt: false,
-//           gaiters: false,
-//           lightweightShoesForHuts: false,
-//           carryFood: false,
-//           lightweightFood: false,
-//           emergencyFood: false,
-//           foodStorage: false,
-//           emergencyShelter: false,
-//           distressBeacon: false,
-//           cookingFacilities: false,
-//           sanitaryBins: false,
-//           gasCooker: false,
-//           fireStarters: false,
-//           lifeJacket: false,
-//           kayakOrCanoe: true,
-//           paddles: false,
-//           plasticDrumsOrEquivalent: false,
-//           dryBags: false,
-//           swimwear: false,
-//           sandalsOrAquaShoes: false,
-//           portableStoveAndFuel: false,
-//           candles: false,
-//           docConfirmationLetter: false,
-//         },
-//       })
+  it('should show loading first, then allow access if user is admin', async () => {
+    nock('http://localhost').get('/api/v1/')
 
-//     // const { getByText, queryByText } = renderWithQuery(
-//     const container = renderWithQuery(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
-//     // console.log('user', user)
+    nock('http://localhost')
+      .get('/api/v1/user')
+      .reply(200, {
+        id: 'auth0|67fc3e8358b53e94bf0b4c29',
+        username: 'harakeke2025444',
+        name: 'admin harakeke25',
+        email: 'harakeke2025@gmail.com',
+        phone: '+64 2121486803',
+        role: 'admin',
+        result: '',
+        myEquipment: {
+          backpack: true,
+          waterproofPackLiner: true,
+          sleepingBag: false,
+          firstAidKit: false,
+          survivalKit: false,
+          safetyEquipment: false,
+          torchFlashlight: false,
+          rubbishBag: false,
+          bookingConfirmationAndId: false,
+          earplugsForBunkrooms: false,
+          drinkBottle: false,
+          eatingAndCookingUtensils: false,
+          gasCookerAndFuel: false,
+          matchesOrLighter: false,
+          generalToiletries: false,
+          backupToiletOption: false,
+          tent: false,
+          sleepingMat: false,
+          groundSheet: false,
+          walkingClothes: false,
+          hikingBoots: false,
+          socks: false,
+          shorts: false,
+          shirt: false,
+          underLayers: false,
+          midLayers: false,
+          raincoat: false,
+          overtrousers: false,
+          warmHatAndGloves: false,
+          sunhatAndSunglasses: false,
+          extraSocksUnderwearAndShirt: false,
+          gaiters: false,
+          lightweightShoesForHuts: false,
+          carryFood: false,
+          lightweightFood: false,
+          emergencyFood: false,
+          foodStorage: false,
+          emergencyShelter: false,
+          distressBeacon: false,
+          cookingFacilities: false,
+          sanitaryBins: false,
+          gasCooker: false,
+          fireStarters: false,
+          lifeJacket: false,
+          kayakOrCanoe: true,
+          paddles: false,
+          plasticDrumsOrEquivalent: false,
+          dryBags: false,
+          swimwear: false,
+          sandalsOrAquaShoes: false,
+          portableStoveAndFuel: false,
+          candles: false,
+          docConfirmationLetter: false,
+        },
+      })
 
-//     container.debug()
+    // const { getByText, queryByText } = renderWithQuery(
+    // const container = renderWithQuery(
+    //   <AdminOnly>
+    //     <p>Secret content</p>
+    //   </AdminOnly>,
+    // )
+    // console.log('user', user)
+    const screen = renderRoute('/great-walks/1')
 
-//     // Loading initially
+    screen.debug()
 
-//     const loading = container.getByAltText('Mountain landscape for hiking')
-//     expect(loading).toBeInTheDocument()
+    // Loading initially
 
-//     // Wait for the mocked request to complete
-//     // expect(scope.isDone()).toBeTruthy()
+    const loading = screen.getByAltText('Animation of a Hiker walking')
+    expect(loading).toBeInTheDocument()
 
-//     // Then the admin content should appear
-//     // await waitFor(() => {
-//     //   // expect(queryByText('Secret content')).toBeInTheDocument()
-//     //   // expect(queryByText('Loading...')).not.toBeInTheDocument()
-//     // })
-//     // container.debug()
-//   })
+    // Wait for the mocked request to complete
+    // expect(scope.isDone()).toBeTruthy()
 
-//   it('should deny access if user is not admin', async () => {
-//     const scope = nock('http://localhost').get('/api/v1/user').reply(200, {
-//       name: 'Regular User',
-//       username: 'user123',
-//       email: 'user@example.com',
-//       role: 'user',
-//       phone: '111-111-1111',
-//     })
+    // Then the admin content should appear
+    // await waitFor(() => {
+    //   // expect(queryByText('Secret content')).toBeInTheDocument()
+    //   // expect(queryByText('Loading...')).not.toBeInTheDocument()
+    // })
+    // container.debug()
+  })
 
-//     const { getByText, queryByText } = renderWithQuery(
-//       <AdminOnly>
-//         <p>Secret content</p>
-//       </AdminOnly>,
-//     )
+  it('should deny access if user is not admin', async () => {
+    nock('http://localhost').get('/api/v1/user').reply(200, {
+      name: 'Regular User',
+      username: 'user123',
+      email: 'user@example.com',
+      role: 'user',
+      phone: '111-111-1111',
+    })
 
-//     expect(getByText('Loading...')).toBeInTheDocument()
+    const { getByText, queryByText } = renderWithQuery(
+      <AdminOnly>
+        <p>Secret content</p>
+      </AdminOnly>,
+    )
 
-//     await waitFor(() => expect(scope.isDone()).toBeTruthy())
+    expect(getByText('Loading...')).toBeInTheDocument()
 
-//     await waitFor(() => {
-//       expect(getByText('Access denied')).toBeInTheDocument()
-//       expect(queryByText('Secret content')).not.toBeInTheDocument()
-//     })
-//   })
-// })
+    // await waitFor(() => expect(scope.isDone()).toBeTruthy())
+
+    await waitFor(() => {
+      expect(getByText('Access denied')).toBeInTheDocument()
+      expect(queryByText('Secret content')).not.toBeInTheDocument()
+    })
+  })
+})

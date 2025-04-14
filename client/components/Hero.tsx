@@ -1,15 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
-import RegisterButton from './RegisterButton'
+// import RegisterButton from './RegisterButton'
 
 export default function Hero() {
-  const { user } = useAuth0()
+  // const { user } = useAuth0()
+  const { user, loginWithRedirect } = useAuth0()
 
-  // const handleSignIn = () => {
-  //   console.log('sign in')
+  const handleSignIn = () => {
+    console.log('sign in')
 
-  //   loginWithRedirect()
-  // }
+    loginWithRedirect()
+  }
 
   return (
     <div className="w-full flex justify-center">
@@ -30,10 +31,10 @@ export default function Hero() {
                 Kia Ora! {user.name}
               </Link>
             ) : (
-              // <button onClick={handleSignIn} className="button">
-              //   Get Started
-              // </button>
-              <RegisterButton />
+              <button onClick={handleSignIn} className="button">
+                Get Started
+              </button>
+              // <RegisterButton />
             )}
           </div>
 
