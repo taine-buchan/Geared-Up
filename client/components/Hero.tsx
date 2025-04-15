@@ -45,10 +45,6 @@ export default function Hero() {
                 Kia Ora! {user.name}
               </Link>
             ) : (
-              // <button onClick={handleSignIn} className="button">
-              //   Get Started
-              // </button>
-              // // <Redirect />
               <div className="flex gap-4">
                 <button onClick={handleSignIn} className="button">
                   Sign In
