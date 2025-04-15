@@ -5,19 +5,30 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { getUser, upsertUser } from '../apis/user'
 
 export function useGetUser() {
-  const { user, getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently, isLoading: auth0Loading } = useAuth0()
   const query = useQuery({
-    queryKey: ['user'],
+    queryKey: ['user', user?.sub],
     queryFn: async () => {
-      const token = await getAccessTokenSilently()
-      if (user && user.sub) {
+      // Only proceed if we have a user
+      if (!user?.sub) return null
+
+      try {
+        const token = await getAccessTokenSilently()
         const response = await getUser(token)
         return response
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+        throw error
       }
     },
-    enabled: !!user?.sub, //prevents the query from running until user is ready.ie, Auth0 hasn’t completed restoring the session yet.
+    // Only execute the query when user is available
+    enabled: !!user?.sub && !auth0Loading,
   })
-  return query
+
+  return {
+    ...query,
+    isLoading: auth0Loading || query.isLoading,
+  }
 }
 
 export function useUpsertUser() {
@@ -35,7 +46,6 @@ export function useUpsertUser() {
 }
 
 export function useUpdateUserEquipment() {
-  
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
 

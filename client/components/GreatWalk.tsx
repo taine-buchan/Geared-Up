@@ -12,8 +12,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
 
-
-
 const initState: JustUserEquipment = {
   backpack: false,
   waterproofPackLiner: false,
@@ -106,24 +104,25 @@ export default function GreatWalk() {
       return
     }
 
-    const { id, ...userWithoutId } = existingUserData as UserData & {
-      id: string
+    const { idUserExist, ...userWithoutId } = existingUserData as UserData & {
+      idUserExist: string
     }
 
     updateUserEquipmentMutation.mutate({
       currentUser: userWithoutId,
       equipment: userEquipment,
     })
-    navigate(`/great-walks`)
+    navigate(`/great-walks/${id}`)
+    //  window.scrollTo(0, 0)
   }
+  // const isLoadingAny = isLoading || (isAuthenticated && existingUserLoading)
+  const isErrorAny = isError || (isAuthenticated && existingUserError) || !id
 
-  if (isLoading || (isAuthenticated && existingUserLoading)) {
+  // if (isLoadingAny) return <LoadingIndicator />
+  if (isLoading) {
     return <LoadingIndicator />
   }
-
-  if (isError || (isAuthenticated && existingUserError) || !id) {
-    return <ErrorComponent />
-  }
+  if (isErrorAny) return <ErrorComponent />
 
   if (!greatWalk) return null
 
@@ -174,7 +173,7 @@ export default function GreatWalk() {
               <p>Elevation: {greatWalk.elevation}</p>
               <p>{greatWalk.description}</p>
             </div>
-            <PlanningButton id={greatWalk.id}/>
+            <PlanningButton id={greatWalk.id} />
             <Link to={greatWalk.docLink}>
               <button className="button cursor-pointer">Doc Link</button>
             </Link>
