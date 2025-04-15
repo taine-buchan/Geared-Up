@@ -97,7 +97,7 @@ router.delete('/:id', validateAccessToken, async (req, res) => {
   }
 })
 
-router.get('/user_id', validateAccessToken, async (req, res) => {
+router.get('/:userId', validateAccessToken, async (req, res) => {
   const { userId } = req.params
   if (!userId) {
     res.status(400).json({ message: 'Please provide a user id' })
