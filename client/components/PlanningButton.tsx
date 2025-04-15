@@ -10,7 +10,7 @@ console.log('planning', user)
   const { walkId } = useParams()
   const navigate = useNavigate()
   const addWalk = usePlannedWalks()
-
+  console.log('working?')
   if (!walkId) {
 
     return null
@@ -18,7 +18,6 @@ console.log('planning', user)
 
   const handleSignIn = () => {
     if (user) {
-      console.log(user.sub)
       return navigate(`/user/${user.sub}`)
     } else loginWithRedirect()
   }
