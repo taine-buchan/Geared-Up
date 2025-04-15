@@ -1,6 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 import { JustUserEquipment, UserData } from '../../models/user'
 import { getUser, upsertUser } from '../apis/user'
 
@@ -32,14 +31,13 @@ export function useGetUser() {
 }
 
 export function useUpsertUser() {
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: ({ form, token }: { form: UserData; token: string }) =>
       upsertUser(form, token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
-      navigate(`/quiz-outlet`)
+      
     },
   })
   return mutation

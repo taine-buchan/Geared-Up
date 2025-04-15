@@ -6,7 +6,7 @@ export default function QuizGearList() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    navigate('/great-walks')
+    navigate('/great-walks/recommend')
   }
 
   return (
