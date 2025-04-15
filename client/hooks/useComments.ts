@@ -1,11 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addCommentToGreatWalk,
-  deleteComment,
   getCommentsByGreatWalkId,
-
   deleteCommentById,
-
   updateCommentById,
 } from '../apis/comments.ts'
 import { CommentUpdate, NewComment } from '../../models/comments.ts'
@@ -24,6 +21,7 @@ export function useAddCommentToGreatWalk(id: number) {
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
     mutationFn: async (updateComent: NewComment) => {
+      const token = await getAccessTokenSilently()
 
       addCommentToGreatWalk(updateComent, token)
 
@@ -57,7 +55,7 @@ export function useDeleteComment(id: number) {
   const mutation = useMutation({
     mutationFn: async (commentId: number) => {
       const token = await getAccessTokenSilently()
-      return await deleteComment(commentId, token)
+      return await deleteCommentById(commentId, token)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', id] })
@@ -66,7 +64,7 @@ export function useDeleteComment(id: number) {
   return mutation
 }
 
-export function useUpdateCommentToGreatWalk() {
+export function useUpdateCommentToGreatWalk(id: number) {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
@@ -75,24 +73,8 @@ export function useUpdateCommentToGreatWalk() {
       updateCommentById(newComment, token)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] })
+      queryClient.invalidateQueries({ queryKey: ['comments', id] })
     },
   })
   return mutation
-}
-
-export function useDeleteComment() {
-  const queryClient = useQueryClient()
-  const { getAccessTokenSilently } = useAuth0()
-
-  return useMutation({
-    mutationFn: async (id: number) => {
-      const token = await getAccessTokenSilently()
-      await deleteCommentById(id, token)
-    },
-    onSuccess: () => {
-      // Invalidate and refetch the comments
-      queryClient.invalidateQueries({ queryKey: ['comments'] })
-    },
-  })
 }
