@@ -1,9 +1,7 @@
-import { waitFor } from '@testing-library/react'
 import nock from 'nock'
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { AdminOnly } from '../components/AdminOnly'
-import { renderRoute, renderWithQuery } from './setup' // same helper you used in AddProfile test
+import { renderRoute } from './setup' // same helper you used in AddProfile test
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
@@ -127,28 +125,28 @@ describe('great walk page', () => {
     // container.debug()
   })
 
-  it.skip('should deny access if user is not admin', async () => {
-    nock('http://localhost').get('/api/v1/user').reply(200, {
-      name: 'Regular User',
-      username: 'user123',
-      email: 'user@example.com',
-      role: 'user',
-      phone: '111-111-1111',
-    })
+  // it.skip('should deny access if user is not admin', async () => {
+  //   nock('http://localhost').get('/api/v1/user').reply(200, {
+  //     name: 'Regular User',
+  //     username: 'user123',
+  //     email: 'user@example.com',
+  //     role: 'user',
+  //     phone: '111-111-1111',
+  //   })
 
-    const { getByText, queryByText } = renderWithQuery(
-      <AdminOnly>
-        <p>Secret content</p>
-      </AdminOnly>,
-    )
+  //   const { getByText, queryByText } = renderWithQuery(
+  //     <AdminOnly>
+  //       <p>Secret content</p>
+  //     </AdminOnly>,
+  //   )
 
-    expect(getByText('Loading...')).toBeInTheDocument()
+  //   expect(getByText('Loading...')).toBeInTheDocument()
 
-    // await waitFor(() => expect(scope.isDone()).toBeTruthy())
+  //   // await waitFor(() => expect(scope.isDone()).toBeTruthy())
 
-    await waitFor(() => {
-      expect(getByText('Access denied')).toBeInTheDocument()
-      expect(queryByText('Secret content')).not.toBeInTheDocument()
-    })
-  })
+  //   await waitFor(() => {
+  //     expect(getByText('Access denied')).toBeInTheDocument()
+  //     expect(queryByText('Secret content')).not.toBeInTheDocument()
+  //   })
+  // })
 })
