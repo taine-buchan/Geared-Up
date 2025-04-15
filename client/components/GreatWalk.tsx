@@ -112,15 +112,15 @@ export default function GreatWalk() {
       return
     }
 
-    const { id, ...userWithoutId } = existingUserData as UserData & {
-      id: string
+    const { idUser, ...userWithoutId } = existingUserData as UserData & {
+      idUser: string
     }
 
     updateUserEquipmentMutation.mutate({
       currentUser: userWithoutId,
       equipment: userEquipment,
     })
-    navigate(`/great-walks`)
+    navigate(`/great-walks/${id}`)
   }
 
   if (isLoading || (isAuthenticated && existingUserLoading)) {

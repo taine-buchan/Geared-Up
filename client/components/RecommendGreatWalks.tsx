@@ -39,8 +39,8 @@ export default function RecommendGreatWalks() {
   )
   console.log('reco', recommendedGreatWalks)
   return (
-    <div className="flex items-center justify-center mt-10">
-      <div className="flex flex-col w-full max-w-screen-2xl">
+    <div className="flex items-center justify-center mb-10">
+      <div className="flex flex-col w-full max-w-screen-xl">
         <h1 className="text-[60px] font-bold">Recommended Great Walks</h1>
 
         <ul

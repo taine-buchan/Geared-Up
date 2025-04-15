@@ -1,4 +1,3 @@
-// components/UserEquipmentChecklist.tsx
 import { JustUserEquipment } from '../../models/user'
 import { useState } from 'react'
 
@@ -25,7 +24,6 @@ export default function UserEquipmentChecklist({
       [item]: !userEquipment[item],
     }
     setUserEquipment(updated)
-    setSuccessMessage('Equipment Updated!')
   }
 
   const formatCamelCase = (text: string): string => {
@@ -37,6 +35,21 @@ export default function UserEquipmentChecklist({
 
     return formatted
   }
+
+  const handleSubmitWithFeedback = () => {
+    handleSubmit()
+    setSuccessMessage('Equipment Updated!')
+
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 2000)
+  }
+
+  // useEffect(() => {
+  //   return () => {
+  //     // This clears any pending timeouts when the component unmounts
+  //   }
+  // }, [])
 
   return (
     <div className="w-full flex flex-col items-center gap-4 mt-6">
@@ -65,21 +78,16 @@ export default function UserEquipmentChecklist({
 
       <button
         data-testid="equipment-button"
-        onClick={handleSubmit}
+        onClick={handleSubmitWithFeedback}
         disabled={isDisabled}
-        className={`button cursor-pointer text-white transition ${
+        className={`button cursor-pointer text-white flex flex-col items-center transition ${
           !isDisabled
             ? 'bg-green-500 hover:bg-green-600'
             : 'bg-gray-400 cursor-not-allowed'
         }`}
       >
-        Update Equipment
+        {successMessage || 'Update Equipment'}
       </button>
-      {successMessage && (
-        <div className="mt-4 p-3 rounded bg-green-100 text-green-800 text-sm">
-          {successMessage}
-        </div>
-      )}
     </div>
   )
 }
