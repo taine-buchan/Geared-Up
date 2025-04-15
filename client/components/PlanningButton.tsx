@@ -3,14 +3,14 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePlannedWalks } from '../hooks/useUserWalks.ts'
-
+//------------nor rendering---------
 function PlanningButton() {
   const { user, loginWithRedirect } = useAuth0()
-
+console.log('planning', user)
   const { walkId } = useParams()
   const navigate = useNavigate()
   const addWalk = usePlannedWalks()
-
+  console.log('working?')
   if (!walkId) {
 
     return null
@@ -18,7 +18,6 @@ function PlanningButton() {
 
   const handleSignIn = () => {
     if (user) {
-      console.log(user.sub)
       return navigate(`/user/${user.sub}`)
     } else loginWithRedirect()
   }
@@ -27,7 +26,7 @@ function PlanningButton() {
     <>
       <IfAuthenticated>
         <Button
-          onClick={() => addWalk.mutate(+id)}
+          onClick={() => addWalk.mutate(+walkId)}
           className="button cursor-pointer"
         >
           Plan this Walk

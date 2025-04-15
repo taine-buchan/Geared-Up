@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function UserInformation() {
-
+  //active components
 
   return (
     <div className='flex flex-col items-center justify-center gap-10 mt-10'>
