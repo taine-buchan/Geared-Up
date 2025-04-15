@@ -95,4 +95,19 @@ router.delete('/:id', validateAccessToken, async (req, res) => {
   }
 })
 
+router.get('/user_id', validateAccessToken, async (req, res) => {
+  const { userId } = req.params
+  if (!userId) {
+    res.status(400).json({ message: 'Please provide a user id' })
+    return
+  }
+  try {
+    const walks = await db.getUserWalks(userId)
+    res.status(200).json(walks)
+  } catch (e) {
+    logError(e)
+    res.status(500).json({ message: 'Unable to retrieve User Walks' })
+  }
+})
+
 export default router

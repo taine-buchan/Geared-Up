@@ -1,9 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addPlanningGreatWalk,
   addCompletedGreatWalks,
   editCompletedWalk,
   deleteUserWalk,
+  getUserWalks,
 } from '../apis/user-walks'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -85,4 +86,12 @@ export function useDeleteUserWalk() {
     },
   })
   return mutation
+}
+
+export function useFetchWalks(userId: string) {
+  const query = useQuery({
+    queryKey: ['user-walks', userId],
+    queryFn: () => getUserWalks(userId),
+  })
+  return query
 }

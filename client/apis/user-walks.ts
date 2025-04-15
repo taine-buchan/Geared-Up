@@ -1,4 +1,5 @@
 import request from 'superagent'
+import { UserWalkListItem } from '../../models/user_walk'
 
 // POST /api/v1/user-walk
 
@@ -67,6 +68,20 @@ export async function deleteUserWalk(id: number, token: string) {
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error occurred while deleting great walk', error.message)
+      throw new Error(error.message)
+    }
+  }
+}
+
+export async function getUserWalks(
+  id: string,
+): Promise<UserWalkListItem[] | undefined> {
+  try {
+    const res = await request.get(`/api/v1/user/${id}`)
+    return res.body
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error occurred while fetching great walks', error.message)
       throw new Error(error.message)
     }
   }
