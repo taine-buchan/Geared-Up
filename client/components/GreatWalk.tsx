@@ -10,6 +10,7 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
+import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
 const initState: JustUserEquipment = {
   backpack: false,
@@ -85,6 +86,7 @@ export default function GreatWalk() {
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
   const navigate = useNavigate()
+  const addWalk = usePlannedWalks()
 
   useEffect(() => {
     if (isAuthenticated && existingUserData?.myEquipment) {
@@ -178,7 +180,12 @@ export default function GreatWalk() {
             </div>
             <div>
               <IfAuthenticated>
-                <button className="button cursor-pointer">Plan</button>
+                <button
+                  onClick={() => addWalk.mutate(+id)}
+                  className="button cursor-pointer"
+                >
+                  Plan
+                </button>
               </IfAuthenticated>
               <IfNotAuthenticated>
                 <button
