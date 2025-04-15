@@ -1,40 +1,42 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 import { useGreatWalks } from '../hooks/useGreatWalks'
+import { useFetchWalks } from '../hooks/useUserWalks'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
-import { useFetchWalks } from '../hooks/useUserWalks'
-import { useAuth0 } from '@auth0/auth0-react'
-import GreatWalks from './GreatWalks'
 
 export default function RecommendGreatWalks() {
   //fetch greaat walks data
   const { user } = useAuth0()
   const { data: allGreatWalks, isLoading, isError } = useGreatWalks()
-  const { data: completedGreatWalks, isPending, isError: errorForCompleted } = useFetchWalks(user?.sub || '')
+  const {
+    data: completedWalks,
+    isPending,
+    isError: errorForCompleted,
+  } = useFetchWalks(user?.sub || '')
   if (isLoading || isPending) return <LoadingIndicator />
   if (isError || errorForCompleted || !allGreatWalks) return <ErrorComponent />
 
-  //filter completed great walks
-  // const completedGreatWalksId = [1, 3, 5, 6]
-  //if completed.gw > 3 => intermediate
-  // const completedGreatWalks = completedGreatWalks?.filter(walk => walk.userId === user?.sub)
+  const completedGreatWalks =
+    completedWalks?.filter(
+      (walk) => walk.userId === user?.sub && walk.isComplete,
+    ) ?? []
+  console.log('Completed Walks:', completedGreatWalks)
+  const completedGreatWalksId = completedGreatWalks.map(
+    (walk) => walk.greatWalkId,
+  )
+  const completedCount = completedGreatWalks.length
 
+  const notCompletedGreatWalks = allGreatWalks.filter(
+    (walk) => !completedGreatWalksId.includes(walk.id),
+  )
 
-  // console.log(completedGreatWalks)
-  console.log('completedwalks',completedGreatWalks)
-  const countCompletedWalks = completedGreatWalks?.filter(walk => walk.isComplete === true)
-  console.log(countCompletedWalks)
-  if(!countCompletedWalks) return <GreatWalks />
-  const recommendedGreatWalks = completedGreatWalks.length > 2 ? allGreatWalks.filter(walk => walk.difficulty === "Intermediate") : allGreatWalks.filter(walk => walk.difficulty === "easy")
+  const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
+    completedCount > 3
+      ? walk.difficulty === 'Intermediate'
+      : walk.difficulty === 'easy',
+  )
 
-  // const notCompletedGreatWalks = allGreatWalks.filter(
-  //   (allGreatWalk) => !completedGreatWalksId?.includes(allGreatWalk.id),
-  // )
-  // const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
-  //   completedGreatWalksId.length > 3
-  //     ? walk.difficulty === 'Intermediate'
-  //     : walk.difficulty === 'easy',
-  // )
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="flex flex-col justify-center w-3/5">
