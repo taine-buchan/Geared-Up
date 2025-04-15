@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
 import LoginButton from './LoginButton'
-// import LoginButton from './LoginButton'
 
 //-------nav styling
 export default function Nav() {
   return (
     <nav className="bg-navy-900 py-12">
-      <div className="flex items-center justify-between gap-auto max-w-screen-xl px-14">
+      <div className="flex items-center justify-between gap-auto max-w-screen-xl mx-auto px-14">
         <Link to="/">
           <img src="/logo_init.svg" alt="Icon" className="w-40" />
         </Link>

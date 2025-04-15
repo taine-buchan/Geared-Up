@@ -44,8 +44,8 @@ export default function Hero() {
           className="w-full h-full object-cover opacity-40"
         />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center mb-20">
-          <h1 className="text-3xl lg:text-6xl md:text-5xl max-w-xl m-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-4 p-10">
+          <h1 className="text-3xl lg:text-6xl md:text-5xl max-w-3xl">
             Take the quiz and gear up for your Great Walk
           </h1>
           <div className="py-6">
@@ -65,7 +65,7 @@ export default function Hero() {
             )}
           </div>
 
-          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex ">
+          <p className="text-l md:text-2xl font-extralight">
             Companion tool for the Great Walks of Aotearoa
           </p>
         </div>
