@@ -9,7 +9,6 @@ function LoginButton() {
   const handleSignOut = () => {
     logout()
   }
-
   // const handleSignIn = () => {
   //  if(user) {
   //   console.log(user.sub)
