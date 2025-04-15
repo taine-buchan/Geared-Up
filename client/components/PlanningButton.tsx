@@ -6,11 +6,13 @@ import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 
 function PlanningButton() {
   const { user, loginWithRedirect } = useAuth0()
-  const { id } = useParams()
+
+  const { walkId } = useParams()
   const navigate = useNavigate()
   const addWalk = usePlannedWalks()
 
-  if (!id) {
+  if (!walkId) {
+
     return null
   }
 
@@ -31,11 +33,13 @@ function PlanningButton() {
           Plan this Walk
         </Button>
       </IfAuthenticated>
+
       <IfNotAuthenticated>
         <Button onClick={handleSignIn} className="button cursor-pointer">
           Sign in
         </Button>
       </IfNotAuthenticated>
+
     </>
   )
 }
