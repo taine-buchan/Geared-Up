@@ -19,3 +19,13 @@ export interface UserWalkDataDB {
 export interface UserWalkDB extends UserWalkDataDB {
   id: number
 }
+
+export interface UserWalkListItem {
+  id: number
+  userId: string
+  greatWalkId: number
+  isComplete?: boolean
+  isPlanned?: boolean
+  name: string
+  difficulty: string
+}

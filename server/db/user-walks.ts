@@ -17,3 +17,18 @@ export async function editUserWalk(id: number, data: UserWalkDataDB) {
 export async function deleteUserWalk(id: number) {
   return await connection('user_walks').where('id', id).delete()
 }
+
+export async function getUserWalks(user_id: string) {
+  return connection('user_walks')
+    .join('great_walks', 'user_walks.great_walk_id', 'great_walks.id')
+    .select(
+      'user_walks.id as id',
+      'user_walks.user_id as userId',
+      'user_walks.great_walk_id as greatWalkId',
+      'user_walks.is_complete as isComplete',
+      'user_walks.is_planned as isPlanned',
+      'great_walks.name as name',
+      'great_walks.difficulty as difficulty',
+    )
+    .where('user_id', user_id)
+}
