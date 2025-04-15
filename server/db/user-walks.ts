@@ -21,6 +21,7 @@ export async function deleteUserWalk(id: number) {
 export async function getUserWalks(user_id: string) {
   return connection('user_walks')
     .join('great_walks', 'user_walks.great_walk_id', 'great_walks.id')
+    .where('user_walks.user_id', user_id)
     .select(
       'user_walks.id as id',
       'user_walks.user_id as userId',
@@ -30,5 +31,4 @@ export async function getUserWalks(user_id: string) {
       'great_walks.name as name',
       'great_walks.difficulty as difficulty',
     )
-    .where('user_id', user_id)
 }
