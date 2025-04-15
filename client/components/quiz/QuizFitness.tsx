@@ -11,10 +11,10 @@ export default function QuizFitnessLevel() {
           <Link to={'../quiz-link-to-doc'}>Poor</Link>
         </button>
         <button className="button-square" aria-label="button to home page">
-          <Link to={'/quiz-two'}>Ok</Link>
+          <Link to={'../quiz-great-walks'}>Ok</Link>
         </button>
         <button className="button" aria-label="button to home page">
-          <Link to={'/'}>Great</Link>
+          <Link to={'../quiz-great-walks'}>Great</Link>
         </button>
       </div>
     </div>

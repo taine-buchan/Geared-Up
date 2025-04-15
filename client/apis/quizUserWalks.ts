@@ -1,8 +1,7 @@
 import request from 'superagent'
-import { SelectedWalkData } from '../components/quiz/QuizWhichGreatWalks'
 
 export async function updateUserWalks(
-  form: SelectedWalkData[] | undefined,
+  form: number[] | undefined,
   token: string,
 ) {
   try {

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
-import PlanningButton from './PlanningButton'
+// import PlanningButton from './PlanningButton'
 
 const initState: JustUserEquipment = {
   backpack: false,
