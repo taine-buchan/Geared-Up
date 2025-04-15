@@ -43,15 +43,6 @@ export default function UserEquipmentChecklist({
   return (
     <div className="w-full flex flex-col items-center gap-4 mt-6">
       <div className="grid grid-cols-3 gap-4">
-        {/* Show login button if not authenticated */}
-        {!isAuthenticated && (
-          <button
-            onClick={() => loginWithRedirect()}
-            className="button cursor-pointer"
-          >
-            Sign in to Save Your Checklist
-          </button>
-        )}
         {requiredEquipmentDisplay.map(([key]) => {
           const userHasItem = userEquipment?.[key] ?? false
           return (
