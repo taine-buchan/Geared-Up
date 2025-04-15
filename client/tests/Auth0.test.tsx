@@ -32,7 +32,7 @@ beforeAll(() => {
 beforeEach(() => {
   vi.mocked(useAuth0).mockReturnValue({
     isAuthenticated: true,
-    user: { sub: 'user.harakeke25@gmail.com', nickname: 'user harakeke25' },
+    user: { sub: 'user.harakeke25@gmail.com', name: 'user harakeke25' },
     getAccessTokenSilently: vi.fn().mockReturnValue(ACCESS_TOKEN),
     loginWithRedirect: vi.fn(),
     logout: vi.fn(),
@@ -43,17 +43,20 @@ afterEach(() => {
   vi.clearAllMocks()
 })
 
-describe('<LoginButton>', () => {
-  it.only('should add a username', async () => {
-    // in the future if this home page makes an api react query we can use this nock
-    // const scope = nock('http://localhost')
-    //   .get('/api/v1/geared-up')
-    //   .reply(200, mockUser)
-
+describe('Home page welcomes the viewer', () => {
+  it.only('should show intro text and sign in and sign up buttons', async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user, ...screen } = renderApp('/')
-    const username = await screen.findByText('Get Started')
-    // expect(scope.isDone()).toBe(true)
-    expect(username.textContent).toBe('Get Started')
+    screen.debug()
+    const introduction = await screen.findByText(
+      'Take the quiz and gear up for your Great Walk',
+    )
+    const signInButton = await screen.findByRole('button', { name: 'Sign In' })
+    expect(signInButton).toBeVisible()
+    const signUpButton = await screen.findByRole('button', { name: 'Sign Up' })
+    expect(signUpButton).toBeVisible()
+    expect(introduction.textContent).toBe(
+      'Take the quiz and gear up for your Great Walk',
+    )
   })
 })
