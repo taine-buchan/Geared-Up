@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // components/GreatWalk.tsx
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorComponent from './ErrorComponent'
@@ -86,13 +86,29 @@ export default function GreatWalk() {
 
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
+  const [showSuccess, setShowSuccess] = useState(false)
+
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     if (isAuthenticated && existingUserData?.myEquipment) {
       setUserEquipment(existingUserData.myEquipment)
     }
   }, [isAuthenticated, existingUserData])
+
+  useEffect(() => {
+    if (location.state?.success) {
+      setShowSuccess(true)
+      window.scrollTo(0, 0)
+
+      const timer = setTimeout(() => {
+        setShowSuccess(false)
+      }, 4000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [location.state])
 
   function handleSubmit() {
     if (!isAuthenticated) {
@@ -112,8 +128,10 @@ export default function GreatWalk() {
       currentUser: userWithoutId,
       equipment: userEquipment,
     })
-    navigate(`/great-walks/${id}`)
     //  window.scrollTo(0, 0)
+    navigate(`/great-walks/${id}`, {
+      state: { success: true },
+    })
   }
   // const isLoadingAny = isLoading || (isAuthenticated && existingUserLoading)
   const isErrorAny = isError || (isAuthenticated && existingUserError) || !id
@@ -136,6 +154,13 @@ export default function GreatWalk() {
   return (
     <div className="flex items-center justify-center">
       <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10 mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
+      {showSuccess && (
+          <div className="w-full bg-green-200 text-green-800 p-4 rounded-lg text-center font-semibold mb-4">
+            ✅ Equipment saved successfully!
+          </div>
+        )}
+
+
         <div className="flex flex-row gap-6">
           <div className="flex flex-col w-1/2 gap-6">
             <img
