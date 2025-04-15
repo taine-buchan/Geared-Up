@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 import LoginButton from './LoginButton'
-// import LoginButton from './LoginButton'
 
-
-//-------nav styling
 export default function Nav() {
   return (
     <nav className="bg-navy-900 py-12 tracking">
