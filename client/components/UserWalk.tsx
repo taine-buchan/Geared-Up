@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import { UserWalkListItem } from '../../models/user_walk'
 import { useDeleteUserWalk, useEditCompleteWalk } from '../hooks/useUserWalks'
 import Button from './Button'
@@ -10,10 +12,18 @@ export default function UserWalk({ greatWalk }: Props) {
   const deleteUserWalk = useDeleteUserWalk()
   const editUserWalk = useEditCompleteWalk()
   const handleDelete = () => {
-    deleteUserWalk.mutate(greatWalk.id)
+    deleteUserWalk.mutate(greatWalk.id, {
+      onSuccess: () => {
+        toast.success(`Deleted "${greatWalk.name}" from your list 🗑️`)
+      },
+    })
   }
   const handleEdit = () => {
-    editUserWalk.mutate(greatWalk.id)
+    editUserWalk.mutate(greatWalk.id, {
+      onSuccess: () => {
+        toast.success(`Marked "${greatWalk.name}" as completed ✅`)
+      },
+    })
   }
 
   const state = greatWalk.isComplete ? 'Completed' : 'Planned'
