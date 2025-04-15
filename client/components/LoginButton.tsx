@@ -21,7 +21,9 @@ function LoginButton() {
   return (
     <>
       <IfAuthenticated>
-        <Button onClick={handleSignOut}>Sign out</Button>
+        <Button onClick={handleSignOut} className="button-square">
+          Sign out
+        </Button>
         {/* {user && (
           <p data-testid="logged in user">Signed in as: {user?.nickname}</p>
         )} */}
