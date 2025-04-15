@@ -10,6 +10,8 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
+
 // import PlanningButton from './PlanningButton'
 
 const initState: JustUserEquipment = {
@@ -75,7 +77,7 @@ export default function GreatWalk() {
 
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const {
     data: existingUserData,
     isLoading: existingUserLoading,
@@ -93,6 +95,12 @@ export default function GreatWalk() {
     }
   }, [isAuthenticated, existingUserData])
 
+  const handleSignIn = () => {
+    if (user) {
+      console.log(user.sub)
+      return navigate(`/user/${user.sub}`)
+    } else loginWithRedirect()
+  }
   function handleSubmit() {
     if (!isAuthenticated) {
       loginWithRedirect()
@@ -165,18 +173,28 @@ export default function GreatWalk() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 w-1/2">
+          <div className="flex flex-col gap-4 ">
             <h1 className="text-[40px] font-bold">{greatWalk.name}</h1>
             <div className="text-[15px] gap-4">
               <p>Elevation: {greatWalk.elevation}</p>
               <p>{greatWalk.description}</p>
             </div>
-
-            <PlanningButton />
-
-            <Link to={greatWalk.docLink}>
-              <button className="button cursor-pointer">Doc Link</button>
-            </Link>
+            <div>
+              <IfAuthenticated>
+                <button className="button cursor-pointer">Plan</button>
+              </IfAuthenticated>
+              <IfNotAuthenticated>
+                <button
+                  onClick={handleSignIn}
+                  className="button cursor-pointer"
+                >
+                  Sign in
+                </button>
+              </IfNotAuthenticated>
+              <Link to={greatWalk.docLink}>
+                <button className="button cursor-pointer">Doc Link</button>
+              </Link>
+            </div>
           </div>
         </div>
 
