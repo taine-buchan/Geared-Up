@@ -57,3 +57,18 @@ export async function editCompletedWalk(walkId: number, token: string) {
     }
   }
 }
+
+export async function deleteUserWalk(id: number, token: string) {
+  try {
+    const res = await request
+      .delete(`/api/v1/user/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+    return res.body
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error occurred while deleting great walk', error.message)
+
+      throw new Error(error.message)
+    }
+  }
+}

@@ -179,7 +179,7 @@ describe('Get walk by walk id', () => {
       expectedFields.forEach((field) => {
         expect(equipment).toHaveProperty(field)
         expect(typeof equipment[field as keyof typeof equipment]).toBe(
-          'boolean'
+          'boolean',
         )
       })
     })

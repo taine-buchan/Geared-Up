@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
-
+  console.log(req.auth?.payload)
   if (!auth0Id) {
     res.status(400).json({ message: 'Please provide an id' })
     return
@@ -106,6 +106,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     phone: form.phone,
     result: form.result || form.result != null ? form.result : '',
     my_equipment: snakeEquipment || {},
+    role: form.role,
   }
 
   try {
