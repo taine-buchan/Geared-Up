@@ -12,7 +12,6 @@ function PlanningButton() {
   const addWalk = usePlannedWalks()
 
   if (!walkId) {
-
     return null
   }
 
@@ -27,7 +26,7 @@ function PlanningButton() {
     <>
       <IfAuthenticated>
         <Button
-          onClick={() => addWalk.mutate(+id)}
+          onClick={() => addWalk.mutate(+walkId)}
           className="button cursor-pointer"
         >
           Plan this Walk
@@ -39,7 +38,6 @@ function PlanningButton() {
           Sign in
         </Button>
       </IfNotAuthenticated>
-
     </>
   )
 }
