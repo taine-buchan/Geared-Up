@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import LoginButton from './LoginButton'
-// import LoginButton from './LoginButton'
 
 export default function Nav() {
   return (
@@ -9,7 +8,7 @@ export default function Nav() {
         <Link to="/">
           <img src="/logo_init.svg" alt="Icon" className="w-40" />
         </Link>
-        <div className="flex items-center justify-center gap-16 ">
+        <div className="flex items-center justify-center gap-16 font-bold">
           <Link to="/" className="button-square">
             Home
           </Link>

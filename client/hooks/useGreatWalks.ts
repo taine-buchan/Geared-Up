@@ -8,7 +8,7 @@ export function useGreatWalks() {
 
 export function useGreatWalkById(id: number) {
   const query = useQuery({
-    queryKey: ['greatWalk'],
+    queryKey: ['greatWalk', id],
     queryFn: () => getGreatWalkById(id),
   })
   return query

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 export default function Hero() {
   // const { user } = useAuth0()
   const { user, loginWithRedirect } = useAuth0()
-
   const handleSignIn = () => {
     console.log('sign in')
 
@@ -26,6 +25,16 @@ export default function Hero() {
       // appState: { returnTo: '/user' }, // Will return to profile page
     })
   }
+
+  // const handleQuiz = () => {
+  //   loginWithRedirect({
+  //     authorizationParams: {
+  //       screen_hint: 'signup',
+  //       redirect_uri: `${window.location.origin}/user/quiz-outlet`,
+  //     },
+  //     // appState: { returnTo: '/user' }, // Will return to profile page
+  //   })
+  // }
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">

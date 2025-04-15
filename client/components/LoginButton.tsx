@@ -1,36 +1,36 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
-import { IfAuthenticated } from './Authenticated.tsx'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
 
 function LoginButton() {
-  const { logout } = useAuth0()
-  // const navigate = useNavigate()
+  const { logout, loginWithRedirect } = useAuth0()
   const handleSignOut = () => {
     logout()
   }
-
-  // const handleSignIn = () => {
-  //  if(user) {
-  //   console.log(user.sub)
-  //   return navigate(`/user/${user.sub}`)
-  //  } else loginWithRedirect()
-
-  // }
-
+  const handleSignIn = () => {
+    loginWithRedirect({
+      authorizationParams: {
+        screen_hint: 'signin',
+        redirect_uri: `${window.location.origin}`,
+      },
+    })
+  }
   return (
     <>
+      <IfNotAuthenticated>
+        <button onClick={handleSignIn} aria-label="Sign in">
+          <img src="/profile_icon.svg" alt="Profile Icon" className="w-6 h-6" />
+        </button>
+      </IfNotAuthenticated>
       <IfAuthenticated>
-        <Button onClick={handleSignOut}>Sign out</Button>
-        {/* {user && (
-          <p data-testid="logged in user">Signed in as: {user?.nickname}</p>
-        )} */}
+        <Button onClick={handleSignOut} className="button-square">
+          Sign out
+        </Button>
+        <Link to="/user-information">
+          <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
+        </Link>
       </IfAuthenticated>
-      {/* <IfNotAuthenticated> */}
-      <Link to="/user-information">
-        <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
-      </Link>
-      {/* </IfNotAuthenticated> */}
     </>
   )
 }

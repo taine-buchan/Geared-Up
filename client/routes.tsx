@@ -15,6 +15,7 @@ import AddProfile from './components/AddProfile'
 import UserInformation from './components/UserInformation'
 import RecommendGreatWalks from './components/RecommendGreatWalks'
 import QuizGearList from './components/quiz/QuizGearList'
+import UserGearListPage from './components/UserGearListPage'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -26,6 +27,7 @@ export default createRoutesFromElements(
     <Route path="/user-information" element={<UserInformation />} />
     <Route path="/user/:sub" element={<Profile />} />
     <Route path="/profile-form" element={<Profile />} />
+    <Route path="/user-gear-list" element={<UserGearListPage />} />
     <Route path="/login-button" element={<LoginButton />} />
 
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
