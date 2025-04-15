@@ -58,7 +58,7 @@ export function useUpsertUser() {
       upsertUser(form, token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
-      navigate(`/`)
+      navigate(`/quiz-outlet`)
     },
   })
   return mutation

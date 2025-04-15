@@ -8,6 +8,7 @@ interface Props {
 }
 export function IfAuthenticated(props: Props) {
   const { children } = props
+  console.log('auth')
   return useIsAuthenticated() ? <>{children}</> : null
 }
 

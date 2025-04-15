@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/GreatWalk.tsx
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect, useState } from 'react'
