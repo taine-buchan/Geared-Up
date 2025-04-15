@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/GreatWalk.tsx
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
@@ -83,6 +84,7 @@ export default function GreatWalk() {
   } = useGetUser()
 
   const updateUserEquipmentMutation = useUpdateUserEquipment()
+
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
   const navigate = useNavigate()
