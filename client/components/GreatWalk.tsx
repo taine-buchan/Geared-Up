@@ -11,6 +11,7 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
+import { usePlannedWalks } from '../hooks/useUserWalks'
 
 const initState: JustUserEquipment = {
   backpack: false,
