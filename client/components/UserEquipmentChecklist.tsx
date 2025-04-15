@@ -1,5 +1,4 @@
 // components/UserEquipmentChecklist.tsx
-import { useAuth0 } from '@auth0/auth0-react'
 import { JustUserEquipment } from '../../models/user'
 import { useState } from 'react'
 
@@ -20,7 +19,6 @@ export default function UserEquipmentChecklist({
 }: Props) {
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
   function handleToggleItem(item: keyof JustUserEquipment) {
     const updated = {
       ...userEquipment,
