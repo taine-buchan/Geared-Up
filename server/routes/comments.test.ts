@@ -55,24 +55,57 @@ describe('add comment', () => {
 })
 
 describe('Update comment by id', () => {
-  it('should return 201 when succesfully updated', async () => {
+  it('should return 201 when successfully updated', async () => {
     const fakeComment = {
       id: 3,
-      username: 'fake-username',
       greatWalkId: 1,
-      comment: 'fake-comment',
+      comment: 'Updated comment content',
       createdAt: 2222,
-      updatedAt: 1111,
+      updatedAt: 3333,
+      userId: 'auth0|648fd1c873375442becf2c60',
     }
 
     vi.mocked(db.editCommentsById).mockResolvedValue()
+
     const response = await request(server)
-      .patch('/api/v1/comments')
+      .patch(`/api/v1/comments/${fakeComment.id}`) // Send to correct route
       .set('authorization', `Bearer ${getMockToken()}`)
       .send(fakeComment)
+
     expect(response.status).toBe(201)
     expect(response.body.message).toEqual('Comment updated successfully')
   })
+
+  // it('should return 400 if no comment is provided', async () => {
+  //   const fakeForm = {}
+  //   vi.mocked(db.editCommentsById).mockResolvedValue()
+  //   const response = await request(server)
+  //     .patch('/api/v1/comments/3')
+  //     .set('authorization', `Bearer ${getMockToken()}`)
+  //     .send(fakeForm)
+
+  //   expect(response.status).toBe(400)
+  //   expect(response.body.message).toBe('Please provide a new comment')
+  // })
+  // it('should return 500 when no access token is passed', async () => {
+  //   const fakeComment = {
+  //     id: 3,
+  //     greatWalkId: 1,
+  //     comment: 'Updated comment content',
+  //     createdAt: 2222,
+  //     updatedAt: 3333,
+  //     userId: 'auth0|648fd1c873375442becf2c60',
+  //   }
+  //   vi.mocked(db.editCommentsById).mockRejectedValue(new Error('test'))
+  //   const response = await request(server)
+  //     .post('/api/v1/comments/3')
+  //     .set('authorization', `Bearer ${getMockToken()}`)
+  //     .send(fakeComment)
+  //   expect(response.status).toBe(500)
+  //   expect(response.body).toEqual({
+  //     message: 'Unable to insert new user to database',
+  //   })
+  // })
 })
 
 describe('Delete comment by id', () => {
