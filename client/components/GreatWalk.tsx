@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/GreatWalk.tsx
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGreatWalkById } from '../hooks/useGreatWalks'
@@ -10,6 +11,8 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
+
+
 
 const initState: JustUserEquipment = {
   backpack: false,
@@ -82,6 +85,7 @@ export default function GreatWalk() {
   } = useGetUser()
 
   const updateUserEquipmentMutation = useUpdateUserEquipment()
+
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
   const navigate = useNavigate()
@@ -131,7 +135,7 @@ export default function GreatWalk() {
   ][]
 
   return (
-    <div className="flex items-center justify-center mt-10">
+    <div className="flex items-center justify-center">
       <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10 mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
         <div className="flex flex-row gap-6">
           <div className="flex flex-col w-1/2 gap-6">
@@ -170,7 +174,7 @@ export default function GreatWalk() {
               <p>Elevation: {greatWalk.elevation}</p>
               <p>{greatWalk.description}</p>
             </div>
-
+{/* ---------------nor rendering--------------- */}
             <PlanningButton />
 
             <Link to={greatWalk.docLink}>
@@ -179,22 +183,31 @@ export default function GreatWalk() {
           </div>
         </div>
 
-        <div>
-          <button
-            className="button cursor-pointer"
-            onClick={() => setActiveComponent('Equipment List')}
-          >
-            Required Equipment
-          </button>
+        <div className="w-full max-w-4xl mx-auto px-4 py-4">
+          <div className="bg-[#1e293b]/60 p-2 rounded-xl flex gap-2">
+            <button
+              onClick={() => setActiveComponent('Equipment List')}
+              className={`flex-1 px-4 py-2 rounded-lg transition font-medium ${
+                activeComponent === 'Equipment List'
+                  ? 'bg-[#d0f7a2] text-[#070446]'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Required Equipment
+            </button>
 
-          <button
-            className="button cursor-pointer"
-            onClick={() => setActiveComponent('Comments')}
-          >
-            Comments Section
-          </button>
+            <button
+              onClick={() => setActiveComponent('Comments')}
+              className={`flex-1 px-4 py-2 rounded-lg transition font-medium ${
+                activeComponent === 'Comments'
+                  ? 'bg-[#d0f7a2] text-[#070446]'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Comments Section
+            </button>
+          </div>
         </div>
-
         {activeComponent === 'Equipment List' && (
           <UserEquipmentChecklist
             requiredEquipmentDisplay={requiredEquipmentDisplay}

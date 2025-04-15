@@ -15,6 +15,7 @@ export function useGetUser() {
         return response
       }
     },
+    enabled: !!user?.sub, //prevents the query from running until user is ready.ie, Auth0 hasn’t completed restoring the session yet.
   })
   return query
 }
@@ -27,13 +28,14 @@ export function useUpsertUser() {
       upsertUser(form, token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
-      navigate(`/`)
+      navigate(`/quiz-outlet`)
     },
   })
   return mutation
 }
 
 export function useUpdateUserEquipment() {
+  
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
 

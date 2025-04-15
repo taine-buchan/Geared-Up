@@ -25,7 +25,9 @@ router.post('/completed', validateAccessToken, async (req, res) => {
     )
 
     await db.addUserWalk(newData)
-    res.status(201).json({ message: 'User Walk created successfully' })
+
+    res.sendStatus(201).json({ message: 'User Walk created successfully' })
+
   } catch (e) {
     logError(e)
     res
@@ -48,7 +50,9 @@ router.post('/planned', validateAccessToken, async (req, res) => {
       is_planned: true,
     }
     await db.addUserWalk(snakeWalk)
-    res.status(201).json({ message: 'User Walk created successfully' })
+
+    res.sendStatus(201).json({ message: 'User Walk created successfully' })
+
   } catch (e) {
     logError(e)
     res
@@ -92,6 +96,21 @@ router.delete('/:id', validateAccessToken, async (req, res) => {
   } catch (e) {
     logError(e)
     res.status(500).json({ message: 'Unable to delete User Walk' })
+  }
+})
+
+router.get('/user_id', validateAccessToken, async (req, res) => {
+  const { userId } = req.params
+  if (!userId) {
+    res.status(400).json({ message: 'Please provide a user id' })
+    return
+  }
+  try {
+    const walks = await db.getUserWalks(userId)
+    res.status(200).json(walks)
+  } catch (e) {
+    logError(e)
+    res.status(500).json({ message: 'Unable to retrieve User Walks' })
   }
 })
 

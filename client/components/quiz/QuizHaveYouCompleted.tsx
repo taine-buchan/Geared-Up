@@ -12,7 +12,7 @@ export default function QuizHaveYouCompleted() {
             <Link to={'quiz-great-walks'}>Yes</Link>
           </button>
           <button className="button" aria-label="button to home page">
-            <Link to={'/'}>No</Link>
+            <Link to={'quiz-fitness-level'}>No</Link>
           </button>
         </div>
       </div>

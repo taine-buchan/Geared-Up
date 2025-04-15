@@ -2,32 +2,22 @@ import { Link } from 'react-router-dom'
 import LoginButton from './LoginButton'
 // import LoginButton from './LoginButton'
 
+
+//-------nav styling
 export default function Nav() {
   return (
-    <nav className="bg-navy-900 py-10">
-      <div className="flex items-center justify-between max-w-screen-xl px-4 mx-auto">
-        {/* Logo */}
-        <Link to="/" className="flex items-center ">
+    <nav className="bg-navy-900 py-12 tracking">
+      <div className="flex items-center justify-between gap-auto max-w-screen-xl mx-auto my-auto px-14">
+        <Link to="/">
           <img src="/logo_init.svg" alt="Icon" className="w-40" />
         </Link>
-
-        {/* Nav links */}
-        <div className="flex items-center space-x-8">
-          <ul className="flex space-x-8 font-extralight">
-            <li>
-              <Link to="/" className="">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/great-walks" className="">
-                Great Walks
-              </Link>
-            </li>
-          </ul>
-
-          {/* Profile Icon */}
-
+        <div className="flex items-center justify-center gap-16 font-bold">
+          <Link to="/" className="button-square">
+            Home
+          </Link>
+          <Link to="/great-walks" className="button-square">
+            Great Walks
+          </Link>
           <LoginButton />
         </div>
       </div>

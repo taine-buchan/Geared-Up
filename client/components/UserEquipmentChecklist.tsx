@@ -1,6 +1,7 @@
 // components/UserEquipmentChecklist.tsx
 import { useAuth0 } from '@auth0/auth0-react'
 import { JustUserEquipment } from '../../models/user'
+import { useState } from 'react'
 
 interface Props {
   requiredEquipmentDisplay: [keyof JustUserEquipment, false][]
@@ -17,6 +18,8 @@ export default function UserEquipmentChecklist({
   handleSubmit,
   isDisabled,
 }: Props) {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   function handleToggleItem(item: keyof JustUserEquipment) {
     const updated = {
@@ -24,6 +27,17 @@ export default function UserEquipmentChecklist({
       [item]: !userEquipment[item],
     }
     setUserEquipment(updated)
+    setSuccessMessage('Equipment Updated!')
+  }
+
+  const formatCamelCase = (text: string): string => {
+    if (!text) return ''
+
+    const formatted = text
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, (str) => str.toUpperCase())
+
+    return formatted
   }
 
   return (
@@ -43,7 +57,7 @@ export default function UserEquipmentChecklist({
           return (
             <label
               key={key}
-              className="flex items-center gap-2 p-2 bg-white/10 rounded-md cursor-pointer"
+              className="flex items-center gap-4 p-4 bg-white/10 rounded-md cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -52,13 +66,16 @@ export default function UserEquipmentChecklist({
                 disabled={isDisabled}
                 className="accent-green-500 scale-175"
               />
-              <span className="font-medium">{key}</span>
+              <span className="font-medium">
+                {formatCamelCase(key as string)}
+              </span>
             </label>
           )
         })}
       </div>
 
       <button
+        data-testid="equipment-button"
         onClick={handleSubmit}
         disabled={isDisabled}
         className={`button cursor-pointer text-white transition ${
@@ -67,8 +84,13 @@ export default function UserEquipmentChecklist({
             : 'bg-gray-400 cursor-not-allowed'
         }`}
       >
-        Submit
+        Update Equipment
       </button>
+      {successMessage && (
+        <div className="mt-4 p-3 rounded bg-green-100 text-green-800 text-sm">
+          {successMessage}
+        </div>
+      )}
     </div>
   )
 }

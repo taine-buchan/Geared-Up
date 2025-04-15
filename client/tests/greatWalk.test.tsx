@@ -43,7 +43,7 @@ describe('Visiting the great walk page', () => {
       .reply(200, testGreatWalk)
     const screen = renderRoute(`/great-walks/${testGreatWalk.id}`)
 
-    const listHeading = await screen.findByRole('heading', {
+    const listHeading = await screen.findByRole('button', {
       name: 'Required Equipment',
     })
 

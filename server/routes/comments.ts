@@ -60,6 +60,7 @@ router.post('/', validateAccessToken, async (req, res) => {
 router.patch('/:id', validateAccessToken, async (req, res) => {
   const updatedComment = req.body
 
+  console.log('actual route', updatedComment)
   if (!updatedComment) {
     return res.status(400).json({ message: 'Please provide a new comment' })
   }

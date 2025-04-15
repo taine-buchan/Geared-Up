@@ -12,21 +12,30 @@ import QuizFitnessLevel from './components/quiz/QuizFitness'
 import QuizLinkToDoc from './components/quiz/QuizLinkToDoc'
 import QuizOutlet from './components/quiz/QuizOutlet'
 import AddProfile from './components/AddProfile'
+import UserInformation from './components/UserInformation'
+import RecommendGreatWalks from './components/RecommendGreatWalks'
+import QuizGearList from './components/quiz/QuizGearList'
+import UserGearListPage from './components/UserGearListPage'
 
 export default createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
     <Route index element={<Home />} />
     <Route path="/great-walks" element={<GreatWalks />} />
     <Route path="/great-walks/:id" element={<GreatWalk />} />
+    <Route path="/great-walks/recommend" element={<RecommendGreatWalks />} />
     <Route path="/user" element={<AddProfile />} />
+    <Route path="/user-information" element={<UserInformation />} />
     <Route path="/user/:sub" element={<Profile />} />
     <Route path="/profile-form" element={<Profile />} />
+    <Route path="/user-gear-list" element={<UserGearListPage />} />
     <Route path="/login-button" element={<LoginButton />} />
+
     <Route path="/quiz-outlet" element={<QuizOutlet />}>
       <Route index element={<QuizHaveYouCompleted />} />
       <Route path="quiz-fitness-level" element={<QuizFitnessLevel />} />
       <Route path="quiz-great-walks" element={<QuizWhichGreatWalks />} />
       <Route path="quiz-link-to-doc" element={<QuizLinkToDoc />} />
+      <Route path="quiz-gear-list" element={<QuizGearList />} />
     </Route>
   </Route>,
 )

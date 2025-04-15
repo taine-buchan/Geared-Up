@@ -5,13 +5,36 @@ import { Link } from 'react-router-dom'
 export default function Hero() {
   // const { user } = useAuth0()
   const { user, loginWithRedirect } = useAuth0()
-
   const handleSignIn = () => {
     console.log('sign in')
 
-    loginWithRedirect()
+    loginWithRedirect({
+      // redirect_uri: `${window.location.origin}/`,
+      authorizationParams: {
+        screen_hint: 'signin',
+        redirect_uri: `${window.location.origin}`,
+      },
+    })
+  }
+  const handleSignUp = () => {
+    loginWithRedirect({
+      authorizationParams: {
+        screen_hint: 'signup',
+        redirect_uri: `${window.location.origin}/user`,
+      },
+      // appState: { returnTo: '/user' }, // Will return to profile page
+    })
   }
 
+  // const handleQuiz = () => {
+  //   loginWithRedirect({
+  //     authorizationParams: {
+  //       screen_hint: 'signup',
+  //       redirect_uri: `${window.location.origin}/user/quiz-outlet`,
+  //     },
+  //     // appState: { returnTo: '/user' }, // Will return to profile page
+  //   })
+  // }
   return (
     <div className="w-full flex justify-center">
       <div className="relative rounded-3xl overflow-hidden h-[70vh] w-[80%]">
@@ -27,18 +50,22 @@ export default function Hero() {
           </h1>
           <div className="py-6">
             {user ? (
-              <Link to={`/user`} className="button">
+              <Link to="/great-walks/recommend" className="button">
                 Kia Ora! {user.name}
               </Link>
             ) : (
-              <button onClick={handleSignIn} className="button">
-                Get Started
-              </button>
-              // <RegisterButton />
+              <div className="flex gap-4">
+                <button onClick={handleSignIn} className="button">
+                  Sign In
+                </button>
+                <button onClick={handleSignUp} className="button">
+                  Sign Up
+                </button>
+              </div>
             )}
           </div>
 
-          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex">
+          <p className="text-l md:text-2xl m-6 py-6 font-extralight flex ">
             Companion tool for the Great Walks of Aotearoa
           </p>
         </div>
