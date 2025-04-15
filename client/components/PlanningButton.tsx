@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { usePlannedWalks } from '../hooks/useUserWalks.ts'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import Button from './Button.tsx'
+import toast from 'react-hot-toast'
 interface Props {
   id: number
 }
@@ -25,10 +26,16 @@ function PlanningButton(props: Props) {
     <>
       <IfAuthenticated>
         <Button
-          onClick={() => addWalk.mutate(walkId)}
+          onClick={() =>
+            addWalk.mutate(walkId, {
+              onSuccess: () => {
+                toast.success(`Walk added to your Walk List! ✨`)
+              },
+            })
+          }
           className="button cursor-pointer"
         >
-          Plan this Walk
+          Plan Walk
         </Button>
       </IfAuthenticated>
 

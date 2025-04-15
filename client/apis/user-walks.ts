@@ -42,11 +42,14 @@ export async function addCompletedGreatWalks(walkIds: number[], token: string) {
   }
 }
 
-export async function editCompletedWalk(walkId: number, token: string) {
+export async function editCompletedWalk(id: number, token: string) {
   try {
     const res = await request
-      .patch(`/api/v1/user-walks/${walkId}`)
+      .patch(`/api/v1/user-walks/${id}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json')
+
+    console.log(res.body)
     return res.body
   } catch (error) {
     if (error instanceof Error) {
@@ -59,10 +62,10 @@ export async function editCompletedWalk(walkId: number, token: string) {
   }
 }
 
-export async function deleteUserWalk(id: number, token: string) {
+export async function deleteUserWalk(walkId: number, token: string) {
   try {
     const res = await request
-      .delete(`/api/v1/user/${id}`)
+      .delete(`/api/v1/user-walks/${walkId}`)
       .set('Authorization', `Bearer ${token}`)
     return res.body
   } catch (error) {
@@ -76,9 +79,12 @@ export async function deleteUserWalk(id: number, token: string) {
 
 export async function getUserWalks(
   id: string,
+  token: string,
 ): Promise<UserWalkListItem[] | undefined> {
   try {
-    const res = await request.get(`/api/v1/user/${id}`)
+    const res = await request
+      .get(`/api/v1/user-walks/${id}`)
+      .set('Authorization', `Bearer ${token}`)
     return res.body
   } catch (error) {
     if (error instanceof Error) {

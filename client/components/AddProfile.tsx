@@ -3,9 +3,11 @@ import { UserData } from '../../models/user'
 import { useUpsertUser } from '../hooks/useUser'
 import ErrorComponent from './ErrorPage'
 import ProfileForm from './ProfileForm'
+import { useNavigate } from 'react-router-dom'
 
 export default function AddProfile() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const navigate = useNavigate()
   const mutation = useUpsertUser()
 
   const newUserData: UserData = {
@@ -76,7 +78,7 @@ export default function AddProfile() {
   async function handleSubmit(form: UserData) {
     const token = await getAccessTokenSilently()
     mutation.mutate({ form, token })
-    
+    navigate(`/quiz-outlet`)
   }
   return (
     <div>

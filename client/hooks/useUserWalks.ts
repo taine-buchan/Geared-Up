@@ -87,9 +87,9 @@ export function useEditCompleteWalk() {
   const { getAccessTokenSilently } = useAuth0()
 
   const mutation = useMutation({
-    mutationFn: async (walkId: number) => {
+    mutationFn: async (id: number) => {
       const token = await getAccessTokenSilently()
-      editCompletedWalk(walkId, token)
+      editCompletedWalk(id, token)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
@@ -126,10 +126,25 @@ export function useDeleteUserWalk() {
   return mutation
 }
 
+// export function useFetchWalks(userId: string) {
+//   const query = useQuery({
+//     queryKey: ['user-walks', userId],
+//     queryFn: () => getUserWalks(userId),
+//   })
+//   return query
+// }
+
 export function useFetchWalks(userId: string) {
+  const { getAccessTokenSilently } = useAuth0()
+
   const query = useQuery({
     queryKey: ['user-walks', userId],
-    queryFn: () => getUserWalks(userId),
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      return getUserWalks(userId, token)
+    },
+    enabled: !!userId, // optional: only run if userId exists
   })
+
   return query
 }

@@ -24,8 +24,8 @@ export default createRoutesFromElements(
     <Route path="/great-walks/:id" element={<GreatWalk />} />
     <Route path="/great-walks/recommend" element={<RecommendGreatWalks />} />
     <Route path="/user" element={<AddProfile />} />
-    <Route path="/user-information" element={<UserInformation />} />
-    <Route path="/user/:sub" element={<Profile />} />
+    <Route path="/user/:sub" element={<UserInformation />} />
+    {/* <Route path="/user/:sub" element={<Profile />} /> */}
     <Route path="/profile-form" element={<Profile />} />
     <Route path="/user-gear-list" element={<UserGearListPage />} />
     <Route path="/login-button" element={<LoginButton />} />
