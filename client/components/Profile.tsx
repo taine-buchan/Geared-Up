@@ -4,10 +4,12 @@ import { useGetUser, useUpsertUser } from '../hooks/useUser'
 import LoadingIndicator from './LoadingIndicator'
 import ProfileForm from './ProfileForm'
 import ErrorComponent from './ErrorComponent'
+import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const { data: existingUserData, isLoading, isError } = useGetUser()
+  const navigate = useNavigate()
   const mutation = useUpsertUser()
 
   if (isLoading) return <LoadingIndicator />
@@ -18,6 +20,7 @@ export default function Profile() {
     const token = await getAccessTokenSilently()
     console.log(token)
     mutation.mutate({ form, token })
+    navigate(`/user/${user?.sub}`)
   }
   return (
     <div>
