@@ -1,6 +1,7 @@
 // components/UserEquipmentChecklist.tsx
 import { useAuth0 } from '@auth0/auth0-react'
 import { JustUserEquipment } from '../../models/user'
+import { useState } from 'react'
 
 interface Props {
   requiredEquipmentDisplay: [keyof JustUserEquipment, false][]
@@ -17,6 +18,8 @@ export default function UserEquipmentChecklist({
   handleSubmit,
   isDisabled,
 }: Props) {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   function handleToggleItem(item: keyof JustUserEquipment) {
     const updated = {
@@ -24,6 +27,7 @@ export default function UserEquipmentChecklist({
       [item]: !userEquipment[item],
     }
     setUserEquipment(updated)
+    setSuccessMessage('Equipment Updated!')
   }
 
   const formatCamelCase = (text: string): string => {
@@ -79,8 +83,13 @@ export default function UserEquipmentChecklist({
             : 'bg-gray-400 cursor-not-allowed'
         }`}
       >
-        Update Gear
+        Update Equipment
       </button>
+      {successMessage && (
+        <div className="mt-4 p-3 rounded bg-green-100 text-green-800 text-sm">
+          {successMessage}
+        </div>
+      )}
     </div>
   )
 }
