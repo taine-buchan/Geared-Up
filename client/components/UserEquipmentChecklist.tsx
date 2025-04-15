@@ -75,6 +75,7 @@ export default function UserEquipmentChecklist({
       </div>
 
       <button
+        data-testid="equipment-button"
         onClick={handleSubmit}
         disabled={isDisabled}
         className={`button cursor-pointer text-white transition ${
