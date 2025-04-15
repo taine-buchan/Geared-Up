@@ -1,4 +1,6 @@
 import { useFetchWalks } from '../hooks/useUserWalks'
+import ErrorComponent from './ErrorComponent'
+import LoadingIndicator from './LoadingIndicator'
 import UserWalkListItem from './UserWalk'
 
 type UserWalkListProps = {
@@ -9,10 +11,10 @@ export default function UserWalkList({ userId }: UserWalkListProps) {
   const { data: walks, isLoading, isError } = useFetchWalks(userId)
 
   if (isError) {
-    return <p>Error fetching user walk</p>
+    return <LoadingIndicator />
   }
   if (isLoading) {
-    return <p>Fetching user walks</p>
+    return <ErrorComponent />
   }
   return (
     <div>

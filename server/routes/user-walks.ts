@@ -3,7 +3,7 @@ import * as db from '../db/user-walks'
 
 import { validateAccessToken } from '../auth0'
 import { logError } from '../logger'
-import { UserWalkDataDB } from '../../models/user_walk'
+import { UserEditWalk, UserWalkDataDB } from '../../models/user_walk'
 
 const router = express.Router()
 
@@ -59,21 +59,20 @@ router.post('/planned', validateAccessToken, async (req, res) => {
   }
 })
 
-router.patch('/:walkId', validateAccessToken, async (req, res) => {
-  const walkId = Number(req.params.id)
+router.patch('/:id', validateAccessToken, async (req, res) => {
+  const id = Number(req.params.id)
   const auth0Id = req.auth?.payload.sub
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return
   }
   try {
-    const walk: UserWalkDataDB = {
-      user_id: auth0Id,
-      great_walk_id: walkId,
+    const walk: UserEditWalk = {
+      id: id,
       is_complete: true, // Can make this a flip if we need this to be reusable, e.g. !req.body.isComplete
       is_planned: false,
     }
-    await db.editUserWalk(walkId, walk)
+    await db.editUserWalk(walk)
     res.status(200).json({ message: 'User Walk updated successfully' })
   } catch (e) {
     logError(e)

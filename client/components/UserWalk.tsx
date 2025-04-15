@@ -8,22 +8,32 @@ interface Props {
 
 export default function UserWalk({ greatWalk }: Props) {
   const deleteUserWalk = useDeleteUserWalk()
+  const editUserWalk = useEditCompleteWalk()
   const handleDelete = () => {
     deleteUserWalk.mutate(greatWalk.id)
   }
-  const editUserWalk = useEditCompleteWalk()
   const handleEdit = () => {
     editUserWalk.mutate(greatWalk.id)
   }
 
-  const state = greatWalk.isComplete ? 'Completed' : 'Planning'
+  const state = greatWalk.isComplete ? 'Completed' : 'Planned'
 
   return (
     <>
       {`${greatWalk.name} | ${greatWalk.difficulty}`}
-      <p>{state}</p>
-      <Button onClick={handleEdit}>Complete</Button>
-      <Button onClick={handleDelete}>Delete</Button>
+      <p className="text-xl px-4">{state}</p>
+      <Button
+        onClick={handleEdit}
+        className="text-xl bg-green-500 text-black px-4 py-2 rounded hover:bg-green-600 transition"
+      >
+        Complete
+      </Button>
+      <Button
+        onClick={handleDelete}
+        className="text-xl bg-red-600  px-4 py-2 rounded hover:bg-red-700 transition"
+      >
+        🗑️
+      </Button>
     </>
   )
 }

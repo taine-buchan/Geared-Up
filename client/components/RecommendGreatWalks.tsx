@@ -10,7 +10,14 @@ export default function RecommendGreatWalks() {
   //fetch greaat walks data
   const { user } = useAuth0()
   const { data: allGreatWalks, isLoading, isError } = useGreatWalks()
-  const { data: completedGreatWalks, isPending, isError: errorForCompleted } = useFetchWalks(user?.sub || '')
+  const {
+    data: completedGreatWalks,
+    isPending,
+    isError: errorForCompleted,
+  } = useFetchWalks(user?.sub || '')
+  if (!completedGreatWalks) {
+    return null
+  }
   if (isLoading || isPending) return <LoadingIndicator />
   if (isError || errorForCompleted || !allGreatWalks) return <ErrorComponent />
 
@@ -19,13 +26,17 @@ export default function RecommendGreatWalks() {
   //if completed.gw > 3 => intermediate
   // const completedGreatWalks = completedGreatWalks?.filter(walk => walk.userId === user?.sub)
 
-
   // console.log(completedGreatWalks)
-  console.log('completedwalks',completedGreatWalks)
-  const countCompletedWalks = completedGreatWalks?.filter(walk => walk.isComplete === true)
+  console.log('completedwalks', completedGreatWalks)
+  const countCompletedWalks = completedGreatWalks?.filter(
+    (walk) => walk.isComplete === true,
+  )
   console.log(countCompletedWalks)
-  if(!countCompletedWalks) return <GreatWalks />
-  const recommendedGreatWalks = completedGreatWalks.length > 2 ? allGreatWalks.filter(walk => walk.difficulty === "Intermediate") : allGreatWalks.filter(walk => walk.difficulty === "easy")
+  if (!countCompletedWalks) return <GreatWalks />
+  const recommendedGreatWalks =
+    completedGreatWalks.length > 2
+      ? allGreatWalks.filter((walk) => walk.difficulty === 'Intermediate')
+      : allGreatWalks.filter((walk) => walk.difficulty === 'easy')
 
   // const notCompletedGreatWalks = allGreatWalks.filter(
   //   (allGreatWalk) => !completedGreatWalksId?.includes(allGreatWalk.id),

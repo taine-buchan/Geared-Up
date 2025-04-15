@@ -87,9 +87,9 @@ export function useEditCompleteWalk() {
   const { getAccessTokenSilently } = useAuth0()
 
   const mutation = useMutation({
-    mutationFn: async (walkId: number) => {
+    mutationFn: async (id: number) => {
       const token = await getAccessTokenSilently()
-      editCompletedWalk(walkId, token)
+      editCompletedWalk(id, token)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })

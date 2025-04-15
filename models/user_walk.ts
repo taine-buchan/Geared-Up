@@ -20,6 +20,12 @@ export interface UserWalkDB extends UserWalkDataDB {
   id: number
 }
 
+export interface UserEditWalk {
+  id: number
+  is_complete: boolean
+  is_planned: boolean
+}
+
 export interface UserWalkListItem {
   id: number
   userId: string
