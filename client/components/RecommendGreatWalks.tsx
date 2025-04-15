@@ -1,25 +1,43 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 import { useGreatWalks } from '../hooks/useGreatWalks'
+import { useFetchWalks } from '../hooks/useUserWalks'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
+import GreatWalks from './GreatWalks'
 
 export default function RecommendGreatWalks() {
   //fetch greaat walks data
+  const { user } = useAuth0()
   const { data: allGreatWalks, isLoading, isError } = useGreatWalks()
-  if (isLoading) return <LoadingIndicator />
-  if (isError || !allGreatWalks) return <ErrorComponent />
+  const {
+    data: completedWalks,
+    isPending,
+    isError: errorForCompleted,
+  } = useFetchWalks(user?.sub || '')
+  if (isLoading || isPending) return <LoadingIndicator />
+  if (isError || errorForCompleted || !allGreatWalks) return <ErrorComponent />
 
-  //filter completed great walks
-  const completedGreatWalksId = [1, 3, 5, 6]
-  //if completed.gw > 3 => intermediate
+  const completedGreatWalks =
+    completedWalks?.filter(
+      (walk) => walk.userId === user?.sub && walk.isComplete,
+    ) ?? []
+  console.log('Completed Walks:', completedGreatWalks)
+  const completedGreatWalksId = completedGreatWalks.map(
+    (walk) => walk.greatWalkId,
+  )
+  const completedCount = completedGreatWalks.length
+  if (completedWalks?.length === 0) return <GreatWalks />
   const notCompletedGreatWalks = allGreatWalks.filter(
-    (allGreatWalk) => !completedGreatWalksId.includes(allGreatWalk.id),
+    (walk) => !completedGreatWalksId.includes(walk.id),
   )
+  console.log('notcom', notCompletedGreatWalks)
   const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
-    completedGreatWalksId.length > 3
+    completedCount > 3
       ? walk.difficulty === 'Intermediate'
-      : walk.difficulty === 'easy',
+      : walk.difficulty === 'Easy',
   )
+  console.log('reco', recommendedGreatWalks)
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="flex flex-col w-full max-w-screen-2xl">

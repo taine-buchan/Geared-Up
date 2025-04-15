@@ -11,6 +11,7 @@ import { JustUserEquipment, UserData } from '../../models/user'
 import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
+import { usePlannedWalks } from '../hooks/useUserWalks'
 
 const initState: JustUserEquipment = {
   backpack: false,
@@ -75,7 +76,7 @@ export default function GreatWalk() {
 
   const { id } = useParams()
   const { data: greatWalk, isLoading, isError } = useGreatWalkById(Number(id))
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const {
     data: existingUserData,
     isLoading: existingUserLoading,
@@ -87,6 +88,7 @@ export default function GreatWalk() {
   const [userEquipment, setUserEquipment] =
     useState<JustUserEquipment>(initState)
   const navigate = useNavigate()
+  const addWalk = usePlannedWalks()
 
   useEffect(() => {
     if (isAuthenticated && existingUserData?.myEquipment) {
@@ -94,6 +96,12 @@ export default function GreatWalk() {
     }
   }, [isAuthenticated, existingUserData])
 
+  const handleSignIn = () => {
+    if (user) {
+      console.log(user.sub)
+      return navigate(`/user/${user.sub}`)
+    } else loginWithRedirect()
+  }
   function handleSubmit() {
     if (!isAuthenticated) {
       loginWithRedirect()
@@ -135,8 +143,8 @@ export default function GreatWalk() {
   return (
     <div className="flex items-center justify-center">
       <div className="bg-[#1e293b]/60 drop-shadow-[0px_4px_136.6px_rgba(255,255,255,0.1)] px-10 py-10 my-10 mx-6 rounded-[45px] flex flex-col gap-4 w-3/5 justify-center items-center">
-        <div className="flex flex-row gap-6">
-          <div className="flex flex-col w-1/2 gap-6">
+        <div className="flex flex-row gap-6 w-full">
+          <div className="flex flex-col w-full gap-6">
             <img
               src={greatWalk.trackImageUrl}
               alt={greatWalk.name}
@@ -166,7 +174,7 @@ export default function GreatWalk() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 w-1/2">
+          <div className="flex flex-col gap-4 w-[160%]">
             <h1 className="text-[40px] font-bold">{greatWalk.name}</h1>
             <div className="text-[15px] gap-4">
               <p>Elevation: {greatWalk.elevation}</p>
