@@ -1,4 +1,6 @@
 import { useFetchWalks } from '../hooks/useUserWalks'
+import ErrorComponent from './ErrorComponent'
+import LoadingIndicator from './LoadingIndicator'
 import UserWalkListItem from './UserWalk'
 
 type UserWalkListProps = {
@@ -8,16 +10,22 @@ type UserWalkListProps = {
 export default function UserWalkList({ userId }: UserWalkListProps) {
   const { data: walks, isLoading, isError } = useFetchWalks(userId)
 
+  if (!walks || walks.length === 0) {
+    return (
+      <p className="text-center text-gray-400">No walks found for this user.</p>
+    )
+  }
+
   if (isError) {
-    return <p>Error fetching user walk</p>
+    return <ErrorComponent />
   }
   if (isLoading) {
-    return <p>Fetching user walks</p>
+    return <LoadingIndicator />
   }
   return (
-    <div>
-      <ul>
-        {walks?.map((walk) => (
+    <div className="w-full max-w-4xl mx-auto px-4 py-4">
+      <ul className="space-y-6">
+        {(walks ?? []).map((walk) => (
           <li key={walk.id}>
             <UserWalkListItem greatWalk={walk} />
           </li>

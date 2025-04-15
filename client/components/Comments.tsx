@@ -19,7 +19,7 @@ type Props = {
 
 export default function Comments(props: Props) {
   const { user } = useAuth0()
-  const { data} = useGetUser()
+  const { data } = useGetUser()
   const [form, setForm] = useState<NewComment>({
     greatWalkId: props.id,
     comment: '',
@@ -207,24 +207,27 @@ export default function Comments(props: Props) {
                         Submit Edit
                       </button>
                     ) : (
-                      data?.role === 'admin' || comment.userId === user?.sub && <>
-                        <button
-                          onClick={() => {
-                            setEditingCommentId(comment.id)
-                            setEditComment(comment.comment)
-                          }}
-                          className="text-xl bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          onClick={(event) => handleDelete(comment.id, event)}
-                          className="text-xl bg-red-600  px-4 py-2 rounded hover:bg-red-700 transition"
-                          aria-label="delete"
-                        >
-                          🗑️
-                        </button>
-                      </>
+                      data?.role === 'admin' ||
+                      (comment.userId === user?.sub && (
+                        <>
+                          <button
+                            onClick={() => {
+                              setEditingCommentId(comment.id)
+                              setEditComment(comment.comment)
+                            }}
+                            className="text-xl bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            onClick={(event) => handleDelete(comment.id, event)}
+                            className="text-xl bg-red-600  px-4 py-2 rounded hover:bg-red-700 transition"
+                            aria-label="delete"
+                          >
+                            🗑️
+                          </button>
+                        </>
+                      ))
                     )}
                   </div>
                 </li>

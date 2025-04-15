@@ -4,6 +4,7 @@ import { useGreatWalks } from '../hooks/useGreatWalks'
 import { useFetchWalks } from '../hooks/useUserWalks'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
+import GreatWalks from './GreatWalks'
 
 export default function RecommendGreatWalks() {
   //fetch greaat walks data
@@ -26,30 +27,30 @@ export default function RecommendGreatWalks() {
     (walk) => walk.greatWalkId,
   )
   const completedCount = completedGreatWalks.length
-
+  if (completedWalks?.length === 0) return <GreatWalks />
   const notCompletedGreatWalks = allGreatWalks.filter(
     (walk) => !completedGreatWalksId.includes(walk.id),
   )
-
+  console.log('notcom', notCompletedGreatWalks)
   const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
     completedCount > 3
       ? walk.difficulty === 'Intermediate'
-      : walk.difficulty === 'easy',
+      : walk.difficulty === 'Easy',
   )
-
+  console.log('reco', recommendedGreatWalks)
   return (
     <div className="flex items-center justify-center mt-10">
-      <div className="flex flex-col justify-center w-3/5">
-        <h1 className="text-[60px] font-bold">Recommend Great Walks</h1>
+      <div className="flex flex-col w-full max-w-screen-2xl">
+        <h1 className="text-[60px] font-bold">Recommended Great Walks</h1>
 
         <ul
           className="
-    grid 
-    grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
-    gap-8 
-    px-4 sm:px-6 lg:px-12 
-    py-8
-  "
+          grid 
+          grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
+          gap-6 
+          justify-items-center 
+          sm:justify-items-stretch
+        "
         >
           {recommendedGreatWalks &&
             recommendedGreatWalks.map((greatWalk) => (
