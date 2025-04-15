@@ -26,8 +26,7 @@ router.post('/completed', validateAccessToken, async (req, res) => {
 
     await db.addUserWalk(newData)
 
-    res.sendStatus(201).json({ message: 'User Walk created successfully' })
-
+    res.status(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
@@ -51,8 +50,7 @@ router.post('/planned', validateAccessToken, async (req, res) => {
     }
     await db.addUserWalk(snakeWalk)
 
-    res.sendStatus(201).json({ message: 'User Walk created successfully' })
-
+    res.status(201).json({ message: 'User Walk created successfully' })
   } catch (e) {
     logError(e)
     res
