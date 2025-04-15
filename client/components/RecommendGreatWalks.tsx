@@ -5,21 +5,26 @@ import LoadingIndicator from './LoadingIndicator'
 
 export default function RecommendGreatWalks() {
   //fetch greaat walks data
-   const { data: allGreatWalks, isLoading, isError } = useGreatWalks()
-    if (isLoading) return <LoadingIndicator />
-    if (isError || !allGreatWalks) return <ErrorComponent />
+  const { data: allGreatWalks, isLoading, isError } = useGreatWalks()
+  if (isLoading) return <LoadingIndicator />
+  if (isError || !allGreatWalks) return <ErrorComponent />
 
   //filter completed great walks
-  const completedGreatWalksId = [1,3,5, 6]
+  const completedGreatWalksId = [1, 3, 5, 6]
   //if completed.gw > 3 => intermediate
-    const notCompletedGreatWalks = allGreatWalks.filter(allGreatWalk => !completedGreatWalksId.includes(allGreatWalk.id))
-    const recommendedGreatWalks = notCompletedGreatWalks.filter(walk =>
-      completedGreatWalksId.length > 3 ? walk.difficulty === "Intermediate" : walk.difficulty === "easy")
+  const notCompletedGreatWalks = allGreatWalks.filter(
+    (allGreatWalk) => !completedGreatWalksId.includes(allGreatWalk.id),
+  )
+  const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
+    completedGreatWalksId.length > 3
+      ? walk.difficulty === 'Intermediate'
+      : walk.difficulty === 'easy',
+  )
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="flex flex-col justify-center w-3/5">
         <h1 className="text-[60px] font-bold">Recommend Great Walks</h1>
-        
+
         <ul
           className="
     grid 

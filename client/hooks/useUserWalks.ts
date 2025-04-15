@@ -31,35 +31,35 @@ export function usePlannedWalks() {
   return mutation
 }
 
-export function useCompletedWalks(token: string) {
+// export function useCompletedWalks(token: string) {
 
-  const queryClient = useQueryClient()
-  const { getAccessTokenSilently } = useAuth0()
+//   const queryClient = useQueryClient()
+//   const { getAccessTokenSilently } = useAuth0()
 
-  const mutation = useMutation({
+//   const mutation = useMutation({
 
-    mutationFn: (walkId: number[]) => addCompletedGreatWalks(walkId, token),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user-walks'] })
-      navigate(`/user/${token}`) // TODO: Comfirm correct url
-    },
-    onError: (error) => {
-      console.error('Error adding planning great walk:', error)
+//     mutationFn: (walkId: number[]) => addCompletedGreatWalks(walkId, token),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
+//       navigate(`/user/${token}`) // TODO: Comfirm correct url
+//     },
+//     onError: (error) => {
+//       console.error('Error adding planning great walk:', error)
 
-    mutationFn: async (walkId: number) => {
-      const token = await getAccessTokenSilently()
-      addPlanningGreatWalk(walkId, token)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user-walks'] })
-      // navigate(`/user/${token}`) // TODO: Comfirm correct url
-    },
-    onError: (error) => {
-      console.error('Error adding planning great walk:', error)
-    },
-  })
-  return mutation
-}
+//     mutationFn: async (walkId: number) => {
+//       const token = await getAccessTokenSilently()
+//       addPlanningGreatWalk(walkId, token)
+//     },
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
+//       // navigate(`/user/${token}`) // TODO: Comfirm correct url
+//     },
+//     onError: (error) => {
+//       console.error('Error adding planning great walk:', error)
+//     },
+//   })
+//   return mutation
+// }
 
 export function useCompletedWalks() {
   const queryClient = useQueryClient()
@@ -104,12 +104,12 @@ export function useEditCompleteWalk() {
   return mutation
 }
 
-export function useEditCompleteWalk(token: string) {
-  const queryClient = useQueryClient()
+// export function useEditCompleteWalk(token: string) {
+//   const queryClient = useQueryClient()
 
-  const mutation = useMutation({
-    mutationFn: (walkId: number) => editCompletedWalk(walkId, token),
-
+//   const mutation = useMutation({
+//     mutationFn: (walkId: number) => editCompletedWalk(walkId, token),
+//   })}
 export function useDeleteUserWalk() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
