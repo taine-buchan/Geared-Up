@@ -180,22 +180,31 @@ export default function GreatWalk() {
           </div>
         </div>
 
-        <div>
-          <button
-            className="button cursor-pointer"
-            onClick={() => setActiveComponent('Equipment List')}
-          >
-            Required Equipment
-          </button>
+        <div className="w-full max-w-4xl mx-auto px-4 py-4">
+          <div className="bg-[#1e293b]/60 p-2 rounded-xl flex gap-2">
+            <button
+              onClick={() => setActiveComponent('Equipment List')}
+              className={`flex-1 px-4 py-2 rounded-lg transition font-medium ${
+                activeComponent === 'Equipment List'
+                  ? 'bg-[#d0f7a2] text-[#070446]'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Required Equipment
+            </button>
 
-          <button
-            className="button cursor-pointer"
-            onClick={() => setActiveComponent('Comments')}
-          >
-            Comments Section
-          </button>
+            <button
+              onClick={() => setActiveComponent('Comments')}
+              className={`flex-1 px-4 py-2 rounded-lg transition font-medium ${
+                activeComponent === 'Comments'
+                  ? 'bg-[#d0f7a2] text-[#070446]'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Comments Section
+            </button>
+          </div>
         </div>
-
         {activeComponent === 'Equipment List' && (
           <UserEquipmentChecklist
             requiredEquipmentDisplay={requiredEquipmentDisplay}
