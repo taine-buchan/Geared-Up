@@ -15,7 +15,7 @@ function LoginButton() {
   //   console.log(user.sub)
   //   return navigate(`/user/${user.sub}`)
   //  } else loginWithRedirect()
-   
+
   // }
 
   return (
@@ -27,9 +27,9 @@ function LoginButton() {
         )} */}
       </IfAuthenticated>
       {/* <IfNotAuthenticated> */}
-        <Link to='/user-information'>
-          <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
-        </Link>
+      <Link to="/user-information">
+        <img src="/profile_icon.svg" alt="Icon" className="w-6 h-6" />
+      </Link>
       {/* </IfNotAuthenticated> */}
     </>
   )

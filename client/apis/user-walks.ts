@@ -68,6 +68,7 @@ export async function deleteUserWalk(id: number, token: string) {
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error occurred while deleting great walk', error.message)
+
       throw new Error(error.message)
     }
   }

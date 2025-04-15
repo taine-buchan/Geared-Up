@@ -14,7 +14,7 @@ beforeEach(async () => {
 
 // Helper to generate full equipment object
 function getDefaultEquipment(
-  overrides: Partial<UserSC['my_equipment']> = {} // Optional parameter to provide overrides for specific properties
+  overrides: Partial<UserSC['my_equipment']> = {}, // Optional parameter to provide overrides for specific properties
 ): UserSC['my_equipment'] {
   return {
     // Default equipment properties, all set to false initially

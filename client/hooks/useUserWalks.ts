@@ -29,19 +29,51 @@ export function usePlannedWalks() {
   return mutation
 }
 
+// export function useCompletedWalks(token: string) {
+
+//   const queryClient = useQueryClient()
+//   const { getAccessTokenSilently } = useAuth0()
+
+//   const mutation = useMutation({
+
+//     mutationFn: (walkId: number[]) => addCompletedGreatWalks(walkId, token),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
+//       navigate(`/user/${token}`) // TODO: Comfirm correct url
+//     },
+//     onError: (error) => {
+//       console.error('Error adding planning great walk:', error)
+
+//     mutationFn: async (walkId: number) => {
+//       const token = await getAccessTokenSilently()
+//       addPlanningGreatWalk(walkId, token)
+//     },
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
+//       // navigate(`/user/${token}`) // TODO: Comfirm correct url
+//     },
+//     onError: (error) => {
+//       console.error('Error adding planning great walk:', error)
+//     },
+//   })
+//   return mutation
+// }
+
 export function useCompletedWalks() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
     mutationFn: async (walkId: number[]) => {
       const token = await getAccessTokenSilently()
       addCompletedGreatWalks(walkId, token)
     },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-walks'] })
-      // navigate(`/user/${token}`) // TODO: Comfirm correct url
+      navigate(`/quiz-outlet/quiz-gear-list`)
     },
     onError: (error) => {
       console.error('Error adding planning great walk:', error)
@@ -69,6 +101,12 @@ export function useEditCompleteWalk() {
   return mutation
 }
 
+// export function useEditCompleteWalk(token: string) {
+//   const queryClient = useQueryClient()
+
+//   const mutation = useMutation({
+//     mutationFn: (walkId: number) => editCompletedWalk(walkId, token),
+//   })}
 export function useDeleteUserWalk() {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
