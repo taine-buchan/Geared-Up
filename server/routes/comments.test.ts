@@ -74,3 +74,35 @@ describe('Update comment by id', () => {
     expect(response.body.message).toEqual('Comment updated successfully')
   })
 })
+
+describe('Delete comment by id', () => {
+  it('should return 204 when successfully deleted', async () => {
+    vi.mocked(db.deleteComment).mockResolvedValue(1) // Simulate one row deleted
+
+    const response = await request(server)
+      .delete('/api/v1/comments/3')
+      .set('authorization', `Bearer ${getMockToken()}`)
+
+    expect(response.status).toBe(204) //successful deletion, no content
+  })
+
+  it('should return 404 when comment is not found', async () => {
+    vi.mocked(db.deleteComment).mockResolvedValue(0) // No rows deleted
+
+    const response = await request(server)
+      .delete('/api/v1/comments/999') // ID not found
+      .set('authorization', `Bearer ${getMockToken()}`)
+
+    expect(response.status).toBe(404)
+    expect(response.body.error).toBe('Comment not found') //Non-existent comment, not found
+  })
+
+  it('should return 400 for invalid ID', async () => {
+    const response = await request(server)
+      .delete('/api/v1/comments/not-a-number')
+      .set('authorization', `Bearer ${getMockToken()}`)
+
+    expect(response.status).toBe(400)
+    expect(response.body.error).toBe('Invalid ID') //Invalid ID format, Bad Request
+  })
+})
