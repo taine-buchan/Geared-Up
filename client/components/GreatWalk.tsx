@@ -12,8 +12,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import UserEquipmentChecklist from './UserEquipmentChecklist'
 import PlanningButton from './PlanningButton'
 
-
-
 const initState: JustUserEquipment = {
   backpack: false,
   waterproofPackLiner: false,
@@ -173,11 +171,14 @@ export default function GreatWalk() {
             <div className="text-[15px] gap-4">
               <p>Elevation: {greatWalk.elevation}</p>
               <p>{greatWalk.description}</p>
+              <br />
+              <div>
+                <PlanningButton id={greatWalk.id} />
+                <Link to={greatWalk.docLink}>
+                  <button className="button cursor-pointer">Doc Link</button>
+                </Link>
+              </div>
             </div>
-            <PlanningButton id={greatWalk.id}/>
-            <Link to={greatWalk.docLink}>
-              <button className="button cursor-pointer">Doc Link</button>
-            </Link>
           </div>
         </div>
 
