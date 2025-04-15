@@ -8,6 +8,8 @@ import {
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
 import { CommentUpdate, NewComment } from '../../models/comments'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useGetUser } from '../hooks/useUser'
 
 // import { AdminOnly } from './AdminOnly'
 
@@ -16,6 +18,8 @@ type Props = {
 }
 
 export default function Comments(props: Props) {
+  const { user } = useAuth0()
+  const { data} = useGetUser()
   const [form, setForm] = useState<NewComment>({
     greatWalkId: props.id,
     comment: '',
@@ -97,27 +101,31 @@ export default function Comments(props: Props) {
           Comments Section
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-6 mb-10">
-          <label htmlFor="comment" className="block text-sm text-[#d0f7a2]">
-            Post a comment!
-          </label>
-          <input
-            type="text"
-            id="comment"
-            name="comment"
-            required
-            value={form.comment}
-            onChange={handleChange}
-            placeholder="Share your thoughts..."
-            className="w-full rounded-md px-4 py-2 bg-gray-700 text-gray-100 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#d0f7a2]"
-          />
-          <button
-            type="submit"
-            className="bg-[#070446] text-[#d0f7a2] px-6 py-2 rounded-md hover:bg-[#0a055f] transition"
-          >
-            Submit
-          </button>
-        </form>
+        {user ? (
+          <form onSubmit={handleSubmit} className="space-y-4 mt-6 mb-10">
+            <label htmlFor="comment" className="block text-sm text-[#d0f7a2]">
+              Post a comment!
+            </label>
+            <input
+              type="text"
+              id="comment"
+              name="comment"
+              required
+              value={form.comment}
+              onChange={handleChange}
+              placeholder="Share your thoughts..."
+              className="w-full rounded-md px-4 py-2 bg-gray-700 text-gray-100 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#d0f7a2]"
+            />
+            <button
+              type="submit"
+              className="bg-[#070446] text-[#d0f7a2] px-6 py-2 rounded-md hover:bg-[#0a055f] transition"
+            >
+              Submit
+            </button>
+          </form>
+        ) : (
+          <></>
+        )}
 
         <ul className="space-y-6">
           {comments.length > 0 ? (
@@ -199,7 +207,7 @@ export default function Comments(props: Props) {
                         Submit Edit
                       </button>
                     ) : (
-                      <>
+                      data?.role === 'admin' || comment.userId === user?.sub && <>
                         <button
                           onClick={() => {
                             setEditingCommentId(comment.id)
@@ -211,7 +219,8 @@ export default function Comments(props: Props) {
                         </button>
                         <button
                           onClick={(event) => handleDelete(comment.id, event)}
-                          className="text-xl bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                          className="text-xl bg-red-600  px-4 py-2 rounded hover:bg-red-700 transition"
+                          aria-label="delete"
                         >
                           🗑️
                         </button>

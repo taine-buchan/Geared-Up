@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import LoginButton from './LoginButton'
 // import LoginButton from './LoginButton'
 
+
+//-------nav styling
 export default function Nav() {
   return (
     <nav className="bg-navy-900 py-12 tracking">
@@ -9,7 +11,7 @@ export default function Nav() {
         <Link to="/">
           <img src="/logo_init.svg" alt="Icon" className="w-40" />
         </Link>
-        <div className="flex items-center justify-center gap-16 ">
+        <div className="flex items-center justify-center gap-16 font-bold">
           <Link to="/" className="button-square">
             Home
           </Link>
