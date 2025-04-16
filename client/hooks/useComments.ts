@@ -23,7 +23,7 @@ export function useAddCommentToGreatWalk(id: number) {
     mutationFn: async (updateComent: NewComment) => {
       const token = await getAccessTokenSilently()
 
-      addCommentToGreatWalk(updateComent, token)
+      await addCommentToGreatWalk(updateComent, token)
 
     },
     onSuccess: () => {
@@ -70,7 +70,7 @@ export function useUpdateCommentToGreatWalk(id: number) {
   const mutation = useMutation({
     mutationFn: async (newComment: CommentUpdate) => {
       const token = await getAccessTokenSilently()
-      updateCommentById(newComment, token)
+      await updateCommentById(newComment, token)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', id] })
