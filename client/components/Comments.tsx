@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useAddCommentToGreatWalk,
   useDeleteComment,
@@ -7,7 +7,7 @@ import {
 } from '../hooks/useComments'
 import ErrorComponent from './ErrorComponent'
 import LoadingIndicator from './LoadingIndicator'
-import { CommentUpdate, NewComment } from '../../models/comments'
+import { CommentUpdate, CommentWithUsername, NewComment } from '../../models/comments'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useGetUser } from '../hooks/useUser'
 
@@ -29,7 +29,7 @@ export default function Comments(props: Props) {
   const [editComment, setEditComment] = useState(form.comment)
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null)
   const {
-    data: comments,
+    data: allComments,
     isLoading,
     isError,
   } = useGetCommentsByGreatWalkId(props.id)
@@ -37,7 +37,14 @@ export default function Comments(props: Props) {
   const addMutation = useAddCommentToGreatWalk(props.id)
   const deleteMutation = useDeleteComment(props.id)
   const updateMutation = useUpdateCommentToGreatWalk(props.id)
+  const [comments, setComments] = useState<CommentWithUsername[]>([])
 
+  useEffect(() => {
+    if (allComments) {
+      setComments(allComments)
+    }
+  }, [allComments])
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prevForm) => ({
       ...prevForm,
