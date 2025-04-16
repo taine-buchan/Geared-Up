@@ -20,10 +20,10 @@ export function useAddCommentToGreatWalk(id: number) {
   const queryClient = useQueryClient()
   const { getAccessTokenSilently } = useAuth0()
   const mutation = useMutation({
-    mutationFn: async (updateComent: NewComment) => {
+    mutationFn: async (updateComment: NewComment) => {
       const token = await getAccessTokenSilently()
 
-      await addCommentToGreatWalk(updateComent, token)
+      await addCommentToGreatWalk(updateComment, token)
 
     },
     onSuccess: () => {
