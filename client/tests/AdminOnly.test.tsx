@@ -104,7 +104,7 @@ describe('great walk page', () => {
     //     <p>Secret content</p>
     //   </AdminOnly>,
     // )
-    // console.log('user', user)
+    
     const screen = renderRoute('/great-walks/1')
 
     screen.debug()

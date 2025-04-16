@@ -28,11 +28,11 @@ router.get('/:id', async (req, res) => {
 
 // POST: /api/v1/comments
 router.post('/', validateAccessToken, async (req, res) => {
-  console.log('I should see this')
+  
 
   const { greatWalkId, comment } = req.body
   const userId = req.auth?.payload.sub
-  console.log('greatWalk route', greatWalkId)
+
 
   if (!userId) {
     console.error('No auth0Id')
@@ -60,7 +60,7 @@ router.post('/', validateAccessToken, async (req, res) => {
 router.patch('/:id', validateAccessToken, async (req, res) => {
   const updatedComment = req.body
 
-  console.log('actual route', updatedComment)
+ 
   if (!updatedComment) {
     return res.status(400).json({ message: 'Please provide a new comment' })
   }

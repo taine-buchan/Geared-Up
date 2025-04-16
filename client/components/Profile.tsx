@@ -18,7 +18,7 @@ export default function Profile() {
 
   async function handleSubmit(form: UserData) {
     const token = await getAccessTokenSilently()
-    console.log(token)
+   
     mutation.mutate({ form, token })
     navigate(`/user/${user?.sub}`)
   }

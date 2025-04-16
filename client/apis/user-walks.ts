@@ -4,7 +4,7 @@ import { UserWalkListItem } from '../../models/user_walk'
 // POST /api/v1/user-walk
 
 export async function addPlanningGreatWalk(walkId: number, token: string) {
-  console.log(token)
+  
   try {
     const res = await request
       .post('/api/v1/user-walks/planned')
@@ -49,7 +49,7 @@ export async function editCompletedWalk(id: number, token: string) {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
 
-    console.log(res.body)
+    
     return res.body
   } catch (error) {
     if (error instanceof Error) {

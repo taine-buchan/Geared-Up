@@ -22,7 +22,7 @@ export default function RecommendGreatWalks() {
     completedWalks?.filter(
       (walk) => walk.userId === user?.sub && walk.isComplete,
     ) ?? []
-  console.log('Completed Walks:', completedGreatWalks)
+  
   const completedGreatWalksId = completedGreatWalks.map(
     (walk) => walk.greatWalkId,
   )
@@ -31,13 +31,13 @@ export default function RecommendGreatWalks() {
   const notCompletedGreatWalks = allGreatWalks.filter(
     (walk) => !completedGreatWalksId.includes(walk.id),
   )
-  console.log('notcom', notCompletedGreatWalks)
+ 
   const recommendedGreatWalks = notCompletedGreatWalks.filter((walk) =>
     completedCount > 3
       ? walk.difficulty === 'Intermediate'
       : walk.difficulty === 'Easy',
   )
-  console.log('reco', recommendedGreatWalks)
+ 
   return (
     <div className="flex items-center justify-center mb-10">
       <div className="flex flex-col w-full max-w-screen-xl">

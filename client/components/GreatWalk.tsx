@@ -98,7 +98,7 @@ export default function GreatWalk() {
 
   const handleSignIn = () => {
     if (user) {
-      console.log(user.sub)
+     
       return navigate(`/user/${user.sub}`)
     } else loginWithRedirect()
   }

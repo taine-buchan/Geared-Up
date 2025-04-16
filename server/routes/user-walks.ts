@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.post('/completed', validateAccessToken, async (req, res) => {
   const auth0Id = req.auth?.payload.sub
-  console.log(req.body)
+  
   if (!auth0Id) {
     res.status(400).json({ message: 'Missing auth0 id' })
     return

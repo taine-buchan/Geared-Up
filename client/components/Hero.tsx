@@ -6,7 +6,7 @@ export default function Hero() {
   // const { user } = useAuth0()
   const { user, loginWithRedirect } = useAuth0()
   const handleSignIn = () => {
-    console.log('sign in')
+    
 
     loginWithRedirect({
       // redirect_uri: `${window.location.origin}/`,
